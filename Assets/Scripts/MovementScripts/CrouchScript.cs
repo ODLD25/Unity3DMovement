@@ -5,7 +5,7 @@ public class CrouchScript : MonoBehaviour
 {
     [Header("Crouch")]
     [SerializeField, Tooltip("Object that this script is on will be set to this scale when crouching.")]private float crouchScale = 0.5f;
-    [SerializeField, Tooltip("Scale when not crouching.")]private float defaultScale = 1f;
+    [Tooltip("Scale when not crouching.")]private float defaultScale;
 
     [Header("References")]
     [SerializeField]private PlayerMovementScript pm;
@@ -24,6 +24,9 @@ public class CrouchScript : MonoBehaviour
         //Get Input Action Map and activate it
         inputActions = new InputSystem_Actions();
         inputActions.Player.Enable();
+
+        //Sets starting y scale
+        defaultScale = transform.localScale.y;
     }
 
     // Update is called once per frame
