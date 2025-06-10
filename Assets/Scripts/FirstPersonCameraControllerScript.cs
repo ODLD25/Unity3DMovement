@@ -61,7 +61,7 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         //Rotates orientation object and Slerps the camera orientation for smoother look.
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(orientation.eulerAngles.x, yRotation, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed);
     }
 }

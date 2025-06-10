@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+#region Variables
     [Header("Movement")]
     private float moveSpeed;
     [SerializeField, Tooltip("Max speed while walking")]private float walkSpeed = 5f;
@@ -28,7 +29,7 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector]public bool sliding;
 
     [Header("Drag")]
-    [SerializeField]private float groundDrag = 2f;
+    [SerializeField]private float groundDrag = 5f;
     [SerializeField]private float airDrag = 0f;
 
     [Header("Ground Check")]
@@ -37,16 +38,21 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField, Tooltip("LayerMask containing all layers that acts as ground. Default is all.")]private LayerMask layerMask = ~0;
 
     [Header("Slope Handling")]
-    [SerializeField, Tooltip("If the angle of a slope exceeds this number than player won't be able to walk on it.")]private float maxSlopeAngle;
+    [SerializeField, Tooltip("If the angle of a slope exceeds this number than script wont detect it as a slope.")]private float maxSlopeAngle = 45f;
+    [SerializeField, Tooltip("How much drag is applied at different slope angles.")]private AnimationCurve dragToSlopeCurve = new AnimationCurve(
+        new Keyframe(20, 5),
+        new Keyframe(25, 7),
+        new Keyframe(40, 10)
+    );
     private RaycastHit slopeHit;
 
     [Header("References")]
     public Rigidbody rb;
     public Transform orientation;
     [HideInInspector]public InputSystem_Actions inputActions;
+#endregion
 
-    public bool slope;
-    
+#region Unity Mehod's
     public void Start()
     {
         //Get Input
@@ -68,18 +74,14 @@ public class PlayerMovementScript : MonoBehaviour
         DragHandler();
         SpeedControl();
         GravityHandler();
-
-        slope = IsOnSlope();
     }
 
     private void FixedUpdate() {
         Move();
     }
+#endregion  
 
-    private void GravityHandler(){
-        rb.useGravity = !IsOnSlope();
-    }
-
+#region Movement
     private void StateHandler(){
         //Logic for movement states
         if (sliding){
@@ -102,14 +104,17 @@ public class PlayerMovementScript : MonoBehaviour
             movementState = MovementState.Walking;
             moveSpeed = walkSpeed;
         }
-        else if (!grounded){
+        else{
             movementState = MovementState.Air;
         }
     }
 
     private void DragHandler(){
-        //Handles the drag for better movement
-        if (movementState == MovementState.Air || movementState == MovementState.Dashing){
+        //Adjusts how quickly the player slows down based on where they are (slope, air, or ground)
+        if (IsOnSlope()){
+            rb.linearDamping = dragToSlopeCurve.Evaluate(GetSlopeAngle());
+        }
+        else if (movementState == MovementState.Air || movementState == MovementState.Dashing){
             rb.linearDamping = airDrag;
         }
         else{
@@ -122,10 +127,11 @@ public class PlayerMovementScript : MonoBehaviour
         //Reads input
         Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();
 
+        //If player is on a slope it applies force to the direction of the slope. It helps with steeper slopes.
         if (IsOnSlope()){
             rb.AddForce(GetSlopeMoveDirection() * inputVector * moveSpeed * 30f, ForceMode.Force);
         
-            if (rb.linearVelocity.y != 0){
+            if (rb.linearVelocity.y != 0 && inputVector.y != 0){
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
             }
         }
@@ -158,17 +164,40 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
     }
+#endregion
+
+#region Slope Methods
+    private void GravityHandler(){
+        //If player is on slope gravity is turned off gravity makes the player go down the slope.
+        rb.useGravity = !IsOnSlope();
+    }
 
     private bool IsOnSlope(){
+        //Shoots Raycast down to detect slope(hopefully)
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.3f)){
+            //Gets angle of the slope
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            //Returns bool based on specified parameters
             return angle < maxSlopeAngle && angle != 0f;
         }
 
         return false;
     }
 
+    private float GetSlopeAngle(){
+        //Shoots Raycast down to detect slope(hopefully)
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.3f)){
+            //Gets angle of the slope and returns it
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle;
+        }
+        //Lets hope code never gets here
+        else return 0f;
+    }
+
     private Vector3 GetSlopeMoveDirection(){
+        //Finds the direction the player should move when standing on a slope (points downhill)
         return Vector3.ProjectOnPlane(Vector3.up, slopeHit.normal).normalized;
     }
+#endregion
 }
