@@ -1,10 +1,13 @@
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SlidingScript : MonoBehaviour
 {
     [Header("Slide settings")]
-    [SerializeField, Tooltip("Speed needed to start sliding.")]private float minSlideSpeed;
-    [SerializeField]private float slideYScale;
+    [SerializeField, Tooltip("Speed needed to start sliding.")]private float minSpeedToStartSlide = 6f;
+    [SerializeField, Tooltip("Speed needed to force stop sliding.")]private float minSpeedToStopSlide = 1f;
+    [SerializeField]private float slideYScale = 0.5f;
     private float startSlideYScale;
 
     [Header("References")]
@@ -32,10 +35,10 @@ public class SlidingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude > minSlideSpeed && inputActions.Player.Slide.ReadValue<float>() > 0f && !pm.sliding){
+        if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude > minSpeedToStartSlide && inputActions.Player.Slide.ReadValue<float>() > 0f && !pm.sliding){
             StartSliding();
         }
-        else if ((new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude < minSlideSpeed || inputActions.Player.Slide.ReadValue<float>() <= 0f) && pm.sliding){
+        else if ((new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude < minSpeedToStopSlide || inputActions.Player.Slide.ReadValue<float>() <= 0f) && pm.sliding){
             StopSliding();
         }
     }

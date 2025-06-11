@@ -3249,6 +3249,7 @@ MonoBehaviour:
   sliding: 0
   groundDrag: 5
   airDrag: 0
+  slideDrag: 0
   grounded: 0
   playerHeight: 2
   layerMask:
@@ -3290,7 +3291,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   rb: {fileID: 0}
   orientation: {fileID: 242695906}
-  slope: 0
 --- !u!54 &1657597709
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3398,7 +3398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177707be74181d8428e25774b7ba8b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSlideSpeed: 6
+  minSpeedToStartSlide: 4
+  minSpeedToStopSlide: 0
   slideYScale: 0.5
   pm: {fileID: 0}
 --- !u!114 &1657597716

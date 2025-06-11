@@ -31,6 +31,7 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("Drag")]
     [SerializeField]private float groundDrag = 5f;
     [SerializeField]private float airDrag = 0f;
+    [SerializeField]private float slideDrag = 1f;
 
     [Header("Ground Check")]
     public bool grounded;
@@ -111,11 +112,14 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void DragHandler(){
         //Adjusts how quickly the player slows down based on where they are (slope, air, or ground)
-        if (IsOnSlope()){
-            rb.linearDamping = dragToSlopeCurve.Evaluate(GetSlopeAngle());
-        }
-        else if (movementState == MovementState.Air || movementState == MovementState.Dashing){
+        if (movementState == MovementState.Air || !grounded || movementState == MovementState.Dashing){
             rb.linearDamping = airDrag;
+        }
+        else if (movementState == MovementState.Sliding){
+            rb.linearDamping = slideDrag;
+        }
+        else if (IsOnSlope()){
+            rb.linearDamping = dragToSlopeCurve.Evaluate(GetSlopeAngle());
         }
         else{
             rb.linearDamping = groundDrag;
@@ -137,9 +141,9 @@ public class PlayerMovementScript : MonoBehaviour
         }
 
         //Add move force based on input, rotation and if the player is grounded 
-        if (grounded) rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 + inputVector.x * orientation.right * moveSpeed * 10, ForceMode.Force);
+        if (grounded && !sliding) rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 + inputVector.x * orientation.right * moveSpeed * 10, ForceMode.Force);
         else rb.AddForce(inputVector.y * orientation.forward * moveSpeed * airControl + inputVector.x * orientation.right * moveSpeed * airControl, ForceMode.Force);
-
+        
     }
 
     private void SpeedControl(){
@@ -164,14 +168,18 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
     }
+    private void GravityHandler(){
+        if (sliding){
+            rb.useGravity = true;
+        }
+        else{
+            //If player is on slope gravity is turned off becose gravity makes the player go down the slope.
+            rb.useGravity = !IsOnSlope();
+        }
+    }
 #endregion
 
 #region Slope Methods
-    private void GravityHandler(){
-        //If player is on slope gravity is turned off gravity makes the player go down the slope.
-        rb.useGravity = !IsOnSlope();
-    }
-
     private bool IsOnSlope(){
         //Shoots Raycast down to detect slope(hopefully)
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.3f)){

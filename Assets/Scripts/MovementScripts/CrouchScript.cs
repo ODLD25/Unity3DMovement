@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Video;
 
 public class CrouchScript : MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class CrouchScript : MonoBehaviour
     void Update()
     {
         //Start or end crouch based on input
-        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching){
+        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching && !pm.sliding){
             StartCrouch();
         }
         else if (inputActions.Player.Crouch.ReadValue<float>() == 0f && pm.crouching){
