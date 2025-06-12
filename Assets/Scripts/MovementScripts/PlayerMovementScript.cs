@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -5,6 +6,8 @@ public class PlayerMovementScript : MonoBehaviour
 #region Variables
     [Header("Movement")]
     private float moveSpeed;
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
     [SerializeField, Tooltip("Max speed while walking")]private float walkSpeed = 5f;
     [SerializeField, Tooltip("Max speed while sprinting")]private float sprintSpeed = 7.5f;
     [SerializeField, Tooltip("Max speed while crouching")]private float crouchSpeed = 3.5f;
@@ -75,6 +78,16 @@ public class PlayerMovementScript : MonoBehaviour
         DragHandler();
         SpeedControl();
         GravityHandler();
+
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f){
+            StopAllCoroutines();
+            StartCoroutine(SmoothlyLerpMoveSpeed());
+        }
+        else{
+            moveSpeed = desiredMoveSpeed;
+        }
+
+        lastDesiredMoveSpeed = desiredMoveSpeed;
     }
 
     private void FixedUpdate() {
@@ -87,23 +100,23 @@ public class PlayerMovementScript : MonoBehaviour
         //Logic for movement states
         if (sliding){
             movementState = MovementState.Sliding;
-            moveSpeed = slideSpeed;
+            desiredMoveSpeed = slideSpeed;
         }
         else if (crouching){
             movementState = MovementState.Crouching;
-            moveSpeed = crouchSpeed;
+            desiredMoveSpeed = crouchSpeed;
         }
         else if (sprinting && grounded){
             movementState = MovementState.Sprinting;
-            moveSpeed = sprintSpeed;
+            desiredMoveSpeed = sprintSpeed;
         }
         else if (dashing){
             movementState = MovementState.Dashing;
-            moveSpeed = dashSpeed;
+            desiredMoveSpeed = dashSpeed;
         }
         else if (grounded){
             movementState = MovementState.Walking;
-            moveSpeed = walkSpeed;
+            desiredMoveSpeed = walkSpeed;
         }
         else{
             movementState = MovementState.Air;
@@ -124,6 +137,20 @@ public class PlayerMovementScript : MonoBehaviour
         else{
             rb.linearDamping = groundDrag;
         }
+    }
+
+    private IEnumerator SmoothlyLerpMoveSpeed(){
+        float time = 0f;
+        float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
+        float startValue = moveSpeed;
+
+        while (time < difference){
+            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        moveSpeed = desiredMoveSpeed;
     }
 
     private void Move()
