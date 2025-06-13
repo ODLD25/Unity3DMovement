@@ -50,6 +50,8 @@ public class SlidingScript : MonoBehaviour
     private void StartSliding(){
         pm.sliding = true;
         transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
+
+        rb.AddForce(pm.orientation.forward * 50, ForceMode.Impulse);
     }
 
     private void Slide(){

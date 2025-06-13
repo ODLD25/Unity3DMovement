@@ -5,8 +5,8 @@ public class PlayerMovementScript : MonoBehaviour
 {
 #region Variables
     [Header("Movement")]
-    private float moveSpeed;
-    private float desiredMoveSpeed;
+    public float moveSpeed;
+    public float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
     [SerializeField, Tooltip("Max speed while walking")]private float walkSpeed = 5f;
     [SerializeField, Tooltip("Max speed while sprinting")]private float sprintSpeed = 7.5f;
@@ -79,7 +79,7 @@ public class PlayerMovementScript : MonoBehaviour
         SpeedControl();
         GravityHandler();
 
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f){
+        if (desiredMoveSpeed < moveSpeed && Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f){
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
         }
@@ -167,9 +167,11 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
 
-        //Add move force based on input, rotation and if the player is grounded 
-        if (grounded && !sliding) rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 + inputVector.x * orientation.right * moveSpeed * 10, ForceMode.Force);
-        else rb.AddForce(inputVector.y * orientation.forward * moveSpeed * airControl + inputVector.x * orientation.right * moveSpeed * airControl, ForceMode.Force);
+        if (GetMovementSpeed() < desiredMoveSpeed){
+            //Add move force based on input, rotation and if the player is grounded 
+            if (grounded && !sliding) rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 + inputVector.x * orientation.right * moveSpeed * 10, ForceMode.Force);
+            else if (!sliding) rb.AddForce(inputVector.y * orientation.forward * moveSpeed * airControl + inputVector.x * orientation.right * moveSpeed * airControl, ForceMode.Force);
+        }
         
     }
 
@@ -195,6 +197,11 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
     }
+
+    private float GetMovementSpeed(){
+        return new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude;
+    }
+
     private void GravityHandler(){
         if (sliding){
             rb.useGravity = true;
@@ -230,7 +237,7 @@ public class PlayerMovementScript : MonoBehaviour
         else return 0f;
     }
 
-    private Vector3 GetSlopeMoveDirection(){
+    public Vector3 GetSlopeMoveDirection(){
         //Finds the direction the player should move when standing on a slope (points downhill)
         return Vector3.ProjectOnPlane(Vector3.up, slopeHit.normal).normalized;
     }
