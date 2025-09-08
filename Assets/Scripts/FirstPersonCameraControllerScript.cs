@@ -14,7 +14,7 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
 
     [Tooltip("If this is true it will hide the mouse and keep it in the center of the screen so the mouse wont go to other windows when this game is active. For first person I recommend to leave this on")]
     [SerializeField]private bool lockMouse = true;
-    [SerializeField, Tooltip("How quickly will the camera rotate. If you want to do it instantly set it to 1."), Range(0, 1)]private float rotationSpeed = 0.05f;
+    [SerializeField, Tooltip("How quickly will the camera rotate. If you want to do it instantly set it to 1."), Range(0, 100)]private float rotationSpeed = 25f;
     private float yRotation;
     private float xRotation;
 
@@ -62,6 +62,6 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
 
         //Rotates orientation object and Slerps the camera orientation for smoother look.
         orientation.rotation = Quaternion.Euler(orientation.eulerAngles.x, yRotation, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed * Time.deltaTime);
     }
 }

@@ -1,14 +1,23 @@
-using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SlidingScript : MonoBehaviour
 {
     [Header("Slide settings")]
-    [SerializeField, Tooltip("Speed needed to start sliding.")]private float minSpeedToStartSlide = 6f;
-    [SerializeField, Tooltip("Speed needed to force stop sliding.")]private float minSpeedToStopSlide = 1f;
-    [SerializeField]private float slideYScale = 0.5f;
+    [SerializeField, Tooltip("Speed needed to start sliding.")]private float minSpeedToStartSlide = 4f;
+    [SerializeField, Tooltip("Speed needed to force stop sliding.")]private float speedToStopSlide = 2f;
+    [SerializeField, Tooltip("Scale when sliding.")] private float slideYScale = 0.25f;
+    [SerializeField]private float slideCooldown = 1f;
+    [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 17.5f;
+    [SerializeField, Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")]
+    private StartSlideType startSlideType = StartSlideType.Input;
+    private bool canSlide;
+
+    [SerializeField, Tooltip("If slide should cancel when player jumps while sliding.")]private bool stopSlideOnJump = false;
     private float startSlideYScale;
+    
+    [Header("Slide Bypass")]
+    [SerializeField, Tooltip("The movement speed below which the slide cooldown can be bypassed (only applies if bypassing is enabled). Lower values make bypassing less common; higher values make it easier to bypass.")] private float slideCooldownBypassSpeed = 5f;
+    [SerializeField, Tooltip("If enabled, the player can bypass the slide cooldown when their speed falls below the defined threshold.")]private bool canBypassSlideCooldown = true;
 
     [Header("References")]
     [SerializeField]private PlayerMovementScript pm;
@@ -30,36 +39,61 @@ public class SlidingScript : MonoBehaviour
 
         //Sets starting y scale
         startSlideYScale = transform.localScale.y;
+
+        canSlide = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude > minSpeedToStartSlide && inputActions.Player.Slide.ReadValue<float>() > 0f && !pm.sliding){
-            StartSliding();
+        if (canBypassSlideCooldown && pm.sliding == true)
+        {
+            if (pm.GetMovementSpeed() < slideCooldownBypassSpeed)
+            {
+                canSlide = true;
+            }
         }
-        else if ((new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude < minSpeedToStopSlide || inputActions.Player.Slide.ReadValue<float>() <= 0f) && pm.sliding){
-            StopSliding();
-        }
-    }
 
-    private void FixedUpdate() {
-        Slide();
+        if (((startSlideType == StartSlideType.Input || startSlideType == StartSlideType.Both) && inputActions.Player.Sprint.ReadValue<float>() > 0 && inputActions.Player.Slide.ReadValue<float>() > 0f && canSlide && !pm.sliding && pm.movementState != PlayerMovementScript.MovementState.Crouching) || ((startSlideType == StartSlideType.Speed || startSlideType == StartSlideType.Both) && pm.GetMovementSpeed() > minSpeedToStartSlide && inputActions.Player.Slide.ReadValue<float>() > 0f && !pm.sliding && canSlide && pm.movementState != PlayerMovementScript.MovementState.Crouching))
+        {
+            StartSliding();
+            canSlide = false;
+        }
+        else if ((pm.GetMovementSpeed() < speedToStopSlide || inputActions.Player.Slide.ReadValue<float>() <= 0f) && pm.sliding || (inputActions.Player.Jump.ReadValue<float>() > 0 && stopSlideOnJump))
+        {
+            StopSliding();
+            Invoke(nameof(ResetCanSlide), slideCooldown);
+        }
     }
 
     private void StartSliding(){
         pm.sliding = true;
-        transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
 
-        rb.AddForce(pm.orientation.forward * 50, ForceMode.Impulse);
-    }
+        if (slideYScale < 0.5f)
+        {
+            transform.localScale = new Vector3(slideYScale * 2, slideYScale, slideYScale * 2);
+        }
+        else
+        {
+            transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
+        }
 
-    private void Slide(){
-        
+        rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
     }
 
     private void StopSliding(){
         pm.sliding = false;
         transform.localScale = new Vector3(transform.localScale.x, startSlideYScale, transform.localScale.z);
     }
+
+    private void ResetCanSlide(){
+        canSlide = true;
+    }
+}
+
+enum StartSlideType{
+    None,
+    Input,
+    Speed,
+    Both
 }
