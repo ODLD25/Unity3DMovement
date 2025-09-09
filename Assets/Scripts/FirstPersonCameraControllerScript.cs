@@ -24,6 +24,8 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         new Keyframe(40, 80),
         new Keyframe(80, 95)
     );
+    private float targetFoV;
+    private float fovVelocity;
 
     [Tooltip("If this is true it will hide the mouse and keep it in the center of the screen so the mouse wont go to other windows when this game is active. For first person I recommend to leave this on")]
     [SerializeField] private bool lockMouse = true;
@@ -64,13 +66,17 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
     void Update()
     {
         if (canRotate) Rotate();
+        if (changeFoVWithSpeed)
+        {
+            Camera.main.fieldOfView = Mathf.SmoothDamp(Camera.main.fieldOfView, cameraFoVAtSpeedCurve.Evaluate(pm.GetMovementSpeed()), ref fovVelocity, 0.35f);
+        }
     }
 
     private void Rotate()
     {
         //Gets input and multiply it by Time.deltaTime so its not frame-dependent and by sensitivity
-        float mouseX = inputActions.Player.Look.ReadValue<Vector2>().x * Time.deltaTime * xSensitivity;
-        float mouseY = inputActions.Player.Look.ReadValue<Vector2>().y * Time.deltaTime * ySensitivity;
+        float mouseX = inputActions.Player.Look.ReadValue<Vector2>().x * xSensitivity;
+        float mouseY = inputActions.Player.Look.ReadValue<Vector2>().y * ySensitivity;
 
         yRotation += mouseX;
 
@@ -80,25 +86,5 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         //Rotates orientation object and Slerps the camera orientation for smoother look.
         orientation.rotation = Quaternion.Euler(orientation.eulerAngles.x, yRotation, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed * Time.deltaTime);
-    }
-    
-    public static IEnumerator ChangeFoV(float duration, float targetFoV)
-    {
-        //Create variables
-        float timer = 0f;
-        float t;
-        float startFoV = Camera.main.fieldOfView;
-
-        //While loop to smoothly transition between the FoV
-        while (true)
-        {
-            t = timer / duration;
-
-            Camera.main.fieldOfView = Mathf.Lerp(startFoV, targetFoV, t);
-
-            timer += Time.deltaTime;
-
-            yield return null;
-        }
     }
 }

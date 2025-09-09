@@ -2,8 +2,7 @@
 TODO:
     FIX:
         Spherecast for ground check
-        Jumping on a slope
-        CameraRotation at different framerates
+        TryGetComponent with error handling instead of GetComponent in start method
 
     DASH:
         Crosshair for Dashing
@@ -13,7 +12,6 @@ TODO:
         Climbing Ladders
         Reset Pos
         Movable platforms with Rigidbody.MovePosition
-        FoV
 
     GENERAL:
         Redo every comment
@@ -30,11 +28,14 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Jumping on a slope
         Dash not working when sprinting
         Ground types - Ice
+        Wall Run
+        FoV
     
     TEST:
-        Wall Run
+        CameraRotation at different framerates
 Maybe?:
     Breakable wall that breaks when: you run into it at a certain speed or from an explosion
     Optimize brekable wall with object pooling

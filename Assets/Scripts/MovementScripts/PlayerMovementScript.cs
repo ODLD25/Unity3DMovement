@@ -106,6 +106,7 @@ public class PlayerMovementScript : MonoBehaviour
         DragHandler();
         SpeedControl();
         GravityHandler();
+        CheckForMovingPlatform();
 
         if (desiredMoveSpeed < moveSpeed && Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f)
         {
@@ -366,6 +367,18 @@ public class PlayerMovementScript : MonoBehaviour
             extraRaycastParent.transform.localRotation = Quaternion.Euler(0, extraRaycastParent.transform.localEulerAngles.y + 45f, 0);
         }
 
+    }
+    #endregion
+
+    #region Moving Platforms
+    private void CheckForMovingPlatform()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerHeight / 2 + 0.3f)){
+            if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
+            {
+                rb.AddForce(Vector3.down * 2);
+            }
+        }        
     }
     #endregion
 

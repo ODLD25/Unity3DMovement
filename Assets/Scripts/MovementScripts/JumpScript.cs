@@ -38,7 +38,7 @@ public class JumpScript : MonoBehaviour
         }
 
         //Starts jump
-        if (inputActions.Player.Jump.ReadValue<float>() > 0 && (pm.grounded || curJump < maxJumps) && readyToJump){
+        if (inputActions.Player.Jump.ReadValue<float>() > 0 && (pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning){
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
             readyToJump = false;
