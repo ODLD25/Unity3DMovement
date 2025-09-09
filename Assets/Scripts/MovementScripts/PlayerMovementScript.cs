@@ -22,6 +22,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField, Tooltip("How much control does player have."), Range(0, 1)] private float moveControl = 1f;
     [SerializeField, Tooltip("How much control does player have while in air."), Range(0, 1)] private float airControl = 0.25f;
     [SerializeField, Tooltip("How much control does player have while sliding."), Range(0, 1)] private float slideControl = 0.5f;
+    [SerializeField, Tooltip("How much control does player have while being on ice."), Range(0, 1)] private float iceControl = 0.25f;
 
     public enum MovementState
     {
@@ -41,27 +42,31 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public bool dashing;
     [HideInInspector] public bool sliding;
     [HideInInspector] public bool wallRunning;
+    [HideInInspector] public bool onIce;
 
     [Header("Drag")]
     [SerializeField] private float groundDrag = 5f;
     [SerializeField] private float airDrag = 0f;
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.25f;
+    [SerializeField] private float iceDrag = 0.25f;
 
     [Header("Ground Check")]
     public bool grounded;
-    [SerializeField] private float playerHeight = 2;
+    public float playerHeight = 2;
     [SerializeField, Tooltip("LayerMask containing all layers that acts as ground. Default is all.")] private LayerMask groundLayer = ~0;
     [SerializeField] private Transform extraRaycastParent;
 
     [SerializeField, Tooltip("How often (in frames) to run extra ground raycasts around the player’s feet when the main center raycast does not detect ground. Lower values = faster detection but higher CPU cost; higher values = slower detection but better performance."), Range(1, 60)] private int extraGroundCheckInterval = 5;
-    [Tooltip("List containing bools for each extra raycast")]public List<bool> extraRaycastHitList;
+    [Tooltip("List containing bools for each extra raycast")] public List<bool> extraRaycastHitList;
     public List<Transform> extraRaycastTransformList;
     private bool extraRaycastHit;
 
     [Header("Slope Handling")]
     [SerializeField, Tooltip("If the angle of a slope exceeds this number than script wont detect it as a slope.")] private float maxSlopeAngle = 45f;
     private RaycastHit slopeHit;
+    [SerializeField] private float exitSlopeTime;
+    private bool exitingSlope;
 
     [Header("References")]
     public Rigidbody rb;
@@ -140,15 +145,15 @@ public class PlayerMovementScript : MonoBehaviour
             movementState = MovementState.Crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-        else if (sprinting && grounded)
-        {
-            movementState = MovementState.Sprinting;
-            desiredMoveSpeed = sprintSpeed;
-        }
         else if (dashing)
         {
             movementState = MovementState.Dashing;
             desiredMoveSpeed = dashSpeed;
+        }
+        else if (sprinting && grounded)
+        {
+            movementState = MovementState.Sprinting;
+            desiredMoveSpeed = sprintSpeed;
         }
         else if (grounded)
         {
@@ -171,6 +176,10 @@ public class PlayerMovementScript : MonoBehaviour
         else if ((movementState == MovementState.Air) || (movementState == MovementState.Dashing && !grounded))
         {
             rb.linearDamping = airDrag;
+        }
+        else if (onIce)
+        {
+            rb.linearDamping = iceDrag;
         }
         else if (movementState == MovementState.Dashing && grounded)
         {
@@ -213,12 +222,12 @@ public class PlayerMovementScript : MonoBehaviour
         Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();
 
         //If player is on a slope it applies force to the direction of the slope. It helps with steeper slopes.
-        if (IsOnSlope() && !sliding)
+        if (IsOnSlope() && !sliding && !exitingSlope)
         {
             rb.AddForce(Vector3.down * 20f);
 
-            rb.AddForce(GetSlopeMoveDirection(orientation.forward) * moveSpeed * moveControl * 55f * inputVector.y, ForceMode.Force);
-            rb.AddForce(orientation.right * moveSpeed * 55 * moveControl * inputVector.x, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection(orientation.forward) * moveSpeed * (onIce ? iceControl : moveControl) * 55f * inputVector.y, ForceMode.Force);
+            rb.AddForce(orientation.right * moveSpeed * 55 * (onIce ? iceControl : moveControl) * inputVector.x, ForceMode.Force);
 
             if (rb.linearVelocity.y > 0 && inputVector != Vector2.zero)
             {
@@ -237,7 +246,7 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 Debug.DrawRay(transform.position, orientation.right, Color.green, 2.0f);
                 Debug.DrawRay(transform.position, orientation.forward, Color.red, 2.0f);
-                rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 * moveControl + inputVector.x * orientation.right * moveSpeed * 10 * moveControl, ForceMode.Force);
+                rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 * (onIce ? iceControl : moveControl) + inputVector.x * orientation.right * moveSpeed * 10 * (onIce ? iceControl : moveControl), ForceMode.Force);
             }
             else if (movementState == MovementState.Sliding)
             {
@@ -254,7 +263,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void SpeedControl()
     {
         //If player is on slope it will set 3 axis instead of 2 becose player is faster on slopes
-        if (IsOnSlope())
+        if (IsOnSlope() && !exitingSlope)
         {
             //Check if player is moving faster than it should
             if (rb.linearVelocity.magnitude > moveSpeed)
@@ -361,7 +370,7 @@ public class PlayerMovementScript : MonoBehaviour
     #endregion
 
     #region Slope Methods
-    private bool IsOnSlope()
+    public bool IsOnSlope()
     {
         //Shoots Raycast down to detect slope(hopefully)
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.3f))
@@ -393,10 +402,22 @@ public class PlayerMovementScript : MonoBehaviour
         //Finds the direction the player should move when standing on a slope (points uphill)
         return Vector3.ProjectOnPlane(Vector3.up, slopeHit.normal).normalized;
     }
-    
-    public Vector3 GetSlopeMoveDirection(Vector3 inputDir){
+
+    public Vector3 GetSlopeMoveDirection(Vector3 inputDir)
+    {
         //Finds the direction the player should move when standing on a slope (points uphill)
         return Vector3.ProjectOnPlane(inputDir, slopeHit.normal).normalized;
+    }
+
+    public void ExitSlope()
+    {
+        exitingSlope = true;
+        Invoke(nameof(ResetExitSlope), exitSlopeTime);
+    }
+
+    private void ResetExitSlope()
+    {
+        exitingSlope = false;
     }
 #endregion
 }

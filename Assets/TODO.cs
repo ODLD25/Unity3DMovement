@@ -3,26 +3,38 @@ TODO:
     FIX:
         Spherecast for ground check
         Jumping on a slope
+        CameraRotation at different framerates
 
     DASH:
         Crosshair for Dashing
         Change dash values
 
     MECHANICS:
-        Wall Run
         Climbing Ladders
         Reset Pos
+        Movable platforms with Rigidbody.MovePosition
+        FoV
 
-    READABILITY:
+    GENERAL:
         Redo every comment
         Add more tooltips
+        Change default values to correct values
     
     GROUND TYPES:
-        Ground types - Ice, Lava
+        Ground types - Lava
 
     INSPECTOR:
         Custom Inspector
 
+    OPTIMIZE:
+        sqrtMagnitude instead of magnitude
+
+    DONE:
+        Dash not working when sprinting
+        Ground types - Ice
+    
+    TEST:
+        Wall Run
 Maybe?:
     Breakable wall that breaks when: you run into it at a certain speed or from an explosion
     Optimize brekable wall with object pooling

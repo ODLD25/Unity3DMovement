@@ -78,7 +78,9 @@ public class SlidingScript : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
         }
 
-        rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
+        if (pm.grounded){
+            rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
+        }
     }
 
     private void StopSliding(){

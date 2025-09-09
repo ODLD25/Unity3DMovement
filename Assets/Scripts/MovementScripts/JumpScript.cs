@@ -47,6 +47,8 @@ public class JumpScript : MonoBehaviour
     }
 
     private void Jump(){
+        if (pm.IsOnSlope()) pm.ExitSlope();
+        
         //Resets up/down velocity
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         //Adds force to jump

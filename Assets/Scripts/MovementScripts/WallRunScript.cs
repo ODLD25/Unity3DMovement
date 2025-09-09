@@ -162,11 +162,8 @@ public class WallRunScript : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, -wallClimbSpeed, rb.linearVelocity.z);
         }
 
-        Debug.Log(inputActions.Player.Move.ReadValue<Vector2>().x);
-
         if ((wallLeft && inputActions.Player.Move.ReadValue<Vector2>().x > 0) || (wallRight && inputActions.Player.Move.ReadValue<Vector2>().x < 0))
         {
-            Debug.DrawRay(transform.position, -wallNormal, Color.blue, 2.0f);
             rb.AddForce(wallRight ? -orientation.right : orientation.right * 100, ForceMode.Force);
             exitingWallRun = true;
             exitWallTimer = exitWallTime;
