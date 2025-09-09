@@ -13,14 +13,13 @@ public class DashScript : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField, Tooltip("Camera. When empty the code will use the camera with the tag MainCamera.")] private Camera targetCamera;
-    [SerializeField, Tooltip("Normal Field of View.")] private float normalFov = 60f;
     [SerializeField, Tooltip("Field of View while dashing.")] private float dashFov = 95f;
 
     [Header("Settings")]
     [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")]
     private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
-    [SerializeField, Tooltip("Change Field of View while dashing.")] private bool changeFoV = true;
+    [SerializeField, Tooltip("Force FoV ignoring FoV from camera controller.")] private bool forceFoV = true;
 
     private bool canDash;
 
@@ -77,15 +76,15 @@ public class DashScript : MonoBehaviour
         }
 
         //Calls coroutine to change FoV. If the camera is not assigned it will use camera with the tag MainCamera.
-        if (changeFoV)
+        if (forceFoV)
         {
             if (targetCamera == null)
             {
-                StartCoroutine(ChangeFoV(dashDuration / 2f, dashFov));
+                StartCoroutine(CameraFOVManager.ChangeFoV(dashDuration / 2f, dashFov));
             }
             else
             {
-                StartCoroutine(ChangeFoV(dashDuration / 2f, dashFov, targetCamera));
+                StartCoroutine(CameraFOVManager.ChangeFoV(dashDuration / 2f, dashFov, targetCamera));
             }
         }
 
@@ -135,15 +134,15 @@ public class DashScript : MonoBehaviour
         }
 
         //Calls coroutine to change FoV. If the camera is not assigned it will use camera with the tag MainCamera.
-        if (changeFoV)
+        if (forceFoV)
         {
             if (targetCamera == null)
             {
-                StartCoroutine(ChangeFoV(dashDuration, normalFov));
+                StartCoroutine(CameraFOVManager.ResetFoV(dashDuration));
             }
             else
             {
-                StartCoroutine(ChangeFoV(dashDuration, normalFov, targetCamera));
+                StartCoroutine(CameraFOVManager.ResetFoV(dashDuration, targetCamera));
             }
         }
     }
@@ -156,45 +155,5 @@ public class DashScript : MonoBehaviour
     private void EnableDash()
     {
         canDash = true;
-    }
-
-    private IEnumerator ChangeFoV(float duration, float targetFoV)
-    {
-        //Create variables
-        float timer = 0f;
-        float t;
-        float startFoV = Camera.main.fieldOfView;
-
-        //While loop to smoothly transition between the FoV
-        while (timer < duration)
-        {
-            t = timer / duration;
-
-            Camera.main.fieldOfView = Mathf.Lerp(startFoV, targetFoV, t);
-
-            timer += Time.deltaTime;
-
-            yield return null;
-        }
-    }
-
-    private IEnumerator ChangeFoV(float duration, float targetFoV, Camera targetCamera)
-    {
-        //Create variables
-        float timer = 0f;
-        float t;
-        float startFoV = Camera.main.fieldOfView;
-
-        //While loop to smoothly transition between the FoV
-        while (timer < duration)
-        {
-            t = timer / duration;
-
-            targetCamera.fieldOfView = Mathf.Lerp(startFoV, targetFoV, t);
-
-            timer += Time.deltaTime;
-
-            yield return null;
-        }
     }
 }

@@ -22,6 +22,13 @@ public class WallRunScript : MonoBehaviour
     [SerializeField] private bool useGravity = true;
     [SerializeField] private float gravityCounterForce;
 
+    [Header("Camera")]
+    [SerializeField, Tooltip("ForFoV will change the FoV and will ignore the FoV from Camera controller script.")] private bool forceFoV = false;
+    [SerializeField, Tooltip("Camera. When empty the code will use the camera with the tag MainCamera.")] private Camera targetCamera;
+    [SerializeField, Tooltip("Field of View while wall running.")] private float wallRunFoV = 85f;
+    [SerializeField] private float foVChangeDuration = 0.5f;
+
+
     [Header("Detection")]
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private float minJumpHeight;
@@ -78,7 +85,10 @@ public class WallRunScript : MonoBehaviour
     {
         if ((wallLeft || wallRight) && inputActions.Player.Move.ReadValue<Vector2>().y > 0 && AboveGround() && !exitingWallRun && pm.movementState != PlayerMovementScript.MovementState.Sliding && pm.movementState != PlayerMovementScript.MovementState.Crouching)
         {
-            StartWallRun();
+            if (!pm.wallRunning)
+            {
+                StartWallRun();
+            }
 
             if (inputActions.Player.Jump.ReadValue<float>() > 0)
             {
@@ -113,6 +123,18 @@ public class WallRunScript : MonoBehaviour
         pm.wallRunning = true;
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+        if (forceFoV)
+        {
+            if (targetCamera)
+            {
+                CameraFOVManager.ChangeFoV(wallRunFoV, foVChangeDuration, targetCamera);
+            }
+            else
+            {
+                CameraFOVManager.ChangeFoV(wallRunFoV, foVChangeDuration);
+            }
+        }
     }
 
     private void WallRunMovement()
@@ -159,6 +181,18 @@ public class WallRunScript : MonoBehaviour
     private void StopWallRun()
     {
         pm.wallRunning = false;
+
+        if (forceFoV)
+        {
+            if (targetCamera)
+            {
+                StartCoroutine(CameraFOVManager.ResetFoV(foVChangeDuration, targetCamera));
+            }
+            else
+            {
+                StartCoroutine(CameraFOVManager.ResetFoV(foVChangeDuration));
+            }
+        }
     }
 
     private void WallJump()
