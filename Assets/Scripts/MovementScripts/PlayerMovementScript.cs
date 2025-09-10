@@ -74,8 +74,6 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public InputSystem_Actions inputActions;
     #endregion
 
-    private Vector3 lastVelocity;
-
     #region Unity Mehod's
     public void Start()
     {
@@ -357,6 +355,10 @@ public class PlayerMovementScript : MonoBehaviour
             extraRaycastParent.transform.localRotation = Quaternion.Euler(0, extraRaycastParent.transform.localEulerAngles.y + 45f, 0);
         }
     }
+
+    public void ResetVelocity(){
+        rb.linearVelocity = Vector3.zero;
+    }
     #endregion
 
     #region Moving Platforms
@@ -367,13 +369,6 @@ public class PlayerMovementScript : MonoBehaviour
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
                 rb.AddForce(Vector3.down * 5);
-
-                if (lastVelocity != hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity)
-                {
-                    rb.AddForce(hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity);
-                }
-
-                lastVelocity = hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity;
             }
         }        
     }

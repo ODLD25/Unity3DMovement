@@ -1,9 +1,9 @@
 /*
 TODO:
     FIX:
-        Spherecast for ground check
         TryGetComponent with error handling instead of GetComponent in start method
         Jumping in air
+        Change FoV values
 
     DASH:
         Crosshair for Dashing
@@ -34,6 +34,8 @@ TODO:
         Ground types - Ice
         Wall Run
         FoV
+
+        Spherecast for ground check - doesnt work good
     
     TEST:
         CameraRotation at different framerates

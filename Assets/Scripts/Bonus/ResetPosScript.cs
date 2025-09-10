@@ -7,6 +7,8 @@ public class ResetPosScript : MonoBehaviour
     [SerializeField] private Transform currentCheckpoint;
     [SerializeField] private Vector3 defaultPos = new Vector3(0, 2, 0);
 
+    public static ResetPosScript Instance;
+
     [Header("References")]
     private InputSystem_Actions inputActions;
 
@@ -17,10 +19,16 @@ public class ResetPosScript : MonoBehaviour
         inputActions.Player.Enable();
 
         inputActions.Player.ResetPos.performed += ResetPos;
+
+        Instance = this;
     }
 
     private void ResetPos(InputAction.CallbackContext context)
     {
+        if (!player){
+            player = this.gameObject;
+        }
+
         if (!currentCheckpoint)
         {
             player.transform.position = defaultPos;
@@ -29,5 +37,11 @@ public class ResetPosScript : MonoBehaviour
         {
             player.transform.position = currentCheckpoint.position;
         }
+
+        player.GetComponent<PlayerMovementScript>().ResetVelocity();
+    }
+
+    public void SetCheckpoint(Transform newCheckpoint){
+        currentCheckpoint = newCheckpoint;
     }
 }
