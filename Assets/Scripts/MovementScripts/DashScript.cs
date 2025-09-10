@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DashScript : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class DashScript : MonoBehaviour
     [SerializeField] private float dashForce = 5f;
     [SerializeField, Tooltip("Maximum number of dash charges the player can hold. Each dash consumes one charge. Charges regenerate one at a time after the dash cooldown period.")] private int maxDashAmount = 1;
     private int currentDashAmount;
+
+    [Header("Canvas")]
+    [SerializeField]private bool showDashCrosshair = true;
+    [SerializeField] private Image dashCrosshair;
+    [SerializeField] private float dashCrosshairSize = 15;
+    [SerializeField] private GameObject dashCanvas;
 
     [Header("Camera")]
     [SerializeField, Tooltip("Camera. When empty the code will use the camera with the tag MainCamera.")] private Camera targetCamera;
@@ -63,6 +70,8 @@ public class DashScript : MonoBehaviour
             //Enable dashing again 
             Invoke(nameof(EnableDash), dashCooldown);
         }
+
+        UpdateDashCanvas();
     }
 
     private void Dash()
@@ -155,5 +164,20 @@ public class DashScript : MonoBehaviour
     private void EnableDash()
     {
         canDash = true;
+    }
+
+    private void UpdateDashCanvas()
+    {
+        if (showDashCrosshair)
+        {
+            dashCanvas.SetActive(true);
+
+            dashCrosshair.fillAmount = (float)currentDashAmount / (float)maxDashAmount;
+            dashCrosshair.rectTransform.sizeDelta = new Vector2(dashCrosshairSize, dashCrosshairSize);
+        }
+        else
+        {
+            dashCanvas.SetActive(false);
+        }
     }
 }

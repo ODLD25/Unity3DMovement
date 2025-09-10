@@ -49,17 +49,17 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float airDrag = 0f;
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.25f;
-    [SerializeField] private float iceDrag = 0.25f;
+    [SerializeField] private float wallRunDrag = 2.5f;
 
     [Header("Ground Check")]
     public bool grounded;
     [SerializeField, Tooltip("LayerMask containing all layers that acts as ground. Default is all.")] private LayerMask groundLayer = ~0;
-    [SerializeField] private float playerHeight = 2;
+    public float playerHeight = 2;
     [SerializeField] private Transform extraRaycastParent;
 
     [SerializeField, Tooltip("How often (in frames) to run extra ground raycasts around the player’s feet when the main center raycast does not detect ground. Lower values = faster detection but higher CPU cost; higher values = slower detection but better performance."), Range(1, 60)] private int extraGroundCheckInterval = 5;
-    [Tooltip("List containing bools for each extra raycast")]public List<bool> extraRaycastHitList;
-    public List<Transform> extraRaycastTransformList;
+    [Tooltip("List containing bools for each extra raycast")]private List<bool> extraRaycastHitList;
+    private List<Transform> extraRaycastTransformList;
     private bool extraRaycastHit;
 
     [Header("Slope Handling")]
@@ -160,15 +160,11 @@ public class PlayerMovementScript : MonoBehaviour
         //Adjusts how quickly the player slows down based on where they are (slope, air, or ground)
         if (movementState == MovementState.WallRunning)
         {
-            rb.linearDamping = 3;
+            rb.linearDamping = wallRunDrag;
         }
         else if ((movementState == MovementState.Air) || (movementState == MovementState.Dashing && !grounded))
         {
             rb.linearDamping = airDrag;
-        }
-        else if (onIce)
-        {
-            rb.linearDamping = iceDrag;
         }
         else if (movementState == MovementState.Dashing && grounded)
         {
@@ -205,7 +201,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Move()
     {
-        if (wallRunning) return;
+        if (wallRunning || dashing) return;
 
         //Reads input
         Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();
@@ -368,7 +364,7 @@ public class PlayerMovementScript : MonoBehaviour
         {
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
-                rb.AddForce(Vector3.down * 5);
+                rb.AddForce(Vector3.down * 2);
             }
         }        
     }

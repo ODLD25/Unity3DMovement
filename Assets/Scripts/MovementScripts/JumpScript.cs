@@ -9,6 +9,9 @@ public class JumpScript : MonoBehaviour
     [SerializeField]private int maxJumps = 1;
     private int curJump;
 
+    [Header("Settings")]
+    [SerializeField] private bool airJump = false;
+
     [Header("References")]
     [SerializeField]private PlayerMovementScript pm;
     private Rigidbody rb;
@@ -38,11 +41,28 @@ public class JumpScript : MonoBehaviour
         }
 
         //Starts jump
-        if (inputActions.Player.Jump.ReadValue<float>() > 0 && (pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning){
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-            readyToJump = false;
-            curJump++;
+        if (inputActions.Player.Jump.ReadValue<float>() > 0){
+            if (airJump)
+            {
+                if ((pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning)
+                {
+                    Jump();
+                    Invoke(nameof(ResetJump), jumpCooldown);
+                    readyToJump = false;
+                    curJump++;
+                }
+            }
+            else
+            {
+                if (pm.grounded && readyToJump && !pm.wallRunning)
+                {
+                    Jump();
+                    Invoke(nameof(ResetJump), jumpCooldown);
+                    readyToJump = false;
+                    curJump++;
+                } 
+            }
+            
         }
     }
 

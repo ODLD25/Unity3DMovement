@@ -2,17 +2,14 @@
 TODO:
     FIX:
         TryGetComponent with error handling instead of GetComponent in start method
-        Jumping in air
         Change FoV values
+        Correct scale on slide end
 
     DASH:
-        Crosshair for Dashing
         Change dash values
 
     MECHANICS:
         Climbing Ladders
-        Reset Pos
-        Movable platforms with Rigidbody.MovePosition
 
     GENERAL:
         Redo every comment
@@ -29,6 +26,9 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Crosshair for Dashing
+        Reset Pos
+        Jumping in air
         Jumping on a slope
         Dash not working when sprinting
         Ground types - Ice
@@ -39,6 +39,7 @@ TODO:
     
     TEST:
         CameraRotation at different framerates
+        Movable platforms with Rigidbody.MovePosition
 Maybe?:
     Breakable wall that breaks when: you run into it at a certain speed or from an explosion
     Optimize brekable wall with object pooling

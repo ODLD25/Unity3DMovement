@@ -41,7 +41,6 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
     [SerializeField] private PlayerMovementScript pm;
     private InputSystem_Actions inputActions;
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
