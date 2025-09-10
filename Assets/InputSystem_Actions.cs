@@ -207,6 +207,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetPos"",
+                    ""type"": ""Button"",
+                    ""id"": ""dde5bd4a-1314-4b3c-adcc-2ad0e88469a6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -647,6 +656,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""DownwardsWallRun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8565885-2bd8-4aef-80a7-88e03eb41dad"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ResetPos"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1247,6 +1267,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_UpwardsWallRun = m_Player.FindAction("UpwardsWallRun", throwIfNotFound: true);
         m_Player_DownwardsWallRun = m_Player.FindAction("DownwardsWallRun", throwIfNotFound: true);
+        m_Player_ResetPos = m_Player.FindAction("ResetPos", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1353,6 +1374,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_UpwardsWallRun;
     private readonly InputAction m_Player_DownwardsWallRun;
+    private readonly InputAction m_Player_ResetPos;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1416,6 +1438,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/DownwardsWallRun".
         /// </summary>
         public InputAction @DownwardsWallRun => m_Wrapper.m_Player_DownwardsWallRun;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ResetPos".
+        /// </summary>
+        public InputAction @ResetPos => m_Wrapper.m_Player_ResetPos;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1481,6 +1507,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @DownwardsWallRun.started += instance.OnDownwardsWallRun;
             @DownwardsWallRun.performed += instance.OnDownwardsWallRun;
             @DownwardsWallRun.canceled += instance.OnDownwardsWallRun;
+            @ResetPos.started += instance.OnResetPos;
+            @ResetPos.performed += instance.OnResetPos;
+            @ResetPos.canceled += instance.OnResetPos;
         }
 
         /// <summary>
@@ -1531,6 +1560,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @DownwardsWallRun.started -= instance.OnDownwardsWallRun;
             @DownwardsWallRun.performed -= instance.OnDownwardsWallRun;
             @DownwardsWallRun.canceled -= instance.OnDownwardsWallRun;
+            @ResetPos.started -= instance.OnResetPos;
+            @ResetPos.performed -= instance.OnResetPos;
+            @ResetPos.canceled -= instance.OnResetPos;
         }
 
         /// <summary>
@@ -1922,6 +1954,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDownwardsWallRun(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ResetPos" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnResetPos(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

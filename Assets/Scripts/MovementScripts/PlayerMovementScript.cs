@@ -53,12 +53,12 @@ public class PlayerMovementScript : MonoBehaviour
 
     [Header("Ground Check")]
     public bool grounded;
-    public float playerHeight = 2;
     [SerializeField, Tooltip("LayerMask containing all layers that acts as ground. Default is all.")] private LayerMask groundLayer = ~0;
+    [SerializeField] private float playerHeight = 2;
     [SerializeField] private Transform extraRaycastParent;
 
     [SerializeField, Tooltip("How often (in frames) to run extra ground raycasts around the player’s feet when the main center raycast does not detect ground. Lower values = faster detection but higher CPU cost; higher values = slower detection but better performance."), Range(1, 60)] private int extraGroundCheckInterval = 5;
-    [Tooltip("List containing bools for each extra raycast")] public List<bool> extraRaycastHitList;
+    [Tooltip("List containing bools for each extra raycast")]public List<bool> extraRaycastHitList;
     public List<Transform> extraRaycastTransformList;
     private bool extraRaycastHit;
 
@@ -74,6 +74,8 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public InputSystem_Actions inputActions;
     #endregion
 
+    private Vector3 lastVelocity;
+
     #region Unity Mehod's
     public void Start()
     {
@@ -83,18 +85,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         //Get rigidbody component
         if (rb == null) rb = GetComponent<Rigidbody>();
-
-        extraRaycastTransformList = new List<Transform>(extraRaycastParent.childCount);
-        for (int i = 0; i < extraRaycastParent.childCount; i++)
-        {
-            extraRaycastTransformList.Add(extraRaycastParent.GetChild(i));
-        }
-
-        extraRaycastHitList = new List<bool>(extraRaycastTransformList.Count);
-        for (int i = 0; i < extraRaycastTransformList.Count; i++)
-        {
-            extraRaycastHitList.Add(false);
-        }
     }
 
     // Update is called once per frame
@@ -366,17 +356,24 @@ public class PlayerMovementScript : MonoBehaviour
 
             extraRaycastParent.transform.localRotation = Quaternion.Euler(0, extraRaycastParent.transform.localEulerAngles.y + 45f, 0);
         }
-
     }
     #endregion
 
     #region Moving Platforms
     private void CheckForMovingPlatform()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerHeight / 2 + 0.3f)){
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerHeight / 2 + 0.3f))
+        {
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
-                rb.AddForce(Vector3.down * 2);
+                rb.AddForce(Vector3.down * 5);
+
+                if (lastVelocity != hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity)
+                {
+                    rb.AddForce(hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity);
+                }
+
+                lastVelocity = hit.collider.gameObject.GetComponent<Rigidbody>().linearVelocity;
             }
         }        
     }

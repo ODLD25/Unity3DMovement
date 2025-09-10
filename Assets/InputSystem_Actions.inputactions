@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ResetPos",
+                    "type": "Button",
+                    "id": "dde5bd4a-1314-4b3c-adcc-2ad0e88469a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -561,6 +570,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DownwardsWallRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8565885-2bd8-4aef-80a7-88e03eb41dad",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ResetPos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

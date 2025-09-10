@@ -3,6 +3,7 @@ TODO:
     FIX:
         Spherecast for ground check
         TryGetComponent with error handling instead of GetComponent in start method
+        Jumping in air
 
     DASH:
         Crosshair for Dashing
