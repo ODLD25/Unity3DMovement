@@ -21,7 +21,7 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("Control")]
     [SerializeField, Tooltip("How much control does player have."), Range(0, 1)] private float moveControl = 1f;
     [SerializeField, Tooltip("How much control does player have while in air."), Range(0, 1)] private float airControl = 0.25f;
-    [SerializeField, Tooltip("How much control does player have while sliding."), Range(0, 1)] private float slideControl = 0.5f;
+    [SerializeField, Tooltip("How much control does player have while sliding."), Range(0, 1)] private float slideControl = 0.25f;
     [SerializeField, Tooltip("How much control does player have while being on ice."), Range(0, 1)] private float iceControl = 0.25f;
 
     public enum MovementState
@@ -45,28 +45,27 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public bool onIce;
 
     [Header("Drag")]
-    [SerializeField] private float groundDrag = 5f;
+    [SerializeField] private float groundDrag = 3f;
     [SerializeField] private float airDrag = 0f;
     [SerializeField] private float slideDrag = 0.25f;
-    [SerializeField] private float dashDrag = 0.25f;
-    [SerializeField] private float wallRunDrag = 2.5f;
+    [SerializeField] private float dashDrag = 0.5f;
+    [SerializeField] private float wallRunDrag = 2f;
 
     [Header("Ground Check")]
     public bool grounded;
     [SerializeField, Tooltip("LayerMask containing all layers that acts as ground. Default is all.")] private LayerMask groundLayer = ~0;
     public float playerHeight = 2;
     [SerializeField] private Transform extraRaycastParent;
-
     [SerializeField, Tooltip("How often (in frames) to run extra ground raycasts around the player’s feet when the main center raycast does not detect ground. Lower values = faster detection but higher CPU cost; higher values = slower detection but better performance."), Range(1, 60)] private int extraGroundCheckInterval = 5;
-    [Tooltip("List containing bools for each extra raycast")]private List<bool> extraRaycastHitList;
+    [Tooltip("List containing bools for each extra raycast")] private List<bool> extraRaycastHitList;
     private List<Transform> extraRaycastTransformList;
     private bool extraRaycastHit;
+    private bool jumping;
 
     [Header("Slope Handling")]
     [SerializeField, Tooltip("If the angle of a slope exceeds this number than script wont detect it as a slope.")] private float maxSlopeAngle = 45f;
     private RaycastHit slopeHit;
-    [SerializeField] private float exitSlopeTime;
-    private bool exitingSlope;
+    [SerializeField] private float exitSlopeTime = 0.2f;
 
     [Header("References")]
     public Rigidbody rb;
@@ -83,6 +82,18 @@ public class PlayerMovementScript : MonoBehaviour
 
         //Get rigidbody component
         if (rb == null) rb = GetComponent<Rigidbody>();
+
+        extraRaycastTransformList = new List<Transform>(extraRaycastParent.childCount);
+        for (int i = 0; i < extraRaycastParent.childCount; i++)
+        {
+            extraRaycastTransformList.Add(extraRaycastParent.GetChild(i));
+        }
+
+        extraRaycastHitList = new List<bool>(extraRaycastTransformList.Count);
+        for (int i = 0; i < extraRaycastTransformList.Count; i++)
+        {
+            extraRaycastHitList.Add(false);
+        }
     }
 
     // Update is called once per frame
@@ -207,7 +218,7 @@ public class PlayerMovementScript : MonoBehaviour
         Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();
 
         //If player is on a slope it applies force to the direction of the slope. It helps with steeper slopes.
-        if (IsOnSlope() && !sliding && !exitingSlope)
+        if (IsOnSlope() && !sliding && !jumping)
         {
             rb.AddForce(Vector3.down * 20f);
 
@@ -248,7 +259,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void SpeedControl()
     {
         //If player is on slope it will set 3 axis instead of 2 becose player is faster on slopes
-        if (IsOnSlope() && !exitingSlope)
+        if (IsOnSlope() && !jumping)
         {
             //Check if player is moving faster than it should
             if (rb.linearVelocity.magnitude > moveSpeed)
@@ -352,7 +363,8 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    public void ResetVelocity(){
+    public void ResetVelocity()
+    {
         rb.linearVelocity = Vector3.zero;
     }
     #endregion
@@ -364,9 +376,11 @@ public class PlayerMovementScript : MonoBehaviour
         {
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
-                rb.AddForce(Vector3.down * 2);
+                if (jumping){
+                    rb.AddForce(Vector3.down * 2);
+                }
             }
-        }        
+        }
     }
     #endregion
 
@@ -412,13 +426,24 @@ public class PlayerMovementScript : MonoBehaviour
 
     public void ExitSlope()
     {
-        exitingSlope = true;
+        jumping = true;
         Invoke(nameof(ResetExitSlope), exitSlopeTime);
     }
 
     private void ResetExitSlope()
     {
-        exitingSlope = false;
+        jumping = false;
     }
-#endregion
+    #endregion
+
+    /*public LayerMask layerMask;
+    public List<string> layers;
+    private void LoadLayerMask()
+    {
+        layerMask = LayerMask.GetMask("Default");
+        for (int i = 0; i < layers.Count; i++)
+        {
+            layerMask = |= (1 << LayerMask.NameToLayer(layers[i]));
+        }
+    }  */
 }

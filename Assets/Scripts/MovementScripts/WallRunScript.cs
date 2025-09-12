@@ -4,23 +4,23 @@ using UnityEngine;
 public class WallRunScript : MonoBehaviour
 {
     [Header("Wallrun")]
-    [SerializeField] private float wallRunForce;
-    [SerializeField] private float wallClimbSpeed;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private LayerMask whatIsWall;
+    [SerializeField] private float wallRunForce = 40f;
+    [SerializeField] private float wallClimbSpeed = 4f;
+    [SerializeField] private LayerMask whatIsGround = ~0;
+    [SerializeField] private LayerMask whatIsWall = ~0;
 
     [Header("Wall Jump")]
-    [SerializeField] private float wallJumpUpForce;
-    [SerializeField] private float wallJumpSideForce;
+    [SerializeField] private float wallJumpUpForce = 5f;
+    [SerializeField] private float wallJumpSideForce = 10f;
 
     [Header("Exiting wallRun")]
     private bool exitingWallRun;
-    [SerializeField] private float exitWallTime;
+    [SerializeField] private float exitWallTime = 0.2f;
     private float exitWallTimer;
 
     [Header("Gravity")]
     [SerializeField] private bool useGravity = true;
-    [SerializeField] private float gravityCounterForce;
+    [SerializeField] private float gravityCounterForce = 4f;
 
     [Header("Camera")]
     [SerializeField, Tooltip("ForFoV will change the FoV and will ignore the FoV from Camera controller script.")] private bool forceFoV = false;
@@ -30,8 +30,8 @@ public class WallRunScript : MonoBehaviour
 
 
     [Header("Detection")]
-    [SerializeField] private float wallCheckDistance;
-    [SerializeField] private float minJumpHeight;
+    [SerializeField] private float wallCheckDistance = 0.7f;
+    [SerializeField] private float minJumpHeight = 1f;
     private RaycastHit leftWallHit;
     private RaycastHit rightWallHit;
     private bool wallLeft;

@@ -7,7 +7,7 @@ public class SlidingScript : MonoBehaviour
     [SerializeField, Tooltip("Speed needed to force stop sliding.")]private float speedToStopSlide = 2f;
     [SerializeField, Tooltip("Scale when sliding.")] private float slideYScale = 0.25f;
     [SerializeField]private float slideCooldown = 1f;
-    [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 17.5f;
+    [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 10f;
     [SerializeField, Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")]
     private StartSlideType startSlideType = StartSlideType.Input;
     private bool canSlide;
@@ -85,7 +85,7 @@ public class SlidingScript : MonoBehaviour
 
     private void StopSliding(){
         pm.sliding = false;
-        transform.localScale = new Vector3(transform.localScale.x, startSlideYScale, transform.localScale.z);
+        transform.localScale = new Vector3(1, startSlideYScale, 1);
     }
 
     private void ResetCanSlide(){

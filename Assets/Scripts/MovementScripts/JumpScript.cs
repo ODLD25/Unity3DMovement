@@ -3,7 +3,7 @@ using UnityEngine;
 public class JumpScript : MonoBehaviour
 {
     [Header("Jump")]
-    [SerializeField]private float jumpForce = 25f;
+    [SerializeField]private float jumpForce = 35f;
     [SerializeField]private float jumpCooldown = 0.25f;
     [SerializeField]private bool readyToJump = true;
     [SerializeField]private int maxJumps = 1;

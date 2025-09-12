@@ -8,7 +8,7 @@ public class DashScript : MonoBehaviour
     [SerializeField, Tooltip("Minimum time in seconds between consecutive dashes, assuming at least one dash charge is available.")] private float dashCooldown = 0.3f;
     [SerializeField, Tooltip("Time in seconds it takes to regenerate one dash charge after a dash has been used.")] private float dashRechargeTime = 2.5f;
     [SerializeField, Tooltip("How long is the dash in seconds.")] private float dashDuration = 0.35f;
-    [SerializeField] private float dashForce = 5f;
+    [SerializeField] private float dashForce = 12.5f;
     [SerializeField, Tooltip("Maximum number of dash charges the player can hold. Each dash consumes one charge. Charges regenerate one at a time after the dash cooldown period.")] private int maxDashAmount = 1;
     private int currentDashAmount;
 
@@ -26,7 +26,7 @@ public class DashScript : MonoBehaviour
     [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")]
     private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
-    [SerializeField, Tooltip("Force FoV ignoring FoV from camera controller.")] private bool forceFoV = true;
+    [SerializeField, Tooltip("Force FoV ignoring FoV from camera controller.")] private bool forceFoV = false;
 
     private bool canDash;
 

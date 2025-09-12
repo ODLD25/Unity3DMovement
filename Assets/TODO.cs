@@ -4,6 +4,7 @@ TODO:
         TryGetComponent with error handling instead of GetComponent in start method
         Change FoV values
         Correct scale on slide end
+        Jumping on moving platform
 
     DASH:
         Change dash values
