@@ -13,27 +13,26 @@ public class DashScript : MonoBehaviour
     private int currentDashAmount;
 
     [Header("Canvas")]
-    [SerializeField]private bool showDashCrosshair = true;
+    public bool showDashCrosshair = true;
     [SerializeField] private Image dashCrosshair;
     [SerializeField] private float dashCrosshairSize = 15;
     [SerializeField] private GameObject dashCanvas;
 
     [Header("Camera")]
+    [Tooltip("Force FoV ignoring FoV from camera controller.")] public bool forceFoV = false;
     [SerializeField, Tooltip("Camera. When empty the code will use the camera with the tag MainCamera.")] private Camera targetCamera;
     [SerializeField, Tooltip("Field of View while dashing.")] private float dashFov = 95f;
 
     [Header("Settings")]
-    [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")]
-    private bool omnidirectionalDash = false;
+    [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")] private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
-    [SerializeField, Tooltip("Force FoV ignoring FoV from camera controller.")] private bool forceFoV = false;
 
     private bool canDash;
 
     [Header("References")]
-    [SerializeField] private PlayerMovementScript pm;
-    private Transform orientation;
-    private Rigidbody rb;
+    [SerializeField]private PlayerMovementScript pm;
+    [SerializeField]private Transform orientation;
+    [SerializeField]private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

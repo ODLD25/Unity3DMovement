@@ -1,0 +1,17 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/USS/Header.uss?fileID=7433441132597879392&amp;guid=b43424bfe5aa82b4ea3269f4f902967d&amp;type=3#Header" />
+    <Style src="project://database/Assets/USS/InspectorDesc.uss?fileID=7433441132597879392&amp;guid=4f029053a5b6f834d9089e4952e34862&amp;type=3#InspectorDesc" />
+    <engine:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0;">
+        <engine:Label text="Crouch" name="Name" class="Header" style="margin-bottom: 0; padding-bottom: -5px;" />
+        <engine:Label text="Script that enables the player to crouch." name="Desc" class="InspectorDesc" style="margin-bottom: 4px; translate: 0 0; margin-top: 4px;" />
+    </engine:VisualElement>
+    <engine:VisualElement name="Inspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
+        <engine:Foldout text="References" name="CrouchFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Crouch scale" value="0.5" name="CrouchScaleFloatField" binding-path="crouchScale" />
+        </engine:Foldout>
+        <engine:Foldout text="References" name="ReferencesFoldout" style="flex-grow: 0;">
+            <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
+            <editor:ObjectField label="Player movement script" type="PlayerMovementScript, Assembly-CSharp" binding-path="pm" name="PlayerMovementScriptField" />
+        </engine:Foldout>
+    </engine:VisualElement>
+</engine:UXML>

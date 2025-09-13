@@ -1,0 +1,41 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/USS/Header.uss?fileID=7433441132597879392&amp;guid=b43424bfe5aa82b4ea3269f4f902967d&amp;type=3#Header" />
+    <Style src="project://database/Assets/USS/InspectorDesc.uss?fileID=7433441132597879392&amp;guid=4f029053a5b6f834d9089e4952e34862&amp;type=3#InspectorDesc" />
+    <engine:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0;">
+        <engine:Label text="Dash" name="Name" class="Header" style="margin-bottom: 0; padding-bottom: -5px;" />
+        <engine:Label text="Script enables player to dash" name="Desc" class="InspectorDesc" style="margin-bottom: 4px; translate: 0 0; margin-top: 4px;" />
+        <engine:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-basis: auto; justify-content: space-evenly; align-items: stretch; align-self: stretch; width: 100%; margin-top: 0;">
+            <engine:Button text="Simple" name="SimpleButton" view-data-key="simple-btn" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+            <engine:Button text="Advanced" name="AdvancedButton" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="AdvancedInspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
+        <engine:Foldout text="Dash" name="DashFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Dash Cooldown" value="0.3" name="WalkSpeedFloatInput" binding-path="dashCooldown" />
+            <engine:FloatField label="Dash recharge time" value="2.5" name="DashRechargeTimeFloatField" binding-path="dashRechargeTime" />
+            <engine:FloatField label="Dash duration" value="0.35" name="DashDurationFloatField" binding-path="dashDuration" />
+            <engine:FloatField label="Dash force" value="12.5" name="DashForceFloatField" binding-path="dashForce" />
+            <engine:FloatField label="Max dash amount" value="1" name="MaxDashAmount" binding-path="maxDashAmount" />
+        </engine:Foldout>
+        <engine:Foldout text="Canvas" name="CanvasFoldout" style="flex-grow: 0;">
+            <engine:Toggle label="Show dash crosshair" binding-path="showDashCrosshair" value="true" name="ShowDashCrosshairToggle" />
+            <engine:FloatField label="Dash crosshair size" value="15" name="DashCrosshairSize" binding-path="dashCrosshairSize" />
+            <editor:ObjectField label="Dash crosshair" name="DashCrosshairImageField" type="UnityEngine.UI.Image, UnityEngine.UI" binding-path="dashCrosshair" />
+            <editor:ObjectField label="Dash Canvas" name="DashCanvasGameObjectField" binding-path="dashCanvas" type="UnityEngine.GameObject, UnityEngine.CoreModule" />
+        </engine:Foldout>
+        <engine:Foldout text="Camera" name="CameraFoldout" style="flex-grow: 0;">
+            <engine:Toggle label="Force FoV" binding-path="forceFoV" value="false" name="ForceFoVToggle" />
+            <engine:FloatField label="Dash FoV" value="95" name="DashFoVFloatField" binding-path="dashFov" />
+            <editor:ObjectField label="Camera" name="CameraField" type="UnityEngine.Camera, UnityEngine.CoreModule" binding-path="dashCrosshair" />
+        </engine:Foldout>
+        <engine:Foldout text="Settings" name="Settings" style="flex-grow: 0;">
+            <engine:Toggle label="Use gravity" binding-path="useGravity" value="false" name="UseGravityToggle" />
+            <engine:Toggle label="Omnidirectional Dash" binding-path="omnidirectionalDash" value="false" name="OmnidirectionalDashToggle" />
+        </engine:Foldout>
+        <engine:Foldout text="References" name="References" style="flex-grow: 0;">
+            <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
+            <editor:ObjectField label="Orientation" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="orientation" name="OrientationTransformField" />
+            <editor:ObjectField label="Player movement script" type="PlayerMovementScript, Assembly-CSharp" binding-path="pm" name="PlayerMovementScriptField" />
+        </engine:Foldout>
+    </engine:VisualElement>
+</engine:UXML>

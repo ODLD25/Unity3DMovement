@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -54,10 +54,10 @@ public class EditorPlayerMovementScript : Editor
         root.Q<Button>("SimpleButton").clicked += SimpleBtnClick;
         root.Q<Button>("AdvancedButton").clicked += AdvancedBtnClick;
 
-        CheckScripts();
         LoadVariables();
+        CheckScripts();
 
-        ChangeInspectorType();
+        LoadInspector();
 
         return root;
     }
@@ -91,16 +91,18 @@ public class EditorPlayerMovementScript : Editor
     private void SimpleBtnClick()
     {
         advancedInspectorBool = false;
-        ChangeInspectorType();
+        CheckScripts();
+        LoadInspector();
     }
 
     private void AdvancedBtnClick()
     {
         advancedInspectorBool = true;
-        ChangeInspectorType();
+        CheckScripts();
+        LoadInspector();
     }
 
-    private void ChangeInspectorType()
+    private void LoadInspector()
     {
         if (advancedInspectorBool)
         {
@@ -116,6 +118,10 @@ public class EditorPlayerMovementScript : Editor
             {
                 sprintSpeed.style.display = DisplayStyle.Flex;
             }
+            else
+            {
+                sprintSpeed.style.display = DisplayStyle.None;
+            }
 
             if (canJump)
             {
@@ -127,6 +133,11 @@ public class EditorPlayerMovementScript : Editor
                 dashSpeed.style.display = DisplayStyle.Flex;
                 dashDrag.style.display = DisplayStyle.Flex;
             }
+            else
+            {
+                dashSpeed.style.display = DisplayStyle.None;
+                dashDrag.style.display = DisplayStyle.None;
+            }
 
             if (canSlide)
             {
@@ -134,21 +145,40 @@ public class EditorPlayerMovementScript : Editor
                 slideDrag.style.display = DisplayStyle.Flex;
                 slideControl.style.display = DisplayStyle.Flex;
             }
+            else
+            {
+                slideSpeed.style.display = DisplayStyle.None;
+                slideDrag.style.display = DisplayStyle.None;
+                slideControl.style.display = DisplayStyle.None;
+            }
 
             if (canCrouch)
             {
                 crouchSpeed.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                crouchSpeed.style.display = DisplayStyle.None;
             }
 
             if (iceDetection)
             {
                 iceControl.style.display = DisplayStyle.Flex;
             }
+            else
+            {
+                iceControl.style.display = DisplayStyle.None;
+            }
 
             if (canWallRun)
             {
                 wallRunDrag.style.display = DisplayStyle.Flex;
                 wallRunSpeed.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                wallRunDrag.style.display = DisplayStyle.None;
+                wallRunSpeed.style.display = DisplayStyle.None;
             }
         }
         else
@@ -163,6 +193,10 @@ public class EditorPlayerMovementScript : Editor
 
             if (canSprint)
             {
+                sprintSpeed.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
                 sprintSpeed.style.display = DisplayStyle.None;
             }
 
@@ -173,11 +207,22 @@ public class EditorPlayerMovementScript : Editor
 
             if (canDash)
             {
+                dashSpeed.style.display = DisplayStyle.Flex;
+                dashDrag.style.display = DisplayStyle.None;
+            }
+            else
+            {
                 dashSpeed.style.display = DisplayStyle.None;
                 dashDrag.style.display = DisplayStyle.None;
             }
 
             if (canSlide)
+            {
+                slideSpeed.style.display = DisplayStyle.Flex;
+                slideDrag.style.display = DisplayStyle.None;
+                slideControl.style.display = DisplayStyle.None;
+            }
+            else
             {
                 slideSpeed.style.display = DisplayStyle.None;
                 slideDrag.style.display = DisplayStyle.None;
@@ -186,6 +231,10 @@ public class EditorPlayerMovementScript : Editor
 
             if (canCrouch)
             {
+                crouchSpeed.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
                 crouchSpeed.style.display = DisplayStyle.None;
             }
 
@@ -193,11 +242,21 @@ public class EditorPlayerMovementScript : Editor
             {
                 iceControl.style.display = DisplayStyle.None;
             }
+            else
+            {
+                iceControl.style.display = DisplayStyle.None;
+
+            }
 
             if (canWallRun)
             {
+                wallRunSpeed.style.display = DisplayStyle.Flex;
                 wallRunDrag.style.display = DisplayStyle.None;
+            }
+            else
+            {
                 wallRunSpeed.style.display = DisplayStyle.None;
+                wallRunDrag.style.display = DisplayStyle.None;
             }
         }
     }
