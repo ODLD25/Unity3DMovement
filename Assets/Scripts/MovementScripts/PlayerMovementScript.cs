@@ -106,6 +106,7 @@ public class PlayerMovementScript : MonoBehaviour
         SpeedControl();
         GravityHandler();
         CheckForMovingPlatform();
+        CounterMovingPlatform();
 
         if (desiredMoveSpeed < moveSpeed && Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f)
         {
@@ -305,6 +306,8 @@ public class PlayerMovementScript : MonoBehaviour
     private void GroundCheck()
     {
         //Check if player is on the ground
+        if (wallRunning) return;
+
         if (Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.3f, groundLayer))
         {
             grounded = true;
@@ -370,16 +373,41 @@ public class PlayerMovementScript : MonoBehaviour
     #endregion
 
     #region Moving Platforms
+    private GameObject movingPlatform;
     private void CheckForMovingPlatform()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerHeight / 2 + 0.3f))
         {
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
-                if (jumping){
+                movingPlatform = hit.collider.gameObject;
+                if (!jumping)
+                {
                     rb.AddForce(Vector3.down * 2);
                 }
             }
+            else
+            {
+                movingPlatform = null;
+            }
+        }
+        else
+        {
+            lastVelocity = Vector3.zero;
+        }
+    }
+    private Vector3 lastVelocity;
+    private void CounterMovingPlatform()
+    {
+        if (movingPlatform)
+        {
+            Vector3 curVel = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
+            if (curVel != lastVelocity && !jumping)
+            {
+                rb.AddForce(-curVel);    
+            }
+
+            lastVelocity = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
         }
     }
     #endregion

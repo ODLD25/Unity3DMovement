@@ -8,8 +8,7 @@ public class SlidingScript : MonoBehaviour
     [SerializeField, Tooltip("Scale when sliding.")] private float slideYScale = 0.25f;
     [SerializeField]private float slideCooldown = 1f;
     [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 10f;
-    [SerializeField, Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")]
-    private StartSlideType startSlideType = StartSlideType.Input;
+    [Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")]public StartSlideType startSlideType = StartSlideType.Input;
     private bool canSlide;
 
     [SerializeField, Tooltip("If slide should cancel when player jumps while sliding.")]private bool stopSlideOnJump = false;
@@ -21,7 +20,7 @@ public class SlidingScript : MonoBehaviour
 
     [Header("References")]
     [SerializeField]private PlayerMovementScript pm;
-    private Rigidbody rb;
+    [SerializeField]private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -93,7 +92,7 @@ public class SlidingScript : MonoBehaviour
     }
 }
 
-enum StartSlideType{
+public enum StartSlideType{
     None,
     Input,
     Speed,

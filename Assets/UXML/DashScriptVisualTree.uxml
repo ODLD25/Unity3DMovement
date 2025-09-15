@@ -26,7 +26,7 @@
         <engine:Foldout text="Camera" name="CameraFoldout" style="flex-grow: 0;">
             <engine:Toggle label="Force FoV" binding-path="forceFoV" value="false" name="ForceFoVToggle" />
             <engine:FloatField label="Dash FoV" value="95" name="DashFoVFloatField" binding-path="dashFov" />
-            <editor:ObjectField label="Camera" name="CameraField" type="UnityEngine.Camera, UnityEngine.CoreModule" binding-path="dashCrosshair" />
+            <editor:ObjectField label="Camera" name="CameraField" type="UnityEngine.Camera, UnityEngine.CoreModule" binding-path="targetCamera" />
         </engine:Foldout>
         <engine:Foldout text="Settings" name="Settings" style="flex-grow: 0;">
             <engine:Toggle label="Use gravity" binding-path="useGravity" value="false" name="UseGravityToggle" />

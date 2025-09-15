@@ -24,7 +24,6 @@ public class EditorDashScript : Editor
     [Header("Settings")]
     private VisualElement settings;
     
-
     private bool advancedInspectorBool = false;
     public override VisualElement CreateInspectorGUI()
     {
@@ -34,6 +33,15 @@ public class EditorDashScript : Editor
 
         root.Q<Button>("SimpleButton").clicked += SimpleBtnClick;
         root.Q<Button>("AdvancedButton").clicked += AdvancedBtnClick;
+
+        root.Q<Toggle>("ForceFoVToggle").RegisterValueChangedCallback(valueChanged =>
+        {
+            LoadInspector();
+        });
+        root.Q<Toggle>("ShowDashCrosshairToggle").RegisterValueChangedCallback(valueChanged =>
+        {
+            LoadInspector();
+        });
 
         LoadVariables();
 

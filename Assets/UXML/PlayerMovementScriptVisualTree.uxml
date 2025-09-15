@@ -36,6 +36,7 @@
             <editor:LayerMaskField label="Ground Layer" name="GroundLayerMaskField" value="-1" binding-path="groundLayer" />
             <editor:ObjectField label="Extra Raycast &#10;Parent" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="extraRaycastParent" name="ExtraRaycastParentTransformField" />
             <engine:IntegerField label="Extra ground check interval" value="5" name="ExtraGroundCheckIntervalIntField" binding-path="extraGroundCheckInterval" />
+            <engine:FloatField label="Player Height" value="2" binding-path="playerHeight" name="PlayerHeightFloatField" />
         </engine:Foldout>
         <engine:Foldout text="Slope Handling" name="SlopeHandling" style="flex-grow: 0;">
             <engine:FloatField label="Max slope angle" value="45" name="MaxSlopeAngleFloatField" binding-path="maxSlopeAngle" />
@@ -43,7 +44,7 @@
         </engine:Foldout>
         <engine:Foldout text="References" name="References" style="flex-grow: 0;">
             <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
-            <editor:ObjectField label="Orientation" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="extraRaycastParent" name="OrientationTransformField" />
+            <editor:ObjectField label="Orientation" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="orientation" name="OrientationTransformField" />
         </engine:Foldout>
     </engine:VisualElement>
 </engine:UXML>

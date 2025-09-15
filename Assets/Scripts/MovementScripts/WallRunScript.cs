@@ -11,7 +11,7 @@ public class WallRunScript : MonoBehaviour
 
     [Header("Wall Jump")]
     [SerializeField] private float wallJumpUpForce = 5f;
-    [SerializeField] private float wallJumpSideForce = 10f;
+    [SerializeField] private float wallJumpSideForce = 5f;
 
     [Header("Exiting wallRun")]
     private bool exitingWallRun;
@@ -19,11 +19,11 @@ public class WallRunScript : MonoBehaviour
     private float exitWallTimer;
 
     [Header("Gravity")]
-    [SerializeField] private bool useGravity = true;
+    public bool useGravity = true;
     [SerializeField] private float gravityCounterForce = 4f;
 
     [Header("Camera")]
-    [SerializeField, Tooltip("ForFoV will change the FoV and will ignore the FoV from Camera controller script.")] private bool forceFoV = false;
+    [SerializeField, Tooltip("ForFoV will change the FoV and will ignore the FoV from Camera controller script.")] public bool forceFoV = false;
     [SerializeField, Tooltip("Camera. When empty the code will use the camera with the tag MainCamera.")] private Camera targetCamera;
     [SerializeField, Tooltip("Field of View while wall running.")] private float wallRunFoV = 85f;
     [SerializeField] private float foVChangeDuration = 0.5f;
