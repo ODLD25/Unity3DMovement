@@ -20,7 +20,7 @@ public class MovingPlatformScript : MonoBehaviour
     void Start()
     {
         if (!rb) rb = GetComponent<Rigidbody>();
-        currentWaypint = 1;
+        currentWaypint = 0;
 
         if (activateOnPlayerTouch) active = false;
         else active = true;

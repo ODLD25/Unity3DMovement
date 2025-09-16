@@ -2,14 +2,16 @@
 TODO:
     FIX:
         TryGetComponent with error handling instead of GetComponent in start method
-        Change FoV values
-        Correct scale on slide end
-        Jumping on moving platform
         ForceFoV colliding with camera controller
         Camera tilt with wall running
 
     DASH:
         Change dash values
+
+    MOVABLE PLATFORMS:
+        Fix
+        With higher speed like 5 player slides of them at sudden speed change.
+        Cant use them to push people and launch them
 
     MECHANICS:
         Climbing Ladders
@@ -30,6 +32,9 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Change FoV values
+        Jumping on moving platform
+        Correct scale on slide end
         Crosshair for Dashing
         Reset Pos
         Jumping in air
@@ -41,9 +46,9 @@ TODO:
         Show Dash Crosshair should hide settings for it 
 
         Spherecast for ground check - doesnt work good
+        Movable platforms with Rigidbody.MovePosition
     
     TEST:
-        Movable platforms with Rigidbody.MovePosition
         CameraRotation at different framerates
 
         Byppas slide cooldown should hide settings for it

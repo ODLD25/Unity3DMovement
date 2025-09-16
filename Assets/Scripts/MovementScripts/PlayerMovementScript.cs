@@ -287,6 +287,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     public float GetMovementSpeed()
     {
+        if (movingPlatform)
+        {
+            Vector3 platformVel = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
+            return Mathf.Clamp(new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude - new Vector3(platformVel.x, 0, platformVel.z).magnitude, 0, Mathf.Infinity);
+        }
         return new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z).magnitude;
     }
 
@@ -381,7 +386,7 @@ public class PlayerMovementScript : MonoBehaviour
             if (hit.collider.gameObject.GetComponent<MovingPlatformScript>())
             {
                 movingPlatform = hit.collider.gameObject;
-                if (!jumping)
+                if (!jumping || !grounded)
                 {
                     rb.AddForce(Vector3.down * 2);
                 }
@@ -404,7 +409,7 @@ public class PlayerMovementScript : MonoBehaviour
             Vector3 curVel = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
             if (curVel != lastVelocity && !jumping)
             {
-                rb.AddForce(-curVel);    
+                rb.AddForce(curVel - lastVelocity);    
             }
 
             lastVelocity = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
