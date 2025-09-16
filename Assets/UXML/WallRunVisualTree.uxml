@@ -13,8 +13,8 @@
         <engine:Foldout text="Wall Run" name="WallRunFoldout" style="flex-grow: 0;">
             <engine:FloatField label="Wall run force" value="40" name="WallRunForceFloatField" binding-path="wallRunForce" />
             <engine:FloatField label="Wall climb speed" value="4" name="WallClimbSpeedFloatField" binding-path="wallClimbSpeed" />
-            <editor:LayerMaskField label="LayerMask" name="WhatIsGroundLayerMask" value="-1" binding-path="whatIsGround" />
-            <editor:LayerMaskField label="LayerMask" name="WhatIsWallLayerMask" value="-1" binding-path="whatIsWall" />
+            <editor:LayerMaskField label="Ground layer mask" name="WhatIsGroundLayerMask" value="-1" binding-path="whatIsGround" />
+            <editor:LayerMaskField label="Wall layer mask" name="WhatIsWallLayerMask" value="-1" binding-path="whatIsWall" />
         </engine:Foldout>
         <engine:Foldout text="Wallrun Jump" name="WallJumpFoldout" style="flex-grow: 0;">
             <engine:FloatField label="Wall jump up force" value="5" name="WallJumpUpForceFloatField" binding-path="wallJumpUpForce" />
