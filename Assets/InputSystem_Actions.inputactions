@@ -36,7 +36,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -56,7 +56,7 @@
                     "id": "75ac84fc-1d61-48c3-9ce5-a6b5930369a1",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -72,7 +72,7 @@
                     "name": "Previous",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,6 +99,33 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "763f78ad-1f6a-44d8-9e6d-244cbba1acf7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UpwardsWallRun",
+                    "type": "Button",
+                    "id": "8ddae572-5a92-4a28-8e55-3b53cc404ca9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DownwardsWallRun",
+                    "type": "Button",
+                    "id": "1dbc1c5c-e9b5-41c3-b0f3-0f2531d0f968",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetPos",
+                    "type": "Button",
+                    "id": "dde5bd4a-1314-4b3c-adcc-2ad0e88469a6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -521,6 +548,39 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6285558-6056-4200-8a98-77768b2bed5c",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpwardsWallRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6ad9f23-fd53-4f6d-a11f-7046d71582ac",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownwardsWallRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8565885-2bd8-4aef-80a7-88e03eb41dad",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ResetPos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

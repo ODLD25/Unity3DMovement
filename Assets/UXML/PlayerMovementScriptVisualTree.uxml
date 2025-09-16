@@ -1,0 +1,50 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/USS/Header.uss?fileID=7433441132597879392&amp;guid=b43424bfe5aa82b4ea3269f4f902967d&amp;type=3#Header" />
+    <Style src="project://database/Assets/USS/InspectorDesc.uss?fileID=7433441132597879392&amp;guid=4f029053a5b6f834d9089e4952e34862&amp;type=3#InspectorDesc" />
+    <engine:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0;">
+        <engine:Label text="Player Movement" name="Name" class="Header" style="margin-bottom: 0; padding-bottom: -5px;" />
+        <engine:Label text="Base part of movement. Every other movement script is dependent on this sciprt." name="Desc" class="InspectorDesc" style="margin-bottom: 4px; translate: 0 0; margin-top: 4px;" />
+        <engine:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-basis: auto; justify-content: space-evenly; align-items: stretch; align-self: stretch; width: 100%; margin-top: 0;">
+            <engine:Button text="Simple" name="SimpleButton" view-data-key="simple-btn" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+            <engine:Button text="Advanced" name="AdvancedButton" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="AdvancedInspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
+        <engine:Foldout text="Max Speed" name="MaxSpeedFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Walk Speed" value="5" name="WalkSpeedFloatInput" binding-path="walkSpeed" />
+            <engine:FloatField label="Sprint Speed" value="7.5" name="SprintSpeedFloatInput" binding-path="sprintSpeed" />
+            <engine:FloatField label="Crouch Speed" value="3.5" name="CrouchSpeedFloatInput" binding-path="crouchSpeed" />
+            <engine:FloatField label="Dash Speed" value="100" name="DashSpeedFloatInput" binding-path="dashSpeed" />
+            <engine:FloatField label="Slide Speed" value="100" name="SlideSpeedFloatInput" binding-path="slideSpeed" />
+            <engine:FloatField label="Wall Run Speed" value="50" name="WallRunSpeedFloatInput" binding-path="wallRunSpeed" />
+        </engine:Foldout>
+        <engine:Foldout text="Control" name="ControlFoldout" style="flex-grow: 0;">
+            <engine:Slider label="Ground Control" value="42" high-value="1" name="GroundControlSlider" show-input-field="true" binding-path="moveControl" />
+            <engine:Slider label="Air Control" value="0.25" high-value="1" name="AirControlSlider" show-input-field="true" binding-path="airControl" />
+            <engine:Slider label="Slide Control" value="0.5" high-value="1" name="SlideControlSlider" show-input-field="true" binding-path="slideControl" />
+            <engine:Slider label="Ice Control" value="0.25" high-value="1" name="IceControlSlider" show-input-field="true" binding-path="iceControl" />
+        </engine:Foldout>
+        <engine:Foldout text="Drag" name="Drag" style="flex-grow: 0;">
+            <engine:FloatField label="Ground Drag" value="3" name="GroundDrag" />
+            <engine:FloatField label="Air Drag" value="0" name="AirDrag" />
+            <engine:FloatField label="Slide Drag" value="0.25" name="SlideDrag" />
+            <engine:FloatField label="Dash Drag" value="0.5" name="DashDrag" />
+            <engine:FloatField label="Wall Run Drag" value="2" name="WallRunDrag" />
+        </engine:Foldout>
+        <engine:Foldout text="Ground Check" name="GroundCheck" style="flex-grow: 0;">
+            <engine:Toggle label="Grounded" name="Grounded" binding-path="grounded" />
+            <editor:LayerMaskField label="Ground Layer" name="GroundLayerMaskField" value="-1" binding-path="groundLayer" />
+            <editor:ObjectField label="Extra Raycast &#10;Parent" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="extraRaycastParent" name="ExtraRaycastParentTransformField" />
+            <engine:IntegerField label="Extra ground check interval" value="5" name="ExtraGroundCheckIntervalIntField" binding-path="extraGroundCheckInterval" />
+            <engine:FloatField label="Player Height" value="2" binding-path="playerHeight" name="PlayerHeightFloatField" />
+        </engine:Foldout>
+        <engine:Foldout text="Slope Handling" name="SlopeHandling" style="flex-grow: 0;">
+            <engine:FloatField label="Max slope angle" value="45" name="MaxSlopeAngleFloatField" binding-path="maxSlopeAngle" />
+            <engine:FloatField label="Exit slope time" value="0.2" name="ExitSlopeTimeFloatField" binding-path="exitSlopeTime" />
+        </engine:Foldout>
+        <engine:Foldout text="References" name="References" style="flex-grow: 0;">
+            <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
+            <editor:ObjectField label="Orientation" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="orientation" name="OrientationTransformField" />
+        </engine:Foldout>
+    </engine:VisualElement>
+</engine:UXML>

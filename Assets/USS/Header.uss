@@ -1,0 +1,17 @@
+.Header {
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    font-size: 30px;
+}
+
+.Header {
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    font-size: 30px;
+}
+
+.InspectorDesc {
+    white-space: pre-wrap;
+    -unity-text-align: middle-center;
+    translate: 0 -12px;
+}

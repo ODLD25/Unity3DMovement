@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Video;
 
 public class CrouchScript : MonoBehaviour
 {
@@ -8,8 +7,8 @@ public class CrouchScript : MonoBehaviour
     [Tooltip("Scale when not crouching.")]private float defaultScale;
 
     [Header("References")]
-    [SerializeField]private PlayerMovementScript pm;
-    private Rigidbody rb;
+    [SerializeField, Tooltip("Player movement script, if empty than it will use GetComponent on this object.")]private PlayerMovementScript pm;
+    [SerializeField, Tooltip("Rigidbody on the player, if empty it will get the rigidbody from player movement script.")]private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,7 +32,7 @@ public class CrouchScript : MonoBehaviour
     void Update()
     {
         //Start or end crouch based on input
-        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching){
+        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching && !pm.sliding){
             StartCrouch();
         }
         else if (inputActions.Player.Crouch.ReadValue<float>() == 0f && pm.crouching){

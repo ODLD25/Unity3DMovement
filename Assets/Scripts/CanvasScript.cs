@@ -4,7 +4,7 @@ using UnityEngine;
 public class CanvasScript : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI speedText;
-    [SerializeField]private Rigidbody rb;
+    [SerializeField]private PlayerMovementScript pm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,6 +15,6 @@ public class CanvasScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speedText.text = rb.linearVelocity.magnitude + "m/s";
+        speedText.text = pm.GetMovementSpeed() + "m/s";
     }
 }

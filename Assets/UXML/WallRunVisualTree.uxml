@@ -1,0 +1,45 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/USS/Header.uss?fileID=7433441132597879392&amp;guid=b43424bfe5aa82b4ea3269f4f902967d&amp;type=3#Header" />
+    <Style src="project://database/Assets/USS/InspectorDesc.uss?fileID=7433441132597879392&amp;guid=4f029053a5b6f834d9089e4952e34862&amp;type=3#InspectorDesc" />
+    <engine:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0;">
+        <engine:Label text="Wall Running" name="Name" class="Header" style="margin-bottom: 0; padding-bottom: -5px;" />
+        <engine:Label text="Script that enables player to wallrun" name="Desc" class="InspectorDesc" style="margin-bottom: 4px; translate: 0 0; margin-top: 4px;" />
+        <engine:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-basis: auto; justify-content: space-evenly; align-items: stretch; align-self: stretch; width: 100%; margin-top: 0;">
+            <engine:Button text="Simple" name="SimpleButton" view-data-key="simple-btn" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+            <engine:Button text="Advanced" name="AdvancedButton" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+    <engine:VisualElement name="AdvancedInspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
+        <engine:Foldout text="Wall Run" name="WallRunFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Wall run force" value="40" name="WallRunForceFloatField" binding-path="wallRunForce" />
+            <engine:FloatField label="Wall climb speed" value="4" name="WallClimbSpeedFloatField" binding-path="wallClimbSpeed" />
+            <editor:LayerMaskField label="Ground layer mask" name="WhatIsGroundLayerMask" value="-1" binding-path="whatIsGround" />
+            <editor:LayerMaskField label="Wall layer mask" name="WhatIsWallLayerMask" value="-1" binding-path="whatIsWall" />
+        </engine:Foldout>
+        <engine:Foldout text="Wallrun Jump" name="WallJumpFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Wall jump up force" value="5" name="WallJumpUpForceFloatField" binding-path="wallJumpUpForce" />
+            <engine:FloatField label="Wall jump side force" value="5" name="WallJumpSideForceFloatField" binding-path="wallJumpSideForce" />
+        </engine:Foldout>
+        <engine:Foldout text="Exit wallrun" name="ExitingWallRunFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Exit wallrun time" value="0.2" name="GroundDrag" binding-path="exitWallTime" />
+        </engine:Foldout>
+        <engine:Foldout text="Gravity" name="GravityFoldout" style="flex-grow: 0;">
+            <engine:Toggle label="Use gravity" name="UseGravityToggle" binding-path="useGravity" value="true" />
+            <engine:FloatField label="gravityCounterForce" value="4" name="GravityCounterForceFloatField" />
+        </engine:Foldout>
+        <engine:Foldout text="Camera" name="Camera" style="flex-grow: 0;">
+            <engine:Toggle label="Force FoV" name="ForceFoVToggle" binding-path="forceFoV" />
+            <engine:FloatField label="Wallrun FoV" value="0.2" name="WallRunFoVFloatField" binding-path="wallRunFoV" />
+            <editor:ObjectField label="Target camera" name="TargetCameraField" binding-path="targetCamera" />
+        </engine:Foldout>
+        <engine:Foldout text="Detection" name="DetectionFoldout" style="flex-grow: 0;">
+            <engine:FloatField label="Wall check distance" value="0.7" name="WallCheckDistanceFloatField" binding-path="wallCheckDistance" />
+            <engine:FloatField label="Min jump height" value="1" name="WallCheckDistanceFloatField" binding-path="minJumpHeight" />
+        </engine:Foldout>
+        <engine:Foldout text="References" name="References" style="flex-grow: 0;">
+            <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
+            <editor:ObjectField label="Orientation" type="UnityEngine.Transform, UnityEngine.CoreModule" binding-path="orientation" name="OrientationTransformField" />
+            <editor:ObjectField label="Player Movement script" type="PlayerMovementScript, Assembly-CSharp" binding-path="pm" name="PlayerMovementScriptField" />
+        </engine:Foldout>
+    </engine:VisualElement>
+</engine:UXML>
