@@ -11,11 +11,11 @@ TODO:
     MOVABLE PLATFORMS:
         Fix
         With higher speed like 5 player slides of them at sudden speed change.
-        Cant use them to push people and launch them
 
     MECHANICS:
         Climbing Ladders
         Stamina
+        Pistons
 
     GENERAL:
         Redo every comment
@@ -32,6 +32,8 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Byppas slide cooldown should hide settings for it
+        Movable platforms with Rigidbody.MovePosition
         Change FoV values
         Jumping on moving platform
         Correct scale on slide end
@@ -46,24 +48,28 @@ TODO:
         Show Dash Crosshair should hide settings for it 
 
         Spherecast for ground check - doesnt work good
-        Movable platforms with Rigidbody.MovePosition
+        Cant use them to push people and launch them - instead of doing this there will be added pistons that will do the same thing
+
+        OTHER PACKAGES:
+            Targets
     
     TEST:
         CameraRotation at different framerates
 
-        Byppas slide cooldown should hide settings for it
-
         Custom Inspector
+
+        OTHER PACKAGES:
+            Knife throw
+            Explosives knifes
+
 Maybe?:
     Breakable wall that breaks when: you run into it at a certain speed or from an explosion
     Optimize brekable wall with object pooling
 
 Other Package:
     Grenade throw
-    Knife throw
-    Explosives knifes
-    Targets
     JumpPad
+    Door
 
 Enemy Package:
     Enemy script

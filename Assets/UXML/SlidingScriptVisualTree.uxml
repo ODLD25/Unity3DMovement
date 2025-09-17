@@ -22,7 +22,7 @@
             <engine:Toggle label="Stop slide on jump" name="StopSlideOnJumpToggle" binding-path="stopSlideOnJump" />
         </engine:Foldout>
         <engine:Foldout text="Slide bypass" name="SlideBypassFoldout" style="flex-grow: 0;">
-            <engine:Toggle label="Bypass slide cooldown" name="StopSlideOnJumpToggle" binding-path="canBypassSlideCooldown" value="true" />
+            <engine:Toggle label="Bypass slide cooldown" name="BypassSlideCooldownToggle" binding-path="canBypassSlideCooldown" value="true" />
             <engine:FloatField label="Slide cooldown bypass speed" value="5" name="SlideCooldownBypassSpeedFloatField" binding-path="slideCooldownBypassSpeed" />
         </engine:Foldout>
         <engine:Foldout text="References" name="References" style="flex-grow: 0;">

@@ -16,7 +16,7 @@ public class SlidingScript : MonoBehaviour
     
     [Header("Slide Bypass")]
     [SerializeField, Tooltip("The movement speed below which the slide cooldown can be bypassed (only applies if bypassing is enabled). Lower values make bypassing less common; higher values make it easier to bypass.")] private float slideCooldownBypassSpeed = 5f;
-    [SerializeField, Tooltip("If enabled, the player can bypass the slide cooldown when their speed falls below the defined threshold.")]private bool canBypassSlideCooldown = true;
+    [Tooltip("If enabled, the player can bypass the slide cooldown when their speed falls below the defined threshold.")]public bool canBypassSlideCooldown = true;
 
     [Header("References")]
     [SerializeField]private PlayerMovementScript pm;

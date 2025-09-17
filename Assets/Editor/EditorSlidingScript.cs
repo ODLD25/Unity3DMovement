@@ -15,6 +15,7 @@ public class EditorSlidingScript : Editor
 
     [Header("Slide Bypass")]
     private VisualElement slideBypass;
+    private VisualElement slideCooldownBypassSpeed;
 
     private bool advancedInspectorBool = false;
     public override VisualElement CreateInspectorGUI()
@@ -31,6 +32,11 @@ public class EditorSlidingScript : Editor
             LoadInspector();
         });
 
+        root.Q<Toggle>("BypassSlideCooldownToggle").RegisterValueChangedCallback(toggleValueChanged =>
+        {
+            LoadInspector();
+        });
+
         LoadVariables();
         LoadInspector();
 
@@ -43,6 +49,7 @@ public class EditorSlidingScript : Editor
         speedToStopSlide = root.Q<VisualElement>("SpeedToStopSlideFloatField");
 
         slideBypass = root.Q<VisualElement>("SlideBypassFoldout");
+        slideCooldownBypassSpeed = root.Q<VisualElement>("SlideCooldownBypassSpeedFloatField");
 
         slidingScript = (SlidingScript)target;
     }
@@ -67,6 +74,15 @@ public class EditorSlidingScript : Editor
         {
             minSpeedToStartSlide.style.display = DisplayStyle.Flex;
             speedToStopSlide.style.display = DisplayStyle.Flex;
+        }
+
+        if (slidingScript.canBypassSlideCooldown)
+        {
+            slideCooldownBypassSpeed.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            slideCooldownBypassSpeed.style.display = DisplayStyle.None;
         }
     }
 

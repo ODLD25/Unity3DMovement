@@ -4,8 +4,13 @@ public class DealDamageOnCollision : MonoBehaviour
 {
     [SerializeField] private int damage = 1;
 
+    [SerializeField] private float minSpeedToDealDamage = 10f;
+
     void OnCollisionEnter(Collision collision)
     {
-        GetComponent<HealthSystem>().DealDamage(damage);
+        if (collision.relativeVelocity.magnitude > minSpeedToDealDamage)
+        {
+            GetComponent<HealthSystem>().DealDamage(damage);
+        }
     }
 }
