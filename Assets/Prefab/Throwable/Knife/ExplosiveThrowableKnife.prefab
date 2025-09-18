@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 3930185173391956443}
   - component: {fileID: 8185892323601978316}
   - component: {fileID: 8474355635495087332}
+  - component: {fileID: 5140876481151143777}
+  - component: {fileID: 7910062553875946476}
   m_Layer: 0
-  m_Name: ThrowableKnife
+  m_Name: ExplosiveThrowableKnife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,3 +139,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5140876481151143777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325927162060613330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216476f614c51b34bb129834a593bee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeedToStop: 7.5
+  minSpeedToMove: 1
+  collidedObject: {fileID: 0}
+  collidedRigidbody: {fileID: 0}
+--- !u!114 &7910062553875946476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325927162060613330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4a73493b8855340a77981ab80b7bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionForce: 500
+  explosionRadius: 2.5
+  explosionUpVelocity: 100
+  explodeOnImpact: 1
+  brokenObject: {fileID: 0}

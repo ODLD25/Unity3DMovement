@@ -43,6 +43,9 @@ public class ExplodingScript : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        if (brokenObject)
+        {
+            Destroy(gameObject);
+        }
     }
 }

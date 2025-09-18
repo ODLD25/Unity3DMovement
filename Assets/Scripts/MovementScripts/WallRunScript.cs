@@ -135,6 +135,16 @@ public class WallRunScript : MonoBehaviour
                 CameraFOVManager.ChangeFoV(wallRunFoV, foVChangeDuration);
             }
         }
+
+        Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+        if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
+        {
+            wallForward = -wallForward;
+        }
+
+        rb.AddForce(wallForward, ForceMode.Impulse);
     }
 
     private void WallRunMovement()
