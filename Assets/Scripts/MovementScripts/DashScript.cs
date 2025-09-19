@@ -30,9 +30,9 @@ public class DashScript : MonoBehaviour
     private bool canDash;
 
     [Header("References")]
-    [SerializeField]private PlayerMovementScript pm;
-    [SerializeField]private Transform orientation;
-    [SerializeField]private Rigidbody rb;
+    [SerializeField] private PlayerMovementScript pm;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -178,5 +178,10 @@ public class DashScript : MonoBehaviour
         {
             dashCanvas.SetActive(false);
         }
+    }
+    
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 }

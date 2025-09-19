@@ -86,4 +86,9 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         orientation.rotation = Quaternion.Euler(orientation.eulerAngles.x, yRotation, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed * Time.deltaTime);
     }
+
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
 }

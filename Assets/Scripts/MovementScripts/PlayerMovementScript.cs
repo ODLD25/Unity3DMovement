@@ -409,7 +409,7 @@ public class PlayerMovementScript : MonoBehaviour
             Vector3 curVel = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
             if (curVel != lastVelocity && !jumping)
             {
-                rb.AddForce(curVel - lastVelocity);    
+                rb.AddForce(curVel - lastVelocity);
             }
 
             lastVelocity = movingPlatform.GetComponent<Rigidbody>().linearVelocity;
@@ -469,14 +469,8 @@ public class PlayerMovementScript : MonoBehaviour
     }
     #endregion
 
-    /*public LayerMask layerMask;
-    public List<string> layers;
-    private void LoadLayerMask()
+    void OnDisable()
     {
-        layerMask = LayerMask.GetMask("Default");
-        for (int i = 0; i < layers.Count; i++)
-        {
-            layerMask = |= (1 << LayerMask.NameToLayer(layers[i]));
-        }
-    }  */
+        inputActions.Player.Disable();
+    }
 }

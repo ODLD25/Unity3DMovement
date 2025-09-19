@@ -4,6 +4,7 @@ TODO:
         TryGetComponent with error handling instead of GetComponent in start method
         ForceFoV colliding with camera controller
         Camera tilt with wall running
+        InputACtion.Disable
 
     DASH:
         Change dash values
@@ -16,6 +17,8 @@ TODO:
         Climbing Ladders
         Stamina
         Pistons
+        Jumping while sliding will boost you forward
+        Change glass from objects to particles
 
     GENERAL:
         Redo every comment

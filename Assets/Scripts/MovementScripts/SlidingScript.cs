@@ -3,24 +3,24 @@ using UnityEngine;
 public class SlidingScript : MonoBehaviour
 {
     [Header("Slide settings")]
-    [SerializeField, Tooltip("Speed needed to start sliding.")]private float minSpeedToStartSlide = 4f;
-    [SerializeField, Tooltip("Speed needed to force stop sliding.")]private float speedToStopSlide = 2f;
+    [SerializeField, Tooltip("Speed needed to start sliding.")] private float minSpeedToStartSlide = 4f;
+    [SerializeField, Tooltip("Speed needed to force stop sliding.")] private float speedToStopSlide = 2f;
     [SerializeField, Tooltip("Scale when sliding.")] private float slideYScale = 0.25f;
-    [SerializeField]private float slideCooldown = 1f;
+    [SerializeField] private float slideCooldown = 1f;
     [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 10f;
-    [Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")]public StartSlideType startSlideType = StartSlideType.Input;
+    [Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")] public StartSlideType startSlideType = StartSlideType.Input;
     private bool canSlide;
 
-    [SerializeField, Tooltip("If slide should cancel when player jumps while sliding.")]private bool stopSlideOnJump = false;
+    [SerializeField, Tooltip("If slide should cancel when player jumps while sliding.")] private bool stopSlideOnJump = false;
     private float startSlideYScale;
-    
+
     [Header("Slide Bypass")]
     [SerializeField, Tooltip("The movement speed below which the slide cooldown can be bypassed (only applies if bypassing is enabled). Lower values make bypassing less common; higher values make it easier to bypass.")] private float slideCooldownBypassSpeed = 5f;
-    [Tooltip("If enabled, the player can bypass the slide cooldown when their speed falls below the defined threshold.")]public bool canBypassSlideCooldown = true;
+    [Tooltip("If enabled, the player can bypass the slide cooldown when their speed falls below the defined threshold.")] public bool canBypassSlideCooldown = true;
 
     [Header("References")]
-    [SerializeField]private PlayerMovementScript pm;
-    [SerializeField]private Rigidbody rb;
+    [SerializeField] private PlayerMovementScript pm;
+    [SerializeField] private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,7 +65,8 @@ public class SlidingScript : MonoBehaviour
         }
     }
 
-    private void StartSliding(){
+    private void StartSliding()
+    {
         pm.sliding = true;
 
         if (slideYScale < 0.5f)
@@ -77,18 +78,26 @@ public class SlidingScript : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, slideYScale, transform.localScale.z);
         }
 
-        if (pm.grounded){
+        if (pm.grounded)
+        {
             rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
         }
     }
 
-    private void StopSliding(){
+    private void StopSliding()
+    {
         pm.sliding = false;
         transform.localScale = new Vector3(1, startSlideYScale, 1);
     }
 
-    private void ResetCanSlide(){
+    private void ResetCanSlide()
+    {
         canSlide = true;
+    }
+    
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 }
 

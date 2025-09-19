@@ -55,4 +55,9 @@ public class ThrowingScript : MonoBehaviour
     {
         canThrow = true;
     }
+
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
 }

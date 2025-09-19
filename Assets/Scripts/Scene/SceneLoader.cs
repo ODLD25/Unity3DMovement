@@ -34,6 +34,7 @@ public class SceneLoader : MonoBehaviour
 
     private void LoadScene(string sceneName)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
 }

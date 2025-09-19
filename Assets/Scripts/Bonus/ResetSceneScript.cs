@@ -15,10 +15,23 @@ public class ResetSceneScript : MonoBehaviour
 
         inputActions.Player.ResetPos.performed += ResetScene;
     }
-    
-    private void ResetScene(InputAction.CallbackContext context)
+
+    public static void ResetScene(InputAction.CallbackContext context)
     {
+        Time.timeScale = 1f;
         string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public static void ResetScene()
+    {
+        Time.timeScale = 1f;
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 }

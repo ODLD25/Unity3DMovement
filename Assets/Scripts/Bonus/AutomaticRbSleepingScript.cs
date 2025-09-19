@@ -3,6 +3,7 @@ using UnityEngine;
 public class AutomaticRbSleepingScript : MonoBehaviour
 {
     [SerializeField] private float timeNeededToSleep = 5f;
+    [SerializeField] private bool debug;
     private float timer;
     [SerializeField] private Material originalMat;
     [SerializeField] private Material redMat;
@@ -19,27 +20,28 @@ public class AutomaticRbSleepingScript : MonoBehaviour
     {
         if (rb.linearVelocity.magnitude == 0)
         {
-            //rb.Sleep();
-            Debug.Log("-");
+            rb.Sleep();
         }
 
-        if (rb.IsSleeping())
+        if (debug)
         {
-            GetComponent<MeshRenderer>().material = redMat;
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = originalMat;
+            if (rb.IsSleeping())
+            {
+                GetComponent<MeshRenderer>().material = redMat;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material = originalMat;
+            }
         }
 
         if (rb.linearVelocity.magnitude < 0.01f)
         {
-            //timer += Time.deltaTime;
+            timer += Time.deltaTime;
 
             if (timer >= timeNeededToSleep)
             {
                 rb.Sleep();
-                Debug.Log(timer);
             }
         }
         else

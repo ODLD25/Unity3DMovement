@@ -3,12 +3,12 @@ using UnityEngine;
 public class CrouchScript : MonoBehaviour
 {
     [Header("Crouch")]
-    [SerializeField, Tooltip("Object that this script is on will be set to this scale when crouching.")]private float crouchScale = 0.5f;
-    [Tooltip("Scale when not crouching.")]private float defaultScale;
+    [SerializeField, Tooltip("Object that this script is on will be set to this scale when crouching.")] private float crouchScale = 0.5f;
+    [Tooltip("Scale when not crouching.")] private float defaultScale;
 
     [Header("References")]
-    [SerializeField, Tooltip("Player movement script, if empty than it will use GetComponent on this object.")]private PlayerMovementScript pm;
-    [SerializeField, Tooltip("Rigidbody on the player, if empty it will get the rigidbody from player movement script.")]private Rigidbody rb;
+    [SerializeField, Tooltip("Player movement script, if empty than it will use GetComponent on this object.")] private PlayerMovementScript pm;
+    [SerializeField, Tooltip("Rigidbody on the player, if empty it will get the rigidbody from player movement script.")] private Rigidbody rb;
     private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,19 +32,23 @@ public class CrouchScript : MonoBehaviour
     void Update()
     {
         //Start or end crouch based on input
-        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching && !pm.sliding){
+        if (inputActions.Player.Crouch.ReadValue<float>() > 0f && !pm.crouching && !pm.sliding)
+        {
             StartCrouch();
         }
-        else if (inputActions.Player.Crouch.ReadValue<float>() == 0f && pm.crouching){
+        else if (inputActions.Player.Crouch.ReadValue<float>() == 0f && pm.crouching)
+        {
             EndCrouch();
         }
     }
 
-    private void StartCrouch(){
+    private void StartCrouch()
+    {
         //Set scale
         transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
 
-        if (pm.grounded){
+        if (pm.grounded)
+        {
             //Resets up/down velocity
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
@@ -55,7 +59,8 @@ public class CrouchScript : MonoBehaviour
         pm.crouching = true;
     }
 
-    private void EndCrouch(){
+    private void EndCrouch()
+    {
         //Set scale
         transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
 
@@ -63,5 +68,10 @@ public class CrouchScript : MonoBehaviour
         rb.AddForce(Vector3.up * 10f, ForceMode.Force);
 
         pm.crouching = false;
+    }
+    
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 }

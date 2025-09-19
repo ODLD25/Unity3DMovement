@@ -3,10 +3,11 @@ using UnityEngine;
 public class SprintScript : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField]private PlayerMovementScript pm;
+    [SerializeField] private PlayerMovementScript pm;
     private InputSystem_Actions inputActions;
 
-    void Start() {
+    void Start()
+    {
         //Get Player Movement
         if (pm == null) pm = GetComponent<PlayerMovementScript>();
 
@@ -19,11 +20,18 @@ public class SprintScript : MonoBehaviour
     void Update()
     {
         //Sprint logic
-        if (inputActions.Player.Sprint.ReadValue<float>() > 0f){
+        if (inputActions.Player.Sprint.ReadValue<float>() > 0f)
+        {
             pm.sprinting = true;
         }
-        else{
+        else
+        {
             pm.sprinting = false;
         }
+    }
+    
+    void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 }
