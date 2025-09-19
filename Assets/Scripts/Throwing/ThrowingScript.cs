@@ -8,6 +8,8 @@ public class ThrowingScript : MonoBehaviour
     [SerializeField] private float throwUpForce = 100;
     [SerializeField] private bool useGravity = true;
     [SerializeField] private float cooldown = 0.25f;
+    [SerializeField] private int maxThrows = 6;
+    private int currentThrows;
     private bool canThrow;
 
     [Header("References")]
@@ -30,7 +32,9 @@ public class ThrowingScript : MonoBehaviour
 
     private void Throw(InputAction.CallbackContext context)
     {
-        if (!canThrow) return;
+        if (!canThrow || currentThrows > maxThrows) return;
+
+        currentThrows++;
 
         GameObject throwedObject = Instantiate(throwPrefab, throwPoint.position, Camera.main.transform.rotation);
 

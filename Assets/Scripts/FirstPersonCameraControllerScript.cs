@@ -24,7 +24,6 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         new Keyframe(40, 80),
         new Keyframe(80, 95)
     );
-    private float targetFoV;
     private float fovVelocity;
 
     [Tooltip("If this is true it will hide the mouse and keep it in the center of the screen so the mouse wont go to other windows when this game is active. For first person I recommend to leave this on")]
@@ -45,16 +44,7 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
     void Start()
     {
         //Locks or unlocks the mouse
-        if (lockMouse)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        ChangeMouseLock(lockMouse);
 
         //Get Input
         inputActions = new InputSystem_Actions();
@@ -90,5 +80,19 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
     void OnDisable()
     {
         inputActions.Player.Disable();
+    }
+
+    public void ChangeMouseLock(bool mouseLocked)
+    {
+        if (mouseLocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

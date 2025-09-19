@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4165573480171523213}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ExtraRaycast (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6594571385074185611}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7325156337841237193}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ExtraRaycastParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,9 +192,9 @@ GameObject:
   - component: {fileID: 155828870355976842}
   - component: {fileID: 4278500035328395357}
   - component: {fileID: 6284161055842328209}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -537,7 +537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2559483281880604902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ExtraRaycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 599919127325814537}
   - component: {fileID: 3214615487660582407}
   - component: {fileID: 396874061612667525}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -854,7 +854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3469174936546965954}
   - component: {fileID: 3354318184193167397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ThrowingSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -892,5 +892,6 @@ MonoBehaviour:
   throwUpForce: 100
   useGravity: 1
   cooldown: 0.25
+  maxThrows: 6
   throwPrefab: {fileID: 1325927162060613330, guid: 73ab55d1ee1a36a42b4200ab66d81767, type: 3}
   throwPoint: {fileID: 3469174936546965954}
