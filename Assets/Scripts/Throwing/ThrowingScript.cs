@@ -32,7 +32,7 @@ public class ThrowingScript : MonoBehaviour
 
     private void Throw(InputAction.CallbackContext context)
     {
-        if (!canThrow || currentThrows > maxThrows) return;
+        if (!canThrow || currentThrows >= maxThrows) return;
 
         currentThrows++;
 

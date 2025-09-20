@@ -4,7 +4,6 @@ TODO:
         TryGetComponent with error handling instead of GetComponent in start method
         ForceFoV colliding with camera controller
         Camera tilt with wall running
-        InputACtion.Disable
 
     DASH:
         Change dash values
@@ -20,6 +19,9 @@ TODO:
         Jumping while sliding will boost you forward
         Change glass from objects to particles
 
+        Toogle in sprint, crouch and slide(maybe)
+        when holding jump button the player jumps higher
+
     GENERAL:
         Redo every comment
         Add more tooltips
@@ -27,7 +29,6 @@ TODO:
         Use Namespace
     
     GROUND TYPES:
-        Ground types - Lava
 
     INSPECTOR:
 
@@ -35,6 +36,8 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Ground types - Lava
+        InputAction.Disable
         Byppas slide cooldown should hide settings for it
         Movable platforms with Rigidbody.MovePosition
         Change FoV values

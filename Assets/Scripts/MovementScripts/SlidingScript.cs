@@ -9,6 +9,7 @@ public class SlidingScript : MonoBehaviour
     [SerializeField] private float slideCooldown = 1f;
     [SerializeField, Tooltip("Force applied at the start of slide.")] private float startSlideForce = 10f;
     [Tooltip("What player has to do to start sliding. When this is set to Input player has to hold sprint button and slide button to start sliding. When this is set to Speed than player has to hold slide button and has to go atleast x meters per second where x is the value you set in minSpeedToStartSlide variable.")] public StartSlideType startSlideType = StartSlideType.Input;
+    [SerializeField, Tooltip("Force applied every FixedUpdate")] private float slideForce;
     private bool canSlide;
 
     [SerializeField, Tooltip("If slide should cancel when player jumps while sliding.")] private bool stopSlideOnJump = false;
@@ -62,6 +63,14 @@ public class SlidingScript : MonoBehaviour
         {
             StopSliding();
             Invoke(nameof(ResetCanSlide), slideCooldown);
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (pm.sliding && pm.grounded)
+        {
+            rb.AddForce(pm.orientation.forward * slideForce, ForceMode.Force);
         }
     }
 

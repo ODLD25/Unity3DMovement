@@ -20,6 +20,7 @@
             <engine:FloatField label="Slide Y scale" value="0.5" name="SlideYScaleFloatField" binding-path="slideYScale" />
             <engine:FloatField label="Slide cooldown" value="1" name="SlideCooldownFloatField" binding-path="slideCooldown" />
             <engine:Toggle label="Stop slide on jump" name="StopSlideOnJumpToggle" binding-path="stopSlideOnJump" />
+            <engine:FloatField label="Slide Force" value="10" binding-path="slideForce" name="SlideForceFloatField" />
         </engine:Foldout>
         <engine:Foldout text="Slide bypass" name="SlideBypassFoldout" style="flex-grow: 0;">
             <engine:Toggle label="Bypass slide cooldown" name="BypassSlideCooldownToggle" binding-path="canBypassSlideCooldown" value="true" />

@@ -15,7 +15,7 @@
             <engine:FloatField label="Dash recharge time" value="2.5" name="DashRechargeTimeFloatField" binding-path="dashRechargeTime" />
             <engine:FloatField label="Dash duration" value="0.35" name="DashDurationFloatField" binding-path="dashDuration" />
             <engine:FloatField label="Dash force" value="12.5" name="DashForceFloatField" binding-path="dashForce" />
-            <engine:FloatField label="Max dash amount" value="1" name="MaxDashAmount" binding-path="maxDashAmount" />
+            <engine:IntegerField label="Max dash amount" value="1" binding-path="maxDashAmount" name="MaxDashAmountIntField" />
         </engine:Foldout>
         <engine:Foldout text="Canvas" name="CanvasFoldout" style="flex-grow: 0;">
             <engine:Toggle label="Show dash crosshair" binding-path="showDashCrosshair" value="true" name="ShowDashCrosshairToggle" />
