@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 7454214343975056029}
   - component: {fileID: 6843601810451221206}
   - component: {fileID: 155828870355976842}
-  - component: {fileID: 4278500035328395357}
+  - component: {fileID: 2272346429044592863}
   - component: {fileID: 6284161055842328209}
   m_Layer: 3
   m_Name: Player
@@ -409,6 +409,7 @@ MonoBehaviour:
   slideCooldown: 1
   startSlideForce: 10
   startSlideType: 1
+  slideForce: 0
   stopSlideOnJump: 0
   slideCooldownBypassSpeed: 5
   canBypassSlideCooldown: 1
@@ -497,7 +498,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &4278500035328395357
+--- !u!114 &2272346429044592863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,12 +507,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6125741250293564704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec478ee4abd6a3f42b5270f66d566a53, type: 3}
+  m_Script: {fileID: 11500000, guid: 966b1df31a851674b9427175d2676a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6125741250293564704}
-  currentCheckpoint: {fileID: 0}
-  defaultPos: {x: 0, y: 2, z: 0}
 --- !u!114 &6284161055842328209
 MonoBehaviour:
   m_ObjectHideFlags: 0

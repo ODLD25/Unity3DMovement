@@ -5,16 +5,7 @@ public class TimerScript : MonoBehaviour
 {
     [SerializeField] private float timer;
     [SerializeField] private TextMeshProUGUI text;
-    public static TimerScript instance;
     private bool timerEnded;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
 
     void Start()
     {

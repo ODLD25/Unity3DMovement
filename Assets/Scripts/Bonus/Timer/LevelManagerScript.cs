@@ -17,7 +17,6 @@ public class LevelManagerScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            TimerScript.instance.EndTimer();
             endLevelCanvas.SetActive(true);
             if (onLevelEnd != null) onLevelEnd.Invoke();
         }
