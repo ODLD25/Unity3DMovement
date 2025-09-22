@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5451135408376943276}
   m_Layer: 0
   m_Name: ExplosiveChair
-  m_TagString: Untagged
+  m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,4 +154,5 @@ MonoBehaviour:
   explosionRadius: 2.5
   explosionUpVelocity: 50
   explodeOnImpact: 1
+  minForceToKnockOffThings: 0
   brokenObject: {fileID: 4965379788357740477, guid: 897914e11e568c245ab4f9d6dd60f1f1, type: 3}

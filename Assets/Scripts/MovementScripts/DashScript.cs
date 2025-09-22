@@ -26,6 +26,7 @@ public class DashScript : MonoBehaviour
     [Header("Settings")]
     [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")] private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
+    [SerializeField, Tooltip("Only recharge dash while on ground.")] private bool rechargeDashOnlyOnGround = true;
 
     private bool canDash;
 
@@ -54,6 +55,8 @@ public class DashScript : MonoBehaviour
         canDash = true;
 
         currentDashAmount = maxDashAmount;
+
+        StartCoroutine(RechargeDash());
     }
 
     // Update is called once per frame
@@ -64,8 +67,6 @@ public class DashScript : MonoBehaviour
             Dash();
             //Reset values set by dashing
             Invoke(nameof(ResetDash), dashDuration);
-            //Recharge dash
-            Invoke(nameof(AddDash), dashRechargeTime);
             //Enable dashing again 
             Invoke(nameof(EnableDash), dashCooldown);
         }
@@ -177,6 +178,30 @@ public class DashScript : MonoBehaviour
         else
         {
             dashCanvas.SetActive(false);
+        }
+    }
+
+    private IEnumerator RechargeDash()
+    {
+        float timer = 0f;
+
+        while (true)
+        {
+            if ((rechargeDashOnlyOnGround && pm.grounded) || !rechargeDashOnlyOnGround)
+            {
+                timer += Time.deltaTime;
+            }
+
+            if (timer > dashRechargeTime)
+            {
+                if (currentDashAmount < maxDashAmount)
+                {
+                    AddDash();
+                }
+                timer = 0f;
+            }
+
+            yield return null;
         }
     }
     

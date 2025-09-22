@@ -1877,7 +1877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2322554747359475688, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: slideForce
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3354318184193167397, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: maxThrows
@@ -1938,6 +1938,18 @@ PrefabInstance:
     - target: {fileID: 6125741250293564704, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
+      propertyPath: walkSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
+      propertyPath: crouchSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
+      propertyPath: sprintSpeed
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2322554747359475688, guid: efcc3fac78bbce6439dcebd3400a54c4, type: 3}
       propertyPath: slideForce

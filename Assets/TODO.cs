@@ -7,6 +7,7 @@ TODO:
 
     DASH:
         Change dash values
+        Fix dash recharge
 
     MOVABLE PLATFORMS:
         Fix
@@ -15,7 +16,6 @@ TODO:
     MECHANICS:
         Climbing Ladders
         Stamina
-        Pistons
         Jumping while sliding will boost you forward
         Change glass from objects to particles
 
@@ -31,11 +31,13 @@ TODO:
     GROUND TYPES:
 
     INSPECTOR:
+        Option to only recharge dash on the ground
 
     OPTIMIZE:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Kunai falls off on explosion
         Ground types - Lava
         InputAction.Disable
         Byppas slide cooldown should hide settings for it
@@ -61,6 +63,7 @@ TODO:
     
     TEST:
         CameraRotation at different framerates
+        Pistons
 
         Custom Inspector
 

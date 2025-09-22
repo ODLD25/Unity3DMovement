@@ -3237,6 +3237,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7454214343975056029, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
+      propertyPath: whatIsWall.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 37185852410855847, guid: 9f80d7a34ed119a43905adb90b08342b, type: 3}
       propertyPath: m_Layer
       value: 5

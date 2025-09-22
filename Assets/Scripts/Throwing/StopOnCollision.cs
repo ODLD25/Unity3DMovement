@@ -7,6 +7,7 @@ public class StopOnCollision : MonoBehaviour
     private Vector3 lastCollidedObjectPos;
     [SerializeField] private GameObject collidedObject;
     [SerializeField] private Rigidbody collidedRigidbody;
+    private bool stopped;
     private Rigidbody rb;
 
     void Start()
@@ -47,27 +48,46 @@ public class StopOnCollision : MonoBehaviour
         }
     }
 
-    private void StartMoving()
+    public void StartMoving()
     {
         rb.useGravity = true;
         rb.isKinematic = false;
 
         collidedObject = null;
         collidedRigidbody = null;
+
+        stopped = false;
+    }
+
+    private void StopMoving(Collision collision)
+    {
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        collidedObject = collision.gameObject;
+        lastCollidedObjectPos = collidedObject.transform.position;
+        collidedObject.TryGetComponent<Rigidbody>(out collidedRigidbody);
+
+        stopped = true;
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (collidedObject) return;
 
-        if (collision.relativeVelocity.magnitude > minSpeedToStop)
+        if (!stopped && !collision.gameObject.CompareTag("Throwable"))
         {
-            rb.isKinematic = true;
-            rb.useGravity = false;
-
-            collidedObject = collision.gameObject;
-            lastCollidedObjectPos = collidedObject.transform.position;
-            collidedObject.TryGetComponent<Rigidbody>(out collidedRigidbody);
+            if (collision.relativeVelocity.magnitude > minSpeedToStop)
+            {
+                StopMoving(collision);
+            }
+        }
+        else
+        {
+            if (collision.relativeVelocity.magnitude > minSpeedToStop)
+            {
+                StartMoving();
+            }
         }
     }
 }
