@@ -74,6 +74,8 @@ public class ExplodingScript : MonoBehaviour
         if (explosionVFX)
         {
             explosionVFX.Stop();
+            explosionVFX.transform.SetParent(null, true);
+            Destroy(explosionVFX.gameObject, explosionVFX.GetFloat("LifeTime"));
             explosionVFX.Play();
         }
 

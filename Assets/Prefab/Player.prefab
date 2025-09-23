@@ -388,6 +388,7 @@ MonoBehaviour:
   dashFov: 95
   omnidirectionalDash: 0
   useGravity: 0
+  rechargeDashOnlyOnGround: 0
   pm: {fileID: 0}
   orientation: {fileID: 0}
   rb: {fileID: 0}

@@ -7,7 +7,6 @@ TODO:
 
     DASH:
         Change dash values
-        Fix dash recharge
 
     MOVABLE PLATFORMS:
         Fix
@@ -37,6 +36,7 @@ TODO:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Fix dash recharge
         Kunai falls off on explosion
         Ground types - Lava
         InputAction.Disable

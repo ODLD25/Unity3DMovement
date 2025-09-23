@@ -1891,6 +1891,10 @@ PrefabInstance:
       propertyPath: maxDashAmount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4137718011488603774, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
+      propertyPath: rechargeDashOnlyOnGround
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5146695878936016352, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: far clip plane
       value: 3000
@@ -1941,7 +1945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: walkSpeed
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: crouchSpeed
@@ -1949,7 +1953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9045599078175583538, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: sprintSpeed
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2322554747359475688, guid: efcc3fac78bbce6439dcebd3400a54c4, type: 3}
       propertyPath: slideForce

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class JumpPadScript : MonoBehaviour
 {
-    [SerializeField] private Vector3 forceToApply;
     [SerializeField] private float forceMultiplier;
 
     void OnCollisionEnter(Collision collision)
@@ -17,6 +16,6 @@ public class JumpPadScript : MonoBehaviour
     {
         Rigidbody rb = item.GetComponent<Rigidbody>();
 
-        rb.AddForce(forceToApply * forceMultiplier);
+        rb.AddForce(transform.forward * forceMultiplier);
     }
 }

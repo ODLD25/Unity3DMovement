@@ -31,6 +31,7 @@
         <engine:Foldout text="Settings" name="Settings" style="flex-grow: 0;">
             <engine:Toggle label="Use gravity" binding-path="useGravity" value="false" name="UseGravityToggle" />
             <engine:Toggle label="Omnidirectional Dash" binding-path="omnidirectionalDash" value="false" name="OmnidirectionalDashToggle" />
+            <engine:Toggle label="Recharge dash only on ground" binding-path="rechargeDashOnlyOnGround" value="true" name="RechargeDashOnlyOnGroundToggle" />
         </engine:Foldout>
         <engine:Foldout text="References" name="References" style="flex-grow: 0;">
             <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />
