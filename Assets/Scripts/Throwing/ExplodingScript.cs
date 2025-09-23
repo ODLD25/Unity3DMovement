@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ExplodingScript : MonoBehaviour
 {
@@ -6,29 +7,47 @@ public class ExplodingScript : MonoBehaviour
     [SerializeField] private float explosionForce;
     [SerializeField] private float explosionRadius;
     [SerializeField] private float explosionUpVelocity;
+    [SerializeField] private float explosionCooldown = 0.1f;
+    [SerializeField] private VisualEffect explosionVFX;
 
     [Header("Settings")]
     [SerializeField] private bool explodeOnImpact;
+    [SerializeField] private bool explodeMultipleTimesOnCollision = false;
     [SerializeField] private float minForceToKnockOffThings;
 
     [Header("Reference")]
     [SerializeField] private GameObject brokenObject;
 
-    private bool exploded;
+    private bool canExplode;
 
     void Start()
     {
-        exploded = false;
+        Invoke(nameof(resetCanExplode), explosionCooldown);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (!exploded && explodeOnImpact) Explode();
+        if (explodeOnImpact && canExplode) Explode();
+    }
+
+    private void resetCanExplode()
+    {
+        canExplode = true;
     }
 
     public void Explode()
     {
-        exploded = true;
+
+        if (explodeMultipleTimesOnCollision)
+        {
+            canExplode = false;
+            Invoke(nameof(resetCanExplode), explosionCooldown);
+        }
+        else
+        {
+            canExplode = false;
+        }
+
         if (brokenObject)
         {
             Instantiate(brokenObject, transform.position, transform.rotation);
@@ -40,7 +59,7 @@ public class ExplodingScript : MonoBehaviour
         {
             if (collider != GetComponent<Collider>() && collider.GetComponent<StopOnCollision>())
             {
-                if (explosionForce * (1 - (Vector3.Distance(transform.position, collider.transform.position) / explosionRadius)) + explosionUpVelocity > 100f)
+                if (explosionForce * (1 - (Vector3.Distance(transform.position, collider.transform.position) / explosionRadius)) + explosionUpVelocity > minForceToKnockOffThings)
                 {
                     collider.GetComponent<StopOnCollision>().StartMoving();
                 }
@@ -50,6 +69,12 @@ public class ExplodingScript : MonoBehaviour
             {
                 collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpVelocity);
             }
+        }
+
+        if (explosionVFX)
+        {
+            explosionVFX.Stop();
+            explosionVFX.Play();
         }
 
         if (brokenObject)

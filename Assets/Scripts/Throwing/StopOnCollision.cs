@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StopOnCollision : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class StopOnCollision : MonoBehaviour
     private Vector3 lastCollidedObjectPos;
     [SerializeField] private GameObject collidedObject;
     [SerializeField] private Rigidbody collidedRigidbody;
+    [SerializeField] private UnityEvent onStopEvent;
     private bool stopped;
     private Rigidbody rb;
 
@@ -67,6 +69,8 @@ public class StopOnCollision : MonoBehaviour
         collidedObject = collision.gameObject;
         lastCollidedObjectPos = collidedObject.transform.position;
         collidedObject.TryGetComponent<Rigidbody>(out collidedRigidbody);
+
+        onStopEvent.Invoke();
 
         stopped = true;
     }
