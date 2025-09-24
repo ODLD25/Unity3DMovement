@@ -4,6 +4,14 @@ TODO:
         TryGetComponent with error handling instead of GetComponent in start method
         ForceFoV colliding with camera controller
         Camera tilt with wall running
+        Fov higher when sprinting
+        Slope with bigger angle than max slope angle
+        Dash rechargin wierd
+        Color code wall run walls
+        Ground mat/tri planar shader
+        Slide start default = Speed(it seems more intuitive to Palo)
+        Input and speed settings colliding when stopping slide
+        UI na slide cooldown 
 
     DASH:
         Change dash values
@@ -72,6 +80,8 @@ TODO:
             Explosives knifes
 
 Maybe?:
+    On start slide only add force required to reach a certain speed 
+
     Breakable wall that breaks when: you run into it at a certain speed or from an explosion
     Optimize brekable wall with object pooling
 
