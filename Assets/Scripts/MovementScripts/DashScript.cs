@@ -187,6 +187,11 @@ public class DashScript : MonoBehaviour
 
         while (true)
         {
+            if (!pm.grounded)
+            {
+                yield return null;  
+            }
+            
             if ((rechargeDashOnlyOnGround && pm.grounded) || !rechargeDashOnlyOnGround)
             {
                 timer += Time.deltaTime;

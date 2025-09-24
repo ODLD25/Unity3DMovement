@@ -4,13 +4,10 @@ TODO:
         TryGetComponent with error handling instead of GetComponent in start method
         ForceFoV colliding with camera controller
         Camera tilt with wall running
-        Fov higher when sprinting
-        Slope with bigger angle than max slope angle
-        Dash rechargin wierd
+
         Color code wall run walls
         Ground mat/tri planar shader
         Slide start default = Speed(it seems more intuitive to Palo)
-        Input and speed settings colliding when stopping slide
         UI na slide cooldown 
 
     DASH:
@@ -38,12 +35,14 @@ TODO:
     GROUND TYPES:
 
     INSPECTOR:
-        Option to only recharge dash on the ground
 
     OPTIMIZE:
         sqrtMagnitude instead of magnitude
 
     DONE:
+        Option to only recharge dash on the ground
+        Pistons
+        Slope with bigger angle than max slope angle
         Fix dash recharge
         Kunai falls off on explosion
         Ground types - Lava
@@ -63,6 +62,7 @@ TODO:
         FoV
         Show Dash Crosshair should hide settings for it 
 
+        Input and speed settings colliding when stopping slide - not needed a fix, just change speedToStopSlide variable to be included in both input and speed
         Spherecast for ground check - doesnt work good
         Cant use them to push people and launch them - instead of doing this there will be added pistons that will do the same thing
 
@@ -70,8 +70,9 @@ TODO:
             Targets
     
     TEST:
+        Fov higher when sprinting
+        Dash rechargin wierd
         CameraRotation at different framerates
-        Pistons
 
         Custom Inspector
 

@@ -67,12 +67,10 @@ public class EditorSlidingScript : Editor
 
         if (slidingScript.startSlideType == StartSlideType.Input || slidingScript.startSlideType == StartSlideType.None)
         {
-            minSpeedToStartSlide.style.display = DisplayStyle.None;
             speedToStopSlide.style.display = DisplayStyle.None;
         }
         else
         {
-            minSpeedToStartSlide.style.display = DisplayStyle.Flex;
             speedToStopSlide.style.display = DisplayStyle.Flex;
         }
 
