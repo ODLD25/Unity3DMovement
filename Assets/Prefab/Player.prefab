@@ -407,7 +407,7 @@ MonoBehaviour:
   minSpeedToStartSlide: 4
   speedToStopSlide: 2
   slideYScale: 0.25
-  slideCooldown: 1
+  slideCooldown: 0.25
   startSlideForce: 10
   startSlideType: 1
   slideForce: 0

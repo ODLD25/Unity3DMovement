@@ -1877,7 +1877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2322554747359475688, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: slideForce
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3354318184193167397, guid: 33a5d73a248a3e64996e67934e95964b, type: 3}
       propertyPath: maxThrows

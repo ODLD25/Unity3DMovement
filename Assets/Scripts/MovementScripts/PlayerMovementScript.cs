@@ -16,7 +16,8 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField, Tooltip("Max speed while crouching")] private float crouchSpeed = 3.5f;
     [SerializeField, Tooltip("Max speed while dashing")] private float dashSpeed = 100f;
     [SerializeField, Tooltip("Max speed while sliding")] private float slideSpeed = 100f;
-    [SerializeField, Tooltip("Max speed while sliding")] private float wallRunSpeed = 50f;
+    [SerializeField, Tooltip("Max speed while wallRunning")] private float wallRunSpeed = 50f;
+    [SerializeField, Tooltip("Max speed while moving on ladder")] private float ladderSpeed = 2f;
 
     [Header("Control")]
     [SerializeField, Tooltip("How much control does player have."), Range(0, 1)] private float moveControl = 1f;
@@ -32,6 +33,7 @@ public class PlayerMovementScript : MonoBehaviour
         Dashing,
         Sliding,
         WallRunning,
+        ClimbingLadder,
         Air
     }
 
@@ -43,6 +45,7 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public bool sliding;
     [HideInInspector] public bool wallRunning;
     [HideInInspector] public bool onIce;
+    [HideInInspector] public bool climbingLadder;
 
     [Header("Drag")]
     [SerializeField] private float groundDrag = 3f;
@@ -50,6 +53,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.5f;
     [SerializeField] private float wallRunDrag = 2f;
+    [SerializeField] private float ladderClimbDrag = 1f;
 
     [Header("Ground Check")]
     public bool grounded;
@@ -131,7 +135,12 @@ public class PlayerMovementScript : MonoBehaviour
     private void StateHandler()
     {
         //Logic for movement states
-        if (wallRunning)
+        if (climbingLadder)
+        {
+            movementState = MovementState.ClimbingLadder;
+            desiredMoveSpeed = ladderSpeed;
+        }
+        else if (wallRunning)
         {
             movementState = MovementState.WallRunning;
             desiredMoveSpeed = wallRunSpeed;
@@ -170,7 +179,11 @@ public class PlayerMovementScript : MonoBehaviour
     private void DragHandler()
     {
         //Adjusts how quickly the player slows down based on where they are (slope, air, or ground)
-        if (movementState == MovementState.WallRunning)
+        if (movementState == MovementState.ClimbingLadder)
+        {
+            rb.linearDamping = ladderClimbDrag;
+        }
+        else if (movementState == MovementState.WallRunning)
         {
             rb.linearDamping = wallRunDrag;
         }
@@ -260,7 +273,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void SpeedControl()
     {
         //If player is on slope it will set 3 axis instead of 2 becose player is faster on slopes
-        if (IsOnSlope() && !jumping)
+        if ((IsOnSlope() || climbingLadder) && !jumping)
         {
             //Check if player is moving faster than it should
             if (rb.linearVelocity.magnitude > moveSpeed)

@@ -1,17 +1,16 @@
 /*
 TODO:
     FIX:
-        TryGetComponent with error handling instead of GetComponent in start method
         ForceFoV colliding with camera controller
         Camera tilt with wall running
 
-        Color code wall run walls
-        Ground mat/tri planar shader
+        Ground mat
         Slide start default = Speed(it seems more intuitive to Palo)
         UI na slide cooldown 
 
     DASH:
         Change dash values
+        Sprite for no dash cursor
 
     MOVABLE PLATFORMS:
         Fix
@@ -38,8 +37,11 @@ TODO:
 
     OPTIMIZE:
         sqrtMagnitude instead of magnitude
+        TryGetComponent with error handling instead of GetComponent in start method
 
     DONE:
+        Color code wall run walls
+        Tri planar shader
         Option to only recharge dash on the ground
         Pistons
         Slope with bigger angle than max slope angle
@@ -68,6 +70,9 @@ TODO:
 
         OTHER PACKAGES:
             Targets
+            JumpPad
+            Knife throw
+            Explosives knifes
     
     TEST:
         Fov higher when sprinting
@@ -77,8 +82,6 @@ TODO:
         Custom Inspector
 
         OTHER PACKAGES:
-            Knife throw
-            Explosives knifes
 
 Maybe?:
     On start slide only add force required to reach a certain speed 
@@ -88,7 +91,6 @@ Maybe?:
 
 Other Package:
     Grenade throw
-    JumpPad
     Door
 
 Enemy Package:
