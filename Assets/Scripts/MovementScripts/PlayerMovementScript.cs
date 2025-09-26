@@ -53,7 +53,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.5f;
     [SerializeField] private float wallRunDrag = 2f;
-    [SerializeField] private float ladderClimbDrag = 1f;
+    [SerializeField] private float ladderClimbDrag = 0f;
 
     [Header("Ground Check")]
     public bool grounded;
@@ -252,7 +252,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (GetMovementSpeed() < desiredMoveSpeed)
         {
             //Add move force based on input and rotation
-            if (grounded && movementState != MovementState.Sliding)
+            if ((grounded || climbingLadder) && movementState != MovementState.Sliding)
             {
                 Debug.DrawRay(transform.position, orientation.right, Color.green, 2.0f);
                 Debug.DrawRay(transform.position, orientation.forward, Color.red, 2.0f);
@@ -310,12 +310,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void GravityHandler()
     {
-        if (sliding)
-        {
-            rb.useGravity = true;
-        }
-        else
-        {
+        if (!sliding && !climbingLadder) {
             //If player is on slope gravity is turned off becose gravity makes the player go down the slope.
             if (!wallRunning) rb.useGravity = !IsOnSlope();
         }

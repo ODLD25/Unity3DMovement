@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using UnityEngine;
 
 public class LadderClimbingScript : MonoBehaviour
@@ -10,6 +11,7 @@ public class LadderClimbingScript : MonoBehaviour
     [SerializeField] private bool stopClimbingOnStopInput = false;
     [SerializeField] private bool jumpOnLadder = false;
     [SerializeField] private bool useGravityWhileNotMoving = true;
+    [SerializeField] private WhenToUseGravity whenToUseGravity;
 
     [Header("Detection")]
     [SerializeField] private LayerMask ladderLayer;
@@ -29,7 +31,7 @@ public class LadderClimbingScript : MonoBehaviour
     void Start()
     {
         //Get Player Movement
-        if (pm == null) pm = GetComponent<PlayerMovementScript>();
+        if (pm == null) pm = transform.root.GetComponent<PlayerMovementScript>();
 
         //Get rigidbody from player movement script
         rb = pm.rb;
@@ -41,7 +43,10 @@ public class LadderClimbingScript : MonoBehaviour
 
     void Update()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out ladderHit, ladderDetectionDistance, ladderLayer) && !pm.climbingLadder)
+        GravityHandler();
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z), transform.forward, Color.blue, 2.0f);
+
+        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z), transform.forward, out ladderHit, ladderDetectionDistance, ladderLayer) && !pm.climbingLadder)
         {
             StartClimbing();
         }
@@ -56,6 +61,31 @@ public class LadderClimbingScript : MonoBehaviour
         if (pm.climbingLadder)
         {
             Climb();
+        }
+    }
+
+    private void GravityHandler()
+    {
+        switch (whenToUseGravity)
+        {
+            case WhenToUseGravity.Never:
+                rb.useGravity = false;
+                break;
+            case WhenToUseGravity.WhileMoving:
+                if (inputActions.Player.Climb.ReadValue<float>() != 0f)
+                {
+                    rb.useGravity = true;
+                }
+                break;
+            case WhenToUseGravity.WhileNotMoving:
+                if (inputActions.Player.Climb.ReadValue<float>() == 0f)
+                {
+                    rb.useGravity = true;
+                }
+                break;
+            case WhenToUseGravity.Always:
+                rb.useGravity = true;
+                break;
         }
     }
 
@@ -85,5 +115,5 @@ public enum WhenToUseGravity
     Never,
     WhileMoving,
     WhileNotMoving,
-    Both
+    Always
 }

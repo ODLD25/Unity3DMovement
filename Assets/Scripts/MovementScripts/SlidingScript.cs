@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class SlidingScript : MonoBehaviour
@@ -74,6 +75,11 @@ public class SlidingScript : MonoBehaviour
         }
     }
 
+    private void GravityHandler()
+    {
+        rb.useGravity = true;
+    }
+
     private void StartSliding()
     {
         pm.sliding = true;
@@ -91,6 +97,8 @@ public class SlidingScript : MonoBehaviour
         {
             rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
         }
+
+        rb.useGravity = true;
     }
 
     private void StopSliding()

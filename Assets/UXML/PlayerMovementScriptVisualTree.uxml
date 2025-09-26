@@ -30,6 +30,7 @@
             <engine:FloatField label="Slide Drag" value="0.25" name="SlideDrag" />
             <engine:FloatField label="Dash Drag" value="0.5" name="DashDrag" />
             <engine:FloatField label="Wall Run Drag" value="2" name="WallRunDrag" />
+            <engine:FloatField label="Ladder climb Drag" value="42.2" binding-path="ladderClimbDrag" name="LadderClimbDrag" />
         </engine:Foldout>
         <engine:Foldout text="Ground Check" name="GroundCheck" style="flex-grow: 0;">
             <engine:Toggle label="Grounded" name="Grounded" binding-path="grounded" />

@@ -528,7 +528,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""4277abbc-006d-4023-a9eb-90b1cac78a60"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -539,7 +539,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""318f4690-3aba-47bf-a787-f37028608ad7"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
