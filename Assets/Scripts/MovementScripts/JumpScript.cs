@@ -47,7 +47,7 @@ public class JumpScript : MonoBehaviour
         {
             if (airJump)
             {
-                if ((pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning && !pm.climbingLadder)
+                if ((pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning)
                 {
                     Jump();
                     Invoke(nameof(ResetJump), jumpCooldown);
@@ -57,7 +57,7 @@ public class JumpScript : MonoBehaviour
             }
             else
             {
-                if (pm.grounded && readyToJump && !pm.wallRunning && !pm.climbingLadder)
+                if (pm.grounded && readyToJump && !pm.wallRunning)
                 {
                     Jump();
                     Invoke(nameof(ResetJump), jumpCooldown);

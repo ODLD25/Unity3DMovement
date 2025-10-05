@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField, Tooltip("Max speed while dashing")] private float dashSpeed = 100f;
     [SerializeField, Tooltip("Max speed while sliding")] private float slideSpeed = 100f;
     [SerializeField, Tooltip("Max speed while wallRunning")] private float wallRunSpeed = 50f;
-    [SerializeField, Tooltip("Max speed while moving on ladder")] private float ladderSpeed = 2f;
 
     [Header("Control")]
     [SerializeField, Tooltip("How much control does player have."), Range(0, 1)] private float moveControl = 1f;
@@ -33,7 +33,6 @@ public class PlayerMovementScript : MonoBehaviour
         Dashing,
         Sliding,
         WallRunning,
-        ClimbingLadder,
         Air
     }
 
@@ -45,7 +44,6 @@ public class PlayerMovementScript : MonoBehaviour
     [HideInInspector] public bool sliding;
     [HideInInspector] public bool wallRunning;
     [HideInInspector] public bool onIce;
-    [HideInInspector] public bool climbingLadder;
 
     [Header("Drag")]
     [SerializeField] private float groundDrag = 3f;
@@ -53,7 +51,10 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.5f;
     [SerializeField] private float wallRunDrag = 2f;
-    [SerializeField] private float ladderClimbDrag = 0f;
+
+    [Header("VFX")]
+    [SerializeField] private bool useSpeedVFX;
+    [SerializeField] private VisualEffect speedVFX;
 
     [Header("Ground Check")]
     public bool grounded;
@@ -111,6 +112,7 @@ public class PlayerMovementScript : MonoBehaviour
         GravityHandler();
         CheckForMovingPlatform();
         CounterMovingPlatform();
+        if (useSpeedVFX) ChangeSpeedVFXValue();
 
         if (desiredMoveSpeed < moveSpeed && Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f)
         {
@@ -135,12 +137,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void StateHandler()
     {
         //Logic for movement states
-        if (climbingLadder)
-        {
-            movementState = MovementState.ClimbingLadder;
-            desiredMoveSpeed = ladderSpeed;
-        }
-        else if (wallRunning)
+        if (wallRunning)
         {
             movementState = MovementState.WallRunning;
             desiredMoveSpeed = wallRunSpeed;
@@ -179,11 +176,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void DragHandler()
     {
         //Adjusts how quickly the player slows down based on where they are (slope, air, or ground)
-        if (movementState == MovementState.ClimbingLadder)
-        {
-            rb.linearDamping = ladderClimbDrag;
-        }
-        else if (movementState == MovementState.WallRunning)
+        if (movementState == MovementState.WallRunning)
         {
             rb.linearDamping = wallRunDrag;
         }
@@ -252,7 +245,7 @@ public class PlayerMovementScript : MonoBehaviour
         if (GetMovementSpeed() < desiredMoveSpeed)
         {
             //Add move force based on input and rotation
-            if ((grounded || climbingLadder) && movementState != MovementState.Sliding)
+            if (grounded && movementState != MovementState.Sliding)
             {
                 Debug.DrawRay(transform.position, orientation.right, Color.green, 2.0f);
                 Debug.DrawRay(transform.position, orientation.forward, Color.red, 2.0f);
@@ -273,7 +266,7 @@ public class PlayerMovementScript : MonoBehaviour
     private void SpeedControl()
     {
         //If player is on slope it will set 3 axis instead of 2 becose player is faster on slopes
-        if ((IsOnSlope() || climbingLadder) && !jumping)
+        if (IsOnSlope() && !jumping)
         {
             //Check if player is moving faster than it should
             if (rb.linearVelocity.magnitude > moveSpeed)
@@ -310,7 +303,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void GravityHandler()
     {
-        if (!sliding && !climbingLadder) {
+        if (!sliding) {
             //If player is on slope gravity is turned off becose gravity makes the player go down the slope.
             if (!wallRunning) rb.useGravity = !IsOnSlope();
         }
@@ -474,6 +467,13 @@ public class PlayerMovementScript : MonoBehaviour
     private void ResetExitSlope()
     {
         jumping = false;
+    }
+    #endregion
+
+    #region VFX
+    private void ChangeSpeedVFXValue()
+    {
+        speedVFX.SetFloat("Speed", GetMovementSpeed());
     }
     #endregion
 

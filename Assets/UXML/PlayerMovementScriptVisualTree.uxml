@@ -17,6 +17,7 @@
             <engine:FloatField label="Dash Speed" value="100" name="DashSpeedFloatInput" binding-path="dashSpeed" />
             <engine:FloatField label="Slide Speed" value="100" name="SlideSpeedFloatInput" binding-path="slideSpeed" />
             <engine:FloatField label="Wall Run Speed" value="50" name="WallRunSpeedFloatInput" binding-path="wallRunSpeed" />
+            <engine:FloatField label="Speed On a Ladder" value="1" name="SpeedOnLadderFloatInput" binding-path="ladderSpeed" />
         </engine:Foldout>
         <engine:Foldout text="Control" name="ControlFoldout" style="flex-grow: 0;">
             <engine:Slider label="Ground Control" value="42" high-value="1" name="GroundControlSlider" show-input-field="true" binding-path="moveControl" />
