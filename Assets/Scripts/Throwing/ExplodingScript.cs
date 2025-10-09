@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -68,6 +69,11 @@ public class ExplodingScript : MonoBehaviour
             if (collider.GetComponent<Rigidbody>())
             {
                 collider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, explosionUpVelocity);
+            }
+
+            if (collider.GetComponent<BreakableWallPartScript>())
+            {
+                collider.GetComponent<BreakableWallPartScript>().Break(true);
             }
         }
 
