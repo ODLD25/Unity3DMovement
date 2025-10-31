@@ -13,7 +13,7 @@ public class DashScript : MonoBehaviour
     private int currentDashAmount;
 
     [Header("Canvas")]
-    public bool showDashCrosshair = true;
+    public bool showDashCrosshair = false;
     [SerializeField] private Image dashCrosshair;
     [SerializeField] private float dashCrosshairSize = 15;
     [SerializeField] private GameObject dashCanvas;
@@ -26,7 +26,7 @@ public class DashScript : MonoBehaviour
     [Header("Settings")]
     [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")] private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
-    [SerializeField, Tooltip("Only recharge dash while on ground.")] private bool rechargeDashOnlyOnGround = true;
+    [SerializeField, Tooltip("Only recharge dash while on ground.")] private bool rechargeDashOnlyOnGround = false;
 
     private bool canDash;
 
@@ -170,14 +170,17 @@ public class DashScript : MonoBehaviour
     {
         if (showDashCrosshair)
         {
-            dashCanvas.SetActive(true);
+            if (dashCanvas) dashCanvas.SetActive(true);
 
-            dashCrosshair.fillAmount = (float)currentDashAmount / (float)maxDashAmount;
-            dashCrosshair.rectTransform.sizeDelta = new Vector2(dashCrosshairSize, dashCrosshairSize);
+            if (dashCrosshair)
+            {
+                dashCrosshair.fillAmount = (float)currentDashAmount / (float)maxDashAmount;
+                dashCrosshair.rectTransform.sizeDelta = new Vector2(dashCrosshairSize, dashCrosshairSize);
+            }
         }
         else
         {
-            dashCanvas.SetActive(false);
+            if (dashCanvas) dashCanvas.SetActive(false);
         }
     }
 

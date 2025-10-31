@@ -13,10 +13,7 @@
         <engine:Foldout text="References" name="JumpFoldout" style="flex-grow: 0;">
             <engine:FloatField label="Jump Force" value="35" name="JumpForceFloatField" binding-path="jumpForce" />
             <engine:FloatField label="Jump Cooldown" value="0.25" name="JumpCooldownFloatField" binding-path="jumpCooldown" />
-            <engine:IntegerField label="Max jumps" value="1" name="MaxJumpsIntField" binding-path="maxJumps" />
-        </engine:Foldout>
-        <engine:Foldout text="Settings" name="SettingsFoldout" style="flex-grow: 0;">
-            <engine:Toggle label="Air Jump" binding-path="airJump" name="AirJumpToggle" />
+            <engine:IntegerField label="Max jumps in the air" value="1" name="MaxJumpsIntField" binding-path="maxJumpsInAir" />
         </engine:Foldout>
         <engine:Foldout text="References" name="ReferencesFoldout" style="flex-grow: 0;">
             <editor:ObjectField label="Rigidbody" type="UnityEngine.Rigidbody, UnityEngine.PhysicsModule" binding-path="rb" name="RigidbodyField" />

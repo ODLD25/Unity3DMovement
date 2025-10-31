@@ -18,6 +18,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField, Tooltip("Max speed while dashing")] private float dashSpeed = 100f;
     [SerializeField, Tooltip("Max speed while sliding")] private float slideSpeed = 100f;
     [SerializeField, Tooltip("Max speed while wallRunning")] private float wallRunSpeed = 50f;
+    [SerializeField, Tooltip("After reaching this speed player wont be able to go faster using controls.")] private float airMoveSpeed = 5f;
 
     [Header("Control")]
     [SerializeField, Tooltip("How much control does player have."), Range(0, 1)] private float moveControl = 1f;
@@ -51,6 +52,7 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float slideDrag = 0.25f;
     [SerializeField] private float dashDrag = 0.5f;
     [SerializeField] private float wallRunDrag = 2f;
+    [SerializeField] private float airDragMultiplier = 0.1f;
 
     [Header("VFX")]
     [SerializeField] private bool useSpeedVFX;
@@ -130,6 +132,11 @@ public class PlayerMovementScript : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
+        if (movementState == MovementState.Air)
+        {
+            CustomAirDrag();
+        }
     }
     #endregion
 
@@ -170,6 +177,7 @@ public class PlayerMovementScript : MonoBehaviour
         else
         {
             movementState = MovementState.Air;
+            desiredMoveSpeed = 5;
         }
     }
 
@@ -216,7 +224,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         moveSpeed = desiredMoveSpeed;
     }
-
+    
     private void Move()
     {
         if (wallRunning || dashing) return;
@@ -258,7 +266,7 @@ public class PlayerMovementScript : MonoBehaviour
             }
             else
             {
-                rb.AddForce(inputVector.y * orientation.forward * 2.5f * airControl + inputVector.x * orientation.right * moveSpeed * airControl, ForceMode.Force);
+                rb.AddForce(inputVector.y * orientation.forward * 20 * airControl + inputVector.x * orientation.right * 20 * airControl, ForceMode.Force);
             }
         }
     }
@@ -275,7 +283,7 @@ public class PlayerMovementScript : MonoBehaviour
                 rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
             }
         }
-        else
+        else if (grounded)
         {
             //Gets current velocity without up/down velocity axis
             Vector3 curVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -370,6 +378,14 @@ public class PlayerMovementScript : MonoBehaviour
 
             extraRaycastParent.transform.localRotation = Quaternion.Euler(0, extraRaycastParent.transform.localEulerAngles.y + 45f, 0);
         }
+    }
+
+    private void CustomAirDrag()
+    {
+        Vector3 customAirDrag = -rb.linearVelocity * airDragMultiplier;
+        customAirDrag.y = 0;
+
+        rb.AddForce(customAirDrag); 
     }
 
     public void ResetVelocity()

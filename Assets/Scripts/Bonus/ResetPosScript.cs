@@ -26,7 +26,7 @@ public class ResetPosScript : MonoBehaviour
     private void ResetPos(InputAction.CallbackContext context)
     {
         if (!player){
-            player = this.gameObject;
+            player = gameObject;
         }
 
         if (!currentCheckpoint)

@@ -38,6 +38,7 @@ TODO:
     OPTIMIZE:
         sqrtMagnitude instead of magnitude
         TryGetComponent with error handling instead of GetComponent in start method
+        DashUpdateCanvas() move away from Update
 
     DONE:
         Color code wall run walls

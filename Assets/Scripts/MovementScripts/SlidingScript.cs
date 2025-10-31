@@ -75,11 +75,6 @@ public class SlidingScript : MonoBehaviour
         }
     }
 
-    private void GravityHandler()
-    {
-        rb.useGravity = true;
-    }
-
     private void StartSliding()
     {
         pm.sliding = true;
@@ -104,6 +99,7 @@ public class SlidingScript : MonoBehaviour
     private void StopSliding()
     {
         pm.sliding = false;
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
         transform.localScale = new Vector3(1, startSlideYScale, 1);
     }
 

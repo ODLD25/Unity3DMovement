@@ -6,11 +6,8 @@ public class JumpScript : MonoBehaviour
     [SerializeField, Tooltip("Force applied to player when jumping.")] private float jumpForce = 35f;
     [SerializeField, Tooltip("Time between jumps.")] private float jumpCooldown = 0.25f;
     [Tooltip("Did the jump cooldown end?")] private bool readyToJump = true;
-    [SerializeField, Tooltip("Maximum number of jumps. Maximum number of 1 means it that player can't jump in the air.")] private int maxJumps = 1;
+    [SerializeField, Tooltip("Maximum number of jumps in the air.")] private int maxJumpsInAir = 0;
     [Tooltip("Current jump")] private int curJump;
-
-    [Header("Settings")]
-    [SerializeField, Tooltip("If true, the player can still use their first jump after walking off a ledge. If false, jumping only works when grounded. Useful when maxJumps > 1.")] private bool airJump = false;
 
     [Header("References")]
     [SerializeField, Tooltip("Player movement script, if empty than it will use GetComponent on this object.")] private PlayerMovementScript pm;
@@ -37,35 +34,22 @@ public class JumpScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pm.grounded && readyToJump)
-        {
-            curJump = 0;
-        }
-
-        //Starts jump
         if (inputActions.Player.Jump.ReadValue<float>() > 0)
         {
-            if (airJump)
+            if (pm.grounded && readyToJump && !pm.wallRunning)
             {
-                if ((pm.grounded || curJump < maxJumps) && readyToJump && !pm.wallRunning)
-                {
-                    Jump();
-                    Invoke(nameof(ResetJump), jumpCooldown);
-                    readyToJump = false;
-                    curJump++;
-                }
+                Jump();
+                Invoke(nameof(ResetJump), jumpCooldown);
+                readyToJump = false;
+                curJump = 0;
             }
-            else
+            else if (!pm.grounded && readyToJump && !pm.wallRunning && curJump < maxJumpsInAir)
             {
-                if (pm.grounded && readyToJump && !pm.wallRunning)
-                {
-                    Jump();
-                    Invoke(nameof(ResetJump), jumpCooldown);
-                    readyToJump = false;
-                    curJump++;
-                }
+                Jump();
+                Invoke(nameof(ResetJump), jumpCooldown);
+                readyToJump = false;
+                curJump++;
             }
-
         }
     }
 
