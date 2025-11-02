@@ -183,15 +183,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Climb"",
-                    ""type"": ""Value"",
-                    ""id"": ""3fe004c1-56fd-402b-b604-c4606b44771d"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""763f78ad-1f6a-44d8-9e6d-244cbba1acf7"",
@@ -514,39 +505,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""74b4e6fe-4dd6-42ff-8db2-85910aa31dae"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Climb"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""4277abbc-006d-4023-a9eb-90b1cac78a60"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Climb"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""318f4690-3aba-47bf-a787-f37028608ad7"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Climb"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -1230,6 +1188,76 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""GravityGun"",
+            ""id"": ""195d7322-93ce-44d7-99c7-51994a1d8ef9"",
+            ""actions"": [
+                {
+                    ""name"": ""StartHoldingObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""f88bce14-ca2a-4888-8b7e-0b6b2c72241b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeObjectHoldingDistance"",
+                    ""type"": ""Button"",
+                    ""id"": ""0df5e9d4-4c14-464e-a1ae-2927761fe413"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""80b6f8bc-1864-4c09-932f-7b59801ccc6c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartHoldingObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""f57bccc6-fde5-4c8b-baf1-18e6a702c713"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeObjectHoldingDistance"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""e3b4f07c-d28a-4640-950f-bd92a5f69ea6"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeObjectHoldingDistance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""bf6a62c0-1be9-4d6e-8c33-f9825c22b6e2"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeObjectHoldingDistance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1307,7 +1335,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_UpwardsWallRun = m_Player.FindAction("UpwardsWallRun", throwIfNotFound: true);
         m_Player_DownwardsWallRun = m_Player.FindAction("DownwardsWallRun", throwIfNotFound: true);
@@ -1324,12 +1351,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // GravityGun
+        m_GravityGun = asset.FindActionMap("GravityGun", throwIfNotFound: true);
+        m_GravityGun_StartHoldingObject = m_GravityGun.FindAction("StartHoldingObject", throwIfNotFound: true);
+        m_GravityGun_ChangeObjectHoldingDistance = m_GravityGun.FindAction("ChangeObjectHoldingDistance", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem_Actions.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_GravityGun.enabled, "This will cause a leak and performance issues, InputSystem_Actions.GravityGun.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1415,7 +1447,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Previous;
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_Climb;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_UpwardsWallRun;
     private readonly InputAction m_Player_DownwardsWallRun;
@@ -1471,10 +1502,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Climb".
-        /// </summary>
-        public InputAction @Climb => m_Wrapper.m_Player_Climb;
         /// <summary>
         /// Provides access to the underlying input action "Player/Dash".
         /// </summary>
@@ -1547,9 +1574,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
-            @Climb.started += instance.OnClimb;
-            @Climb.performed += instance.OnClimb;
-            @Climb.canceled += instance.OnClimb;
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
@@ -1603,9 +1627,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
-            @Climb.started -= instance.OnClimb;
-            @Climb.performed -= instance.OnClimb;
-            @Climb.canceled -= instance.OnClimb;
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
@@ -1846,6 +1867,113 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="UIActions" /> instance referencing this action map.
     /// </summary>
     public UIActions @UI => new UIActions(this);
+
+    // GravityGun
+    private readonly InputActionMap m_GravityGun;
+    private List<IGravityGunActions> m_GravityGunActionsCallbackInterfaces = new List<IGravityGunActions>();
+    private readonly InputAction m_GravityGun_StartHoldingObject;
+    private readonly InputAction m_GravityGun_ChangeObjectHoldingDistance;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "GravityGun".
+    /// </summary>
+    public struct GravityGunActions
+    {
+        private @InputSystem_Actions m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public GravityGunActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "GravityGun/StartHoldingObject".
+        /// </summary>
+        public InputAction @StartHoldingObject => m_Wrapper.m_GravityGun_StartHoldingObject;
+        /// <summary>
+        /// Provides access to the underlying input action "GravityGun/ChangeObjectHoldingDistance".
+        /// </summary>
+        public InputAction @ChangeObjectHoldingDistance => m_Wrapper.m_GravityGun_ChangeObjectHoldingDistance;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_GravityGun; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="GravityGunActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(GravityGunActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="GravityGunActions" />
+        public void AddCallbacks(IGravityGunActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GravityGunActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GravityGunActionsCallbackInterfaces.Add(instance);
+            @StartHoldingObject.started += instance.OnStartHoldingObject;
+            @StartHoldingObject.performed += instance.OnStartHoldingObject;
+            @StartHoldingObject.canceled += instance.OnStartHoldingObject;
+            @ChangeObjectHoldingDistance.started += instance.OnChangeObjectHoldingDistance;
+            @ChangeObjectHoldingDistance.performed += instance.OnChangeObjectHoldingDistance;
+            @ChangeObjectHoldingDistance.canceled += instance.OnChangeObjectHoldingDistance;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="GravityGunActions" />
+        private void UnregisterCallbacks(IGravityGunActions instance)
+        {
+            @StartHoldingObject.started -= instance.OnStartHoldingObject;
+            @StartHoldingObject.performed -= instance.OnStartHoldingObject;
+            @StartHoldingObject.canceled -= instance.OnStartHoldingObject;
+            @ChangeObjectHoldingDistance.started -= instance.OnChangeObjectHoldingDistance;
+            @ChangeObjectHoldingDistance.performed -= instance.OnChangeObjectHoldingDistance;
+            @ChangeObjectHoldingDistance.canceled -= instance.OnChangeObjectHoldingDistance;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GravityGunActions.UnregisterCallbacks(IGravityGunActions)" />.
+        /// </summary>
+        /// <seealso cref="GravityGunActions.UnregisterCallbacks(IGravityGunActions)" />
+        public void RemoveCallbacks(IGravityGunActions instance)
+        {
+            if (m_Wrapper.m_GravityGunActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="GravityGunActions.AddCallbacks(IGravityGunActions)" />
+        /// <seealso cref="GravityGunActions.RemoveCallbacks(IGravityGunActions)" />
+        /// <seealso cref="GravityGunActions.UnregisterCallbacks(IGravityGunActions)" />
+        public void SetCallbacks(IGravityGunActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GravityGunActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GravityGunActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="GravityGunActions" /> instance referencing this action map.
+    /// </summary>
+    public GravityGunActions @GravityGun => new GravityGunActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1989,13 +2117,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Climb" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnClimb(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2101,5 +2222,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GravityGun" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="GravityGunActions.AddCallbacks(IGravityGunActions)" />
+    /// <seealso cref="GravityGunActions.RemoveCallbacks(IGravityGunActions)" />
+    public interface IGravityGunActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "StartHoldingObject" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStartHoldingObject(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeObjectHoldingDistance" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeObjectHoldingDistance(InputAction.CallbackContext context);
     }
 }
