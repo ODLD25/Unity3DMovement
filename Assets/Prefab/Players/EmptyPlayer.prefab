@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5727703407993040833}
   - component: {fileID: 5442304688696589433}
   - component: {fileID: 718412530662977722}
-  - component: {fileID: 1169804220821736695}
   m_Layer: 3
   m_Name: EmptyPlayer
   m_TagString: Player
@@ -161,6 +160,7 @@ MonoBehaviour:
   dashSpeed: 100
   slideSpeed: 100
   wallRunSpeed: 50
+  airMoveSpeed: 5
   moveControl: 1
   airControl: 1
   slideControl: 0.25
@@ -177,6 +177,7 @@ MonoBehaviour:
   slideDrag: 0.25
   dashDrag: 0.5
   wallRunDrag: 2
+  airDragMultiplier: 0.1
   useSpeedVFX: 0
   speedVFX: {fileID: 0}
   grounded: 0
@@ -190,21 +191,6 @@ MonoBehaviour:
   exitSlopeTime: 0.2
   rb: {fileID: 5442304688696589433}
   orientation: {fileID: 2247276758285675496}
---- !u!114 &1169804220821736695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2777678270149880126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec478ee4abd6a3f42b5270f66d566a53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  currentCheckpoint: {fileID: 0}
-  defaultPos: {x: 0, y: 2, z: 0}
 --- !u!1 &3894274317634045131
 GameObject:
   m_ObjectHideFlags: 0

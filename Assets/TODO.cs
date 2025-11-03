@@ -15,12 +15,15 @@ TODO:
     MOVABLE PLATFORMS:
         Fix
         With higher speed like 5 player slides of them at sudden speed change.
+        Gizmos
 
     MECHANICS:
         Climbing Ladders
         Stamina
         Jumping while sliding will boost you forward
         Change glass from objects to particles
+
+        
 
         Toogle in sprint, crouch and slide(maybe)
         when holding jump button the player jumps higher
@@ -30,7 +33,9 @@ TODO:
         Add more tooltips
         Change default values to correct values
         Use Namespace
-    
+        Checkpoints - toggle if other claimed checkpoints should disable on new checkpoint claimed
+        Toggle - riplenish air jumps on ground
+
     GROUND TYPES:
 
     INSPECTOR:
