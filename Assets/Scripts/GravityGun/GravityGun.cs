@@ -8,19 +8,20 @@ public class GravityGun : MonoBehaviour
 {
     [Header("PickUp")]
     [SerializeField] private float maxPickUpDistance = 5;
+    [SerializeField]private LayerMask pickupbleLayerMask;
 
     [Header("Holding")]
     [SerializeField] private Transform objectHoldTransform;
-    [SerializeField] private float lerpSpeed = 5;
+    [SerializeField] private float lerpSpeed = 15;
     
     [Header("Scrolling")]
     [SerializeField, Tooltip("When true player can change the distance of the object when holding an object.")] private bool canAdjustHoldDistance = true;
-    [SerializeField] private Vector2 minMaxHoldDistance = new Vector2(2, 5);
+    [SerializeField] private Vector2 minMaxHoldDistance = new Vector2(3, 5);
     [SerializeField] private float scrollSensitivity = 0.75f;
     private float holdingDistance;
 
     [Header("Throwing")]
-    [SerializeField, Tooltip("Force used when throwing object.")] private float throwForce = 15f;
+    [SerializeField, Tooltip("Force used when throwing object.")] private float throwForce = 10;
 
     private bool hodlingObject;
     private GameObject currentObject;
@@ -33,7 +34,7 @@ public class GravityGun : MonoBehaviour
 
         inputActions.GravityGun.Enable();
         inputActions.GravityGun.StartHoldingObject.performed += GravityGunInteract;
-        inputActions.GravityGun.ChangeObjectHoldingDistance.performed += Scroll;
+        if (canAdjustHoldDistance) inputActions.GravityGun.ChangeObjectHoldingDistance.performed += Scroll;
     }
 
     void FixedUpdate()
@@ -54,7 +55,7 @@ public class GravityGun : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, maxPickUpDistance))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxPickUpDistance, pickupbleLayerMask))
         {
             if (hit.transform.GetComponent<Rigidbody>() != null)
             {
