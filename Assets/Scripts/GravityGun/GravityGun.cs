@@ -8,7 +8,6 @@ public class GravityGun : MonoBehaviour
 {
     [Header("PickUp")]
     [SerializeField] private float maxPickUpDistance = 5;
-    [SerializeField] private PickUpDetectionOption pickUpDetectionOption = PickUpDetectionOption.RigidBody;
 
     [Header("Holding")]
     [SerializeField] private Transform objectHoldTransform;
@@ -39,8 +38,10 @@ public class GravityGun : MonoBehaviour
 
     void FixedUpdate()
     {
-        currentObject.GetComponent<Rigidbody>().linearVelocity = (transform.position + transform.forward * holdingDistance - transform.position) * lerpSpeed;
-        currentObject.GetComponent<Rigidbody>().position = transform.position + transform.forward * holdingDistance;
+        Vector3 targetPos = transform.position + transform.forward * holdingDistance;
+        Vector3 toTarget = targetPos - currentObject.GetComponent<Rigidbody>().position;
+
+        currentObject.GetComponent<Rigidbody>().linearVelocity = toTarget * lerpSpeed;
     }
 
     private void GravityGunInteract(InputAction.CallbackContext context)
@@ -55,16 +56,9 @@ public class GravityGun : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxPickUpDistance))
         {
-            if (pickUpDetectionOption == PickUpDetectionOption.Both || pickUpDetectionOption == PickUpDetectionOption.RigidBody)
+            if (hit.transform.GetComponent<Rigidbody>() != null)
             {
-                if (hit.transform.GetComponent<Rigidbody>() != null)
-                {
-                    StartHoldingObject(hit);
-                }
-            }
-            else if (pickUpDetectionOption == PickUpDetectionOption.Both || pickUpDetectionOption == PickUpDetectionOption.Script)
-            {
-
+                StartHoldingObject(hit);
             }
         }
     }
@@ -75,29 +69,16 @@ public class GravityGun : MonoBehaviour
 
         Rigidbody objectRb = hit.transform.GetComponent<Rigidbody>();
 
-        //currentObject.transform.position = objectHoldTransform.position;
-        //objectRb.isKinematic = true;
         objectRb.useGravity = false;
-        //currentObject.transform.parent = transform;
-
-        /*foreach (Collider collider in currentObject.transform.GetComponents<Collider>())
-        {
-            collider.enabled = false;
-        }*/
 
         holdingDistance = 2f;
         hodlingObject = true;
-
-        //StartCoroutine(LerpPosition(currentObject.transform, objectHoldTransform.position));
     }
 
     private void Scroll(InputAction.CallbackContext context)
     {
         holdingDistance += inputActions.GravityGun.ChangeObjectHoldingDistance.ReadValue<float>() * scrollSensitivity;
         holdingDistance = Mathf.Clamp(holdingDistance, minMaxHoldDistance.x, minMaxHoldDistance.y);
-
-        //StartCoroutine(LerpPosition(currentObject.transform, new Vector3(currentObject.transform.localPosition.x, currentObject.transform.localPosition.y, holdingDistance)));
-        //currentObject.transform.localPosition = new Vector3(currentObject.transform.localPosition.x, currentObject.transform.localPosition.y, holdingDistance);
     }
 
     private void ThrowObject()
@@ -134,12 +115,4 @@ public class GravityGun : MonoBehaviour
             yield return null;
         }
     }
-}
-
-enum PickUpDetectionOption
-{
-    None,
-    RigidBody,
-    Script,
-    Both
 }
