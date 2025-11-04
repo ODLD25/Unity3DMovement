@@ -4,6 +4,7 @@ using UnityEngine;
 public class CanvasScript : MonoBehaviour
 {
     [SerializeField]private TextMeshProUGUI speedText;
+    [SerializeField]private TextMeshProUGUI stateText;
     [SerializeField]private PlayerMovementScript pm;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,5 +17,6 @@ public class CanvasScript : MonoBehaviour
     void Update()
     {
         speedText.text = pm.GetMovementSpeed() + "m/s";
+        stateText.text = "State: " + pm.movementState;
     }
 }

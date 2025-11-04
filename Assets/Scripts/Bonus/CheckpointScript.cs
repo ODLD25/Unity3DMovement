@@ -6,17 +6,37 @@ public class CheckpointScript : MonoBehaviour
     [SerializeField] private int colorMaterialIndex;
 
     [SerializeField] private Color claimedColor;
+    [SerializeField] private Color unclaimedColor;
     [SerializeField] private float colorEmmisionStrength;
+
+    [SerializeField] private bool disableOtherCheckpoint = true;
 
     private void OnTriggerEnter(Collider other)
     {
         ResetPosScript.Instance.SetCheckpoint(transform);
-        ChangeColor();
+        EnableCheckPoint();
     }
-    
-    private void ChangeColor()
+
+    public void EnableCheckPoint()
     {
         GetComponent<MeshRenderer>().materials[colorMaterialIndex].color = claimedColor;
         GetComponent<MeshRenderer>().materials[colorMaterialIndex].SetColor("_EmissionColor", claimedColor * colorEmmisionStrength);
+
+        if (disableOtherCheckpoint)
+        {
+            foreach (CheckpointScript checkpointScript in FindObjectsByType<CheckpointScript>(FindObjectsSortMode.None))
+            {
+                if (checkpointScript != this)
+                {
+                    checkpointScript.DisableCheckPoint();
+                }
+            }
+        }
+    }
+
+    public void DisableCheckPoint()
+    {
+        GetComponent<MeshRenderer>().materials[colorMaterialIndex].color = unclaimedColor;
+        GetComponent<MeshRenderer>().materials[colorMaterialIndex].SetColor("_EmissionColor", unclaimedColor * colorEmmisionStrength);
     }
 }

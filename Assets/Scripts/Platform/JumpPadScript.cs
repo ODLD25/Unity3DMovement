@@ -1,7 +1,9 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class JumpPadScript : MonoBehaviour
 {
+    [SerializeField] private Vector3 force;
     [SerializeField] private float forceMultiplier;
 
     void OnCollisionEnter(Collision collision)
@@ -16,6 +18,6 @@ public class JumpPadScript : MonoBehaviour
     {
         Rigidbody rb = item.GetComponent<Rigidbody>();
 
-        rb.AddForce(transform.forward * forceMultiplier);
+        rb.AddForce(force * forceMultiplier);
     }
 }

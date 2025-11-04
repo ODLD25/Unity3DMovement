@@ -83,6 +83,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2870f17617d0746a522c00df93bca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeColor: 0
+  colorMaterialIndex: 1
+  claimedColor: {r: 0.35484883, g: 0.7169812, b: 0, a: 1}
+  unclaimedColor: {r: 0.9169811, g: 0, b: 0, a: 1}
+  colorEmmisionStrength: 4
 --- !u!65 &7302239269168434417
 BoxCollider:
   m_ObjectHideFlags: 0

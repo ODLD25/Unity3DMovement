@@ -322,7 +322,7 @@ public class PlayerMovementScript : MonoBehaviour
         //Check if player is on the ground
         if (wallRunning) return;
 
-        if (Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.3f, groundLayer))
+        if (Physics.Raycast(transform.position, Vector3.down,out RaycastHit hit, playerHeight / 2 + 0.3f,  groundLayer))
         {
             grounded = true;
             extraRaycastHit = false;

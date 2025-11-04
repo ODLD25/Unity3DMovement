@@ -39,7 +39,7 @@ public class GravityGun : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 targetPos = transform.position + transform.forward * holdingDistance;
+        Vector3 targetPos = transform.position + transform.forward.normalized * holdingDistance;
         Vector3 toTarget = targetPos - currentObject.GetComponent<Rigidbody>().position;
 
         currentObject.GetComponent<Rigidbody>().linearVelocity = toTarget * lerpSpeed;
@@ -72,7 +72,7 @@ public class GravityGun : MonoBehaviour
 
         objectRb.useGravity = false;
 
-        holdingDistance = 2f;
+        holdingDistance = minMaxHoldDistance.x;
         hodlingObject = true;
     }
 
