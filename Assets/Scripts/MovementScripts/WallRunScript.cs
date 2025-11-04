@@ -124,7 +124,7 @@ public class WallRunScript : MonoBehaviour
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
-        if (forceFoV)
+        /*if (forceFoV)
         {
             if (targetCamera)
             {
@@ -134,7 +134,7 @@ public class WallRunScript : MonoBehaviour
             {
                 CameraFOVManager.ChangeFoV(wallRunFoV, foVChangeDuration);
             }
-        }
+        }*/
 
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);

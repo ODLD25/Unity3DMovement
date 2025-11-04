@@ -39,10 +39,13 @@ public class GravityGun : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 targetPos = transform.position + transform.forward.normalized * holdingDistance;
-        Vector3 toTarget = targetPos - currentObject.GetComponent<Rigidbody>().position;
+        if (hodlingObject)
+        {
+            Vector3 targetPos = transform.position + transform.forward.normalized * holdingDistance;
+            Vector3 toTarget = targetPos - currentObject.GetComponent<Rigidbody>().position;
 
-        currentObject.GetComponent<Rigidbody>().linearVelocity = toTarget * lerpSpeed;
+            currentObject.GetComponent<Rigidbody>().linearVelocity = toTarget * lerpSpeed;
+        }
     }
 
     private void GravityGunInteract(InputAction.CallbackContext context)

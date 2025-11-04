@@ -85,7 +85,7 @@ public class DashScript : MonoBehaviour
         }
 
         //Calls coroutine to change FoV. If the camera is not assigned it will use camera with the tag MainCamera.
-        if (forceFoV)
+        /*if (forceFoV)
         {
             if (targetCamera == null)
             {
@@ -95,7 +95,7 @@ public class DashScript : MonoBehaviour
             {
                 StartCoroutine(CameraFOVManager.ChangeFoV(dashDuration / 2f, dashFov, targetCamera));
             }
-        }
+        }*/
 
         //Pick between omnidirectional dash and Camera-Based Dash
         if (omnidirectionalDash)

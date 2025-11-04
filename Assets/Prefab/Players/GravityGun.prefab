@@ -46,11 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPickUpDistance: 5
-  pickUpDetectionOption: 1
+  pickupbleLayerMask:
+    serializedVersion: 2
+    m_Bits: 255
   objectHoldTransform: {fileID: 3114073092750985838}
   lerpSpeed: 15
-  canAdjustHoldDistance: 0
-  minMaxHoldDistance: {x: 3, y: 5}
+  canAdjustHoldDistance: 1
+  minMaxHoldDistance: {x: 3, y: 6}
   scrollSensitivity: 0.75
   throwForce: 10
 --- !u!1 &3559467228069000010
