@@ -23,8 +23,6 @@ TODO:
         Jumping while sliding will boost you forward
         Change glass from objects to particles
 
-        
-
         Toogle in sprint, crouch and slide(maybe)
         when holding jump button the player jumps higher
 
@@ -73,6 +71,8 @@ TODO:
         Input and speed settings colliding when stopping slide - not needed a fix, just change speedToStopSlide variable to be included in both input and speed
         Spherecast for ground check - doesnt work good
         Cant use them to push people and launch them - instead of doing this there will be added pistons that will do the same thing
+        Fov higher when sprinting
+        Dash rechargin wierd
 
         OTHER PACKAGES:
             Targets
@@ -81,8 +81,6 @@ TODO:
             Explosives knifes
     
     TEST:
-        Fov higher when sprinting
-        Dash rechargin wierd
         CameraRotation at different framerates
 
         Custom Inspector

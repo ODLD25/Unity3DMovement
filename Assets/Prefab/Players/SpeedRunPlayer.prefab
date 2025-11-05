@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3253110176246285159}
   - component: {fileID: 8257127548595517421}
   - component: {fileID: 6373126665487307261}
-  - component: {fileID: 6305820814705400925}
+  - component: {fileID: -7802678862191722223}
   m_Layer: 3
   m_Name: SpeedRunPlayer
   m_TagString: Player
@@ -168,6 +168,7 @@ MonoBehaviour:
   dashSpeed: 100
   slideSpeed: 100
   wallRunSpeed: 50
+  airMoveSpeed: 5
   moveControl: 1
   airControl: 1
   slideControl: 0.25
@@ -184,12 +185,13 @@ MonoBehaviour:
   slideDrag: 0.25
   dashDrag: 0.5
   wallRunDrag: 2
+  airDragMultiplier: 0.1
   useSpeedVFX: 1
   speedVFX: {fileID: 3227634436924557283}
   grounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   playerHeight: 1.6
   extraRaycastParent: {fileID: 7990296937336479303}
   extraGroundCheckInterval: 5
@@ -268,7 +270,9 @@ MonoBehaviour:
   dashFov: 95
   omnidirectionalDash: 0
   useGravity: 0
-  rechargeDashOnlyOnGround: 1
+  rechargeDashOnGround: 1
+  rechargeDashInAir: 1
+  rechargeDashWhileWallRunning: 1
   pm: {fileID: 8575593146082280939}
   orientation: {fileID: 95871638020606908}
   rb: {fileID: 1154883946429352463}
@@ -329,7 +333,7 @@ MonoBehaviour:
   minJumpHeight: 1
   pm: {fileID: 0}
   orientation: {fileID: 95871638020606908}
---- !u!114 &6305820814705400925
+--- !u!114 &-7802678862191722223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,10 +342,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 353098566654141744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec478ee4abd6a3f42b5270f66d566a53, type: 3}
+  m_Script: {fileID: 11500000, guid: b3be9188ee14f4949b604f77c3d6d5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 353098566654141744}
+  resetType: 1
   currentCheckpoint: {fileID: 0}
   defaultPos: {x: 0, y: 2, z: 0}
 --- !u!1 &981411517164780076

@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 7477294371892605386}
   - component: {fileID: 1983291201288134969}
   - component: {fileID: 3500705102076626567}
-  - component: {fileID: 218252938096458900}
+  - component: {fileID: 7458646614911421285}
   m_Layer: 3
   m_Name: BasicPlayer
   m_TagString: Player
@@ -457,6 +457,7 @@ MonoBehaviour:
   dashSpeed: 100
   slideSpeed: 100
   wallRunSpeed: 50
+  airMoveSpeed: 5
   moveControl: 1
   airControl: 1
   slideControl: 0.25
@@ -473,6 +474,7 @@ MonoBehaviour:
   slideDrag: 0.25
   dashDrag: 0.5
   wallRunDrag: 2
+  airDragMultiplier: 0.1
   useSpeedVFX: 0
   speedVFX: {fileID: 0}
   grounded: 0
@@ -531,7 +533,7 @@ MonoBehaviour:
   crouchScale: 0.5
   pm: {fileID: 8197082196705741437}
   rb: {fileID: 2546428179761056580}
---- !u!114 &218252938096458900
+--- !u!114 &7458646614911421285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -540,10 +542,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7001741158607089323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec478ee4abd6a3f42b5270f66d566a53, type: 3}
+  m_Script: {fileID: 11500000, guid: b3be9188ee14f4949b604f77c3d6d5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 7001741158607089323}
+  resetType: 1
   currentCheckpoint: {fileID: 0}
   defaultPos: {x: 0, y: 2, z: 0}
 --- !u!1 &7458960511103109069

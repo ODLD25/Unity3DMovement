@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 8257127548595517421}
   - component: {fileID: 6373126665487307261}
   - component: {fileID: 3904102681552419363}
-  - component: {fileID: 6305820814705400925}
+  - component: {fileID: 1495891989571352488}
   m_Layer: 3
   m_Name: SpeedRunPlayerShooting
   m_TagString: Player
@@ -169,6 +169,7 @@ MonoBehaviour:
   dashSpeed: 100
   slideSpeed: 100
   wallRunSpeed: 50
+  airMoveSpeed: 5
   moveControl: 1
   airControl: 1
   slideControl: 0.25
@@ -185,12 +186,13 @@ MonoBehaviour:
   slideDrag: 0.25
   dashDrag: 0.5
   wallRunDrag: 2
+  airDragMultiplier: 0.1
   useSpeedVFX: 1
   speedVFX: {fileID: 3227634436924557283}
   grounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   playerHeight: 1.6
   extraRaycastParent: {fileID: 7990296937336479303}
   extraGroundCheckInterval: 5
@@ -346,7 +348,7 @@ MonoBehaviour:
   iceTag: Ice
   iceDetectionInterval: 10
   pm: {fileID: 8575593146082280939}
---- !u!114 &6305820814705400925
+--- !u!114 &1495891989571352488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,10 +357,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 353098566654141744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec478ee4abd6a3f42b5270f66d566a53, type: 3}
+  m_Script: {fileID: 11500000, guid: b3be9188ee14f4949b604f77c3d6d5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 353098566654141744}
+  resetType: 1
   currentCheckpoint: {fileID: 0}
   defaultPos: {x: 0, y: 2, z: 0}
 --- !u!1 &981411517164780076
@@ -490,7 +493,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5272680779274333309}
-  - {fileID: 1111313408726566052}
   m_Father: {fileID: 2117483651245807220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &6731928862496552218
@@ -689,68 +691,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2117483651245807220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2200930142947996925
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2728479669207081953}
-    m_Modifications:
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4951425863243346995, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-      propertyPath: m_Name
-      value: ThrowingSystem
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
---- !u!4 &1111313408726566052 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1290118451982757977, guid: ae721354fd837444a94f620ee58fa8ec, type: 3}
-  m_PrefabInstance: {fileID: 2200930142947996925}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7092352247035758162
 PrefabInstance:
   m_ObjectHideFlags: 0

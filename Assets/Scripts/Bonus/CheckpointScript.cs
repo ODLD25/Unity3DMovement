@@ -13,7 +13,11 @@ public class CheckpointScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ResetPosScript.Instance.SetCheckpoint(transform);
+        if (other.TryGetComponent(out ResetScript resetScript))
+        {
+            resetScript.SetCheckpoint(transform);
+        }
+        
         EnableCheckPoint();
     }
 

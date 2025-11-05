@@ -16,7 +16,7 @@ public class CanvasScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speedText.text = pm.GetMovementSpeed() + "m/s";
-        stateText.text = "State: " + pm.movementState;
+        if (speedText) speedText.text = pm.GetMovementSpeed() + "m/s";
+        if (stateText) stateText.text = "State: " + pm.movementState;
     }
 }

@@ -77,7 +77,7 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
     public Transform orientation;
-    [HideInInspector] public InputSystem_Actions inputActions;
+    private InputSystem_Actions inputActions;
     #endregion
 
     #region Unity Mehod's

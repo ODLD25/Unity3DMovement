@@ -26,7 +26,9 @@ public class DashScript : MonoBehaviour
     [Header("Settings")]
     [SerializeField, Tooltip("If true, the player dashes in the direction of movement input (WASD) and if no input is given the player dashes upward. If false, the player always dashes forward based on the camera's facing direction.")] private bool omnidirectionalDash = false;
     [SerializeField, Tooltip("Use gravity while dashing.")] private bool useGravity = false;
-    [SerializeField, Tooltip("Only recharge dash while on ground.")] private bool rechargeDashOnlyOnGround = false;
+    [SerializeField, Tooltip("Recharge dash while on the ground.")] private bool rechargeDashOnGround = true;
+    [SerializeField, Tooltip("Recharge dash while in the air.")] private bool rechargeDashInAir = false;
+    [SerializeField, Tooltip("Recharge dash while wall running.")] private bool rechargeDashWhileWallRunning = false;
 
     private bool canDash;
 
@@ -192,14 +194,14 @@ public class DashScript : MonoBehaviour
         {
             if (!pm.grounded)
             {
-                yield return null;  
+                yield return null;
             }
             
-            if ((rechargeDashOnlyOnGround && pm.grounded) || !rechargeDashOnlyOnGround)
+            if ((rechargeDashInAir && !pm.grounded) || (rechargeDashOnGround && pm.grounded) || (rechargeDashWhileWallRunning && pm.movementState == PlayerMovementScript.MovementState.WallRunning))
             {
                 timer += Time.deltaTime;
             }
-
+            
             if (timer > dashRechargeTime)
             {
                 if (currentDashAmount < maxDashAmount)

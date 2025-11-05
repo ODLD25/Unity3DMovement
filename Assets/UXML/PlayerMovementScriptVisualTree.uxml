@@ -12,6 +12,7 @@
     <engine:VisualElement name="AdvancedInspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
         <engine:Foldout text="Max Speed" name="MaxSpeedFoldout" style="flex-grow: 0;">
             <engine:FloatField label="Walk Speed" value="5" name="WalkSpeedFloatInput" binding-path="walkSpeed" />
+            <engine:FloatField label="Air Speed" value="5" name="WallAirSpeedFloatInput" binding-path="airMoveSpeed" />
             <engine:FloatField label="Sprint Speed" value="7.5" name="SprintSpeedFloatInput" binding-path="sprintSpeed" />
             <engine:FloatField label="Crouch Speed" value="3.5" name="CrouchSpeedFloatInput" binding-path="crouchSpeed" />
             <engine:FloatField label="Dash Speed" value="100" name="DashSpeedFloatInput" binding-path="dashSpeed" />
@@ -25,11 +26,12 @@
             <engine:Slider label="Ice Control" value="0.25" high-value="1" name="IceControlSlider" show-input-field="true" binding-path="iceControl" />
         </engine:Foldout>
         <engine:Foldout text="Drag" name="Drag" style="flex-grow: 0;">
-            <engine:FloatField label="Ground Drag" value="3" name="GroundDrag" />
-            <engine:FloatField label="Air Drag" value="0" name="AirDrag" />
-            <engine:FloatField label="Slide Drag" value="0.25" name="SlideDrag" />
-            <engine:FloatField label="Dash Drag" value="0.5" name="DashDrag" />
-            <engine:FloatField label="Wall Run Drag" value="2" name="WallRunDrag" />
+            <engine:FloatField label="Ground Drag" value="3" name="GroundDrag" binding-path="groundDrag" />
+            <engine:FloatField label="Air Drag" value="0" name="AirDrag" binding-path="airDrag" />
+            <engine:FloatField label="Slide Drag" value="0.25" name="SlideDrag" binding-path="slideDrag" />
+            <engine:FloatField label="Dash Drag" value="0.5" name="DashDrag" binding-path="dashDrag" />
+            <engine:FloatField label="Wall Run Drag" value="2" name="WallRunDrag" binding-path="wallRunDrag" />
+            <engine:FloatField label="Air drag multiplier" value="0.1" name="AirDragMultiplierFloatField" binding-path="airDragMultiplier" />
         </engine:Foldout>
         <engine:Foldout text="Ground Check" name="GroundCheck" style="flex-grow: 0;">
             <engine:Toggle label="Grounded" name="Grounded" binding-path="grounded" />
