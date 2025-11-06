@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class MovingPlatformScript : MonoBehaviour
@@ -114,5 +115,33 @@ public class MovingPlatformScript : MonoBehaviour
     private void DeActivate()
     {
         active = false;
+    }
+
+    void OnDrawGizmos()
+    {
+        for (int i = 1; i < waypoints.Count; i++)
+        {
+            if (i == currentWaypint)
+            {
+                Handles.color = Color.green;
+            }
+            else
+            {
+                Handles.color = Color.white;
+            }
+
+            Handles.DrawLine(waypoints[i - 1].position, waypoints[i].position, 1.5f);
+        }
+
+        if (0 == currentWaypint)
+        {
+            Handles.color = Color.green;
+        }
+        else
+        {
+            Handles.color = Color.white;
+        }
+        
+        Handles.DrawLine(waypoints[0].position, waypoints[waypoints.Count - 1].position, 1.5f);
     }
 }

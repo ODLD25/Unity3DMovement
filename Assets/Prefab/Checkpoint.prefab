@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e9b65cd4633b183419375c4ef8672ddf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.73
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9b65cd4633b183419375c4ef8672ddf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.099999905
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9b65cd4633b183419375c4ef8672ddf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e9b65cd4633b183419375c4ef8672ddf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -88,6 +88,7 @@ MonoBehaviour:
   claimedColor: {r: 0.35484883, g: 0.7169812, b: 0, a: 1}
   unclaimedColor: {r: 0.9169811, g: 0, b: 0, a: 1}
   colorEmmisionStrength: 4
+  disableOtherCheckpoint: 1
 --- !u!65 &7302239269168434417
 BoxCollider:
   m_ObjectHideFlags: 0

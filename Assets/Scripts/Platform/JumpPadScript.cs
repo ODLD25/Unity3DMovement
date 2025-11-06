@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 public class JumpPadScript : MonoBehaviour
@@ -18,6 +19,12 @@ public class JumpPadScript : MonoBehaviour
     {
         Rigidbody rb = item.GetComponent<Rigidbody>();
 
-        rb.AddForce(force * forceMultiplier);
+        rb.AddForce(force.normalized * forceMultiplier);
+    }
+
+    void OnDrawGizmos()
+    {
+        Handles.color = Color.yellow;
+        Handles.DrawLine(transform.position, transform.position + force * 2, 1.5f);
     }
 }

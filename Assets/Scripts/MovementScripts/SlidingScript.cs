@@ -91,6 +91,7 @@ public class SlidingScript : MonoBehaviour
         if (pm.grounded)
         {
             rb.AddForce(pm.orientation.forward * startSlideForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
         }
 
         rb.useGravity = true;

@@ -255,8 +255,6 @@ public class PlayerMovementScript : MonoBehaviour
             //Add move force based on input and rotation
             if (grounded && movementState != MovementState.Sliding)
             {
-                Debug.DrawRay(transform.position, orientation.right, Color.green, 2.0f);
-                Debug.DrawRay(transform.position, orientation.forward, Color.red, 2.0f);
                 rb.AddForce(inputVector.y * orientation.forward * moveSpeed * 10 * (onIce ? iceControl : moveControl) + inputVector.x * orientation.right * moveSpeed * 10 * (onIce ? iceControl : moveControl), ForceMode.Force);
             }
             else if (movementState == MovementState.Sliding)
@@ -335,8 +333,6 @@ public class PlayerMovementScript : MonoBehaviour
             {
                 if (extraRaycastHitList[i] == true)
                 {
-                    Debug.DrawRay(extraRaycastTransformList[i].position, Vector3.down, Color.red, 2f);
-
                     if (Physics.Raycast(extraRaycastTransformList[i].position, Vector3.down, playerHeight / 2 + 0.3f, groundLayer))
                     {
                         grounded = true;

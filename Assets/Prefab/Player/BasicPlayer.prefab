@@ -480,7 +480,7 @@ MonoBehaviour:
   grounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   playerHeight: 1.6
   extraRaycastParent: {fileID: 1594370462113650664}
   extraGroundCheckInterval: 5
