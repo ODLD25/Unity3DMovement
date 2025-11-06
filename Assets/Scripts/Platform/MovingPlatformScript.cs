@@ -119,6 +119,8 @@ public class MovingPlatformScript : MonoBehaviour
 
     void OnDrawGizmos()
     {
+        if (waypoints[0] == null) return;
+
         for (int i = 1; i < waypoints.Count; i++)
         {
             if (i == currentWaypint)

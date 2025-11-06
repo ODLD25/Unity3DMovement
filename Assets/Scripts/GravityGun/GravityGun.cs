@@ -60,7 +60,7 @@ public class GravityGun : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxPickUpDistance, pickupbleLayerMask))
         {
-            if (hit.transform.GetComponent<Rigidbody>() != null)
+            if (hit.transform.GetComponent<Rigidbody>() != null && !hit.transform.GetComponent<UnpickableScript>())
             {
                 StartHoldingObject(hit);
             }
@@ -104,19 +104,5 @@ public class GravityGun : MonoBehaviour
 
         hodlingObject = false;
         currentObject = null;
-    }
-    
-    private IEnumerator LerpPosition(Transform transformToMove, float3 targetPosition)
-    {
-        float3 startPosition = transformToMove.transform.localPosition;
-        float t = 0;
-
-        while(Vector3.Distance(targetPosition, transformToMove.transform.localPosition) > 0.5f && hodlingObject)
-        {
-            t = t + Time.deltaTime * lerpSpeed;
-
-            transformToMove.transform.localPosition = Vector3.Lerp(startPosition, transformToMove.localPosition, t);
-            yield return null;
-        }
     }
 }

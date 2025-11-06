@@ -4,10 +4,6 @@
     <engine:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0;">
         <engine:Label text="Jump" name="Name" class="Header" style="margin-bottom: 0; padding-bottom: -5px;" />
         <engine:Label text="Script that enables the player to jump." name="Desc" class="InspectorDesc" style="margin-bottom: 4px; translate: 0 0; margin-top: 4px;" />
-        <engine:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 1; flex-basis: auto; justify-content: space-evenly; align-items: stretch; align-self: stretch; width: 100%; margin-top: 0;">
-            <engine:Button text="Simple" name="SimpleButton" view-data-key="simple-btn" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
-            <engine:Button text="Advanced" name="AdvancedButton" style="flex-shrink: 1; flex-grow: 1; height: 20px;" />
-        </engine:VisualElement>
     </engine:VisualElement>
     <engine:VisualElement name="Inspector" enabled="true" style="flex-grow: 1; flex-direction: column; flex-shrink: 1; opacity: 1;">
         <engine:Foldout text="References" name="JumpFoldout" style="flex-grow: 0;">

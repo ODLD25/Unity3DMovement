@@ -15,7 +15,6 @@ TODO:
     MOVABLE PLATFORMS:
         Fix
         With higher speed like 5 player slides of them at sudden speed change.
-        Gizmos
 
     MECHANICS:
         Climbing Ladders
@@ -44,6 +43,7 @@ TODO:
         DashUpdateCanvas() move away from Update
 
     DONE:
+        Gizmos
         Color code wall run walls
         Tri planar shader
         Option to only recharge dash on the ground
@@ -96,6 +96,7 @@ Maybe?:
 Other Package:
     Grenade throw
     Door
+    Throwable kinife that will create a zero gravity sphere around it.
 
 Enemy Package:
     Enemy script
