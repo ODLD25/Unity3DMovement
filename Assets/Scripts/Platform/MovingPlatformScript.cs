@@ -5,12 +5,11 @@ using UnityEngine;
 public class MovingPlatformScript : MonoBehaviour
 {
     [SerializeField] private bool activateOnPlayerTouch;
-    [SerializeField] private bool activateOnStart;
     [SerializeField] private bool stopOnFirstWaypoint;
     [SerializeField] private float waitTime;
     [SerializeField] private float activateDelay = 0.25f;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private List<Vector3> waypoints;
+    [SerializeField] private List<Transform> waypoints;
     private bool playerOnPlatform;
     private int currentWaypint;
     private bool active;
@@ -24,10 +23,9 @@ public class MovingPlatformScript : MonoBehaviour
         currentWaypint = 0;
 
         if (activateOnPlayerTouch) active = false;
-        else if (activateOnStart) active = true;
-        else active = false;
+        else active = true;
 
-        transform.position = waypoints[0];
+        transform.position = waypoints[0].position;
 
         StartCoroutine(LoadWaypoints());
     }
@@ -36,14 +34,38 @@ public class MovingPlatformScript : MonoBehaviour
     {
         if (!active) return;
 
-        rb.MovePosition(Vector3.MoveTowards(rb.position, transform.InverseTransformPoint(waypoints[currentWaypint]), moveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(Vector3.MoveTowards(rb.position, waypoints[currentWaypint].position, moveSpeed * Time.fixedDeltaTime));
+
+        /*if (Vector3.Distance(transform.position, waypoints[currentWaypint].position) < 0.05f)
+        {
+            if (!waitTimeStarted)
+            {
+                waitTimeStarted = true;
+            }
+            if (!waitTimeEnded)
+            {
+                
+            }
+            else if (currentWaypint == 1 && stopOnFirstWaypoint && !playerOnPlatform)
+            {
+                currentWaypint = 1;
+            }
+            else if (currentWaypint >= waypoints.Count - 1)
+            {
+                currentWaypint = 0;
+            }
+            else
+            {
+                currentWaypint++;
+            }
+        }*/
     }
 
     IEnumerator LoadWaypoints()
     {
         while (true)
         {
-            if (Vector3.Distance(transform.position, waypoints[currentWaypint]) < 0.05f)
+            if (Vector3.Distance(transform.position, waypoints[currentWaypint].position) < 0.05f)
             {
                 if (!playerOnPlatform && activateOnPlayerTouch) DeActivate();
 
@@ -84,24 +106,13 @@ public class MovingPlatformScript : MonoBehaviour
         }
     }
 
-    public void Activate()
+    private void Activate()
     {
         active = true;
     }
 
-    public void DeActivate()
+    private void DeActivate()
     {
         active = false;
-    }
-
-    void OnDrawGizmos()
-    {
-        Vector3 lastPos = transform.InverseTransformPoint(transform.position);
-        
-        foreach (Vector3 waypointPos in waypoints)
-        {
-            Gizmos.DrawLine(transform.InverseTransformPoint(lastPos), transform.InverseTransformPoint(waypointPos));
-            lastPos = waypointPos;
-        }
     }
 }
