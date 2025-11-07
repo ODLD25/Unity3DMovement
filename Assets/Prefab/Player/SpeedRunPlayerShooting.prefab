@@ -187,7 +187,7 @@ MonoBehaviour:
   dashDrag: 0.5
   wallRunDrag: 2
   airDragMultiplier: 0.1
-  useSpeedVFX: 1
+  useSpeedVFX: 0
   speedVFX: {fileID: 3227634436924557283}
   grounded: 0
   groundLayer:
@@ -271,7 +271,9 @@ MonoBehaviour:
   dashFov: 95
   omnidirectionalDash: 0
   useGravity: 0
-  rechargeDashOnlyOnGround: 0
+  rechargeDashOnGround: 1
+  rechargeDashInAir: 0
+  rechargeDashWhileWallRunning: 0
   pm: {fileID: 8575593146082280939}
   orientation: {fileID: 95871638020606908}
   rb: {fileID: 1154883946429352463}

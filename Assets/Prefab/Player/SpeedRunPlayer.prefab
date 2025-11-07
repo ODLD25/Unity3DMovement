@@ -186,7 +186,7 @@ MonoBehaviour:
   dashDrag: 0.5
   wallRunDrag: 2
   airDragMultiplier: 0.1
-  useSpeedVFX: 1
+  useSpeedVFX: 0
   speedVFX: {fileID: 3227634436924557283}
   grounded: 0
   groundLayer:
