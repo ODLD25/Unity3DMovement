@@ -30,7 +30,6 @@ TODO:
         Add more tooltips
         Change default values to correct values
         Use Namespace
-        Checkpoints - toggle if other claimed checkpoints should disable on new checkpoint claimed
         Toggle - riplenish air jumps on ground
 
     GROUND TYPES:
@@ -43,6 +42,7 @@ TODO:
         DashUpdateCanvas() move away from Update
 
     DONE:
+        Checkpoints - toggle if other claimed checkpoints should disable on new checkpoint claimed
         Gizmos
         Color code wall run walls
         Tri planar shader

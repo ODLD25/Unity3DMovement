@@ -72,8 +72,44 @@ public class WallRunScript : MonoBehaviour
 
     private void CheckForWall()
     {
-        wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
-        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);
+        if (Physics.Raycast(transform.position, -orientation.right, out RaycastHit newLeftWallHit, wallCheckDistance))
+        {
+            if (newLeftWallHit.transform.gameObject.layer == whatIsWall || newLeftWallHit.transform.GetComponent<WallRunningWallScript>())
+            {
+                wallLeft = true;
+                leftWallHit = newLeftWallHit;
+            }
+            else
+            {
+                wallLeft = false;
+            }
+        }
+        else
+        {
+            leftWallHit = new RaycastHit();
+            wallLeft = false;
+        }
+
+        if (Physics.Raycast(transform.position, orientation.right, out RaycastHit newRightWallHit, wallCheckDistance))
+        {
+            if (newRightWallHit.transform.gameObject.layer == whatIsWall || newRightWallHit.transform.GetComponent<WallRunningWallScript>())
+            {
+                wallRight = true;
+                rightWallHit = newRightWallHit;
+            }
+            else
+            {
+                wallRight = false;
+            }
+        }
+        else
+        {
+            rightWallHit = new RaycastHit();
+            wallRight = false;
+        }
+
+        /*wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
+        wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);*/
     }
 
     private bool AboveGround()

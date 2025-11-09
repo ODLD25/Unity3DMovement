@@ -7,11 +7,11 @@ public class ResetScript : MonoBehaviour
     [Header("General")]
     [SerializeField] private GameObject player;
     [SerializeField] private ResetType resetType = ResetType.LoadCheckpoint;
-    
 
     [Header("Checkpoints")]
     [SerializeField] private Transform currentCheckpoint;
     [SerializeField] private Vector3 defaultPos = new Vector3(0, 2, 0);
+    [SerializeField] private Vector3 resetOffset = new Vector3(0, 1, 0);
 
     [Header("References")]
     private InputSystem_Actions inputActions;
@@ -65,13 +65,15 @@ public class ResetScript : MonoBehaviour
 #region Checkpoint
     private void LoadLastCheckpoint()
     {
+        player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+
         if (!currentCheckpoint)
         {
             player.transform.position = defaultPos;
         }
         else
         {
-            player.transform.position = currentCheckpoint.position;
+            player.transform.position = currentCheckpoint.position + resetOffset;
         }
     }
     

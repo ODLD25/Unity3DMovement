@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class MovingPlatformScript : MonoBehaviour
 {
-    [SerializeField] private bool activateOnPlayerTouch;
-    [SerializeField] private bool stopOnFirstWaypoint;
-    [SerializeField] private float waitTime;
+    [SerializeField] private bool activateOnPlayerTouch = false;
+    [SerializeField] private bool stopOnFirstWaypoint = false;
+    [SerializeField] private float waitTime = 0f;
     [SerializeField] private float activateDelay = 0.25f;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private List<Transform> waypoints;
     private bool playerOnPlatform;
     private int currentWaypint;
@@ -20,7 +20,7 @@ public class MovingPlatformScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (!rb) rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         currentWaypint = 0;
 
         if (activateOnPlayerTouch) active = false;
@@ -36,30 +36,6 @@ public class MovingPlatformScript : MonoBehaviour
         if (!active) return;
 
         rb.MovePosition(Vector3.MoveTowards(rb.position, waypoints[currentWaypint].position, moveSpeed * Time.fixedDeltaTime));
-
-        /*if (Vector3.Distance(transform.position, waypoints[currentWaypint].position) < 0.05f)
-        {
-            if (!waitTimeStarted)
-            {
-                waitTimeStarted = true;
-            }
-            if (!waitTimeEnded)
-            {
-                
-            }
-            else if (currentWaypint == 1 && stopOnFirstWaypoint && !playerOnPlatform)
-            {
-                currentWaypint = 1;
-            }
-            else if (currentWaypint >= waypoints.Count - 1)
-            {
-                currentWaypint = 0;
-            }
-            else
-            {
-                currentWaypint++;
-            }
-        }*/
     }
 
     IEnumerator LoadWaypoints()
@@ -133,6 +109,9 @@ public class MovingPlatformScript : MonoBehaviour
             }
 
             Handles.DrawLine(waypoints[i - 1].position, waypoints[i].position, 1.5f);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(waypoints[i].position, 0.25f);
         }
 
         if (0 == currentWaypint)
@@ -143,7 +122,10 @@ public class MovingPlatformScript : MonoBehaviour
         {
             Handles.color = Color.white;
         }
-        
+
         Handles.DrawLine(waypoints[0].position, waypoints[waypoints.Count - 1].position, 1.5f);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(waypoints[0].position, 0.25f);
     }
 }
