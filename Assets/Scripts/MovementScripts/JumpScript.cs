@@ -70,6 +70,6 @@ public class JumpScript : MonoBehaviour
     
     void OnDisable()
     {
-        inputActions.Player.Disable();
+        if (inputActions != null) inputActions.Player.Disable();
     }
 }

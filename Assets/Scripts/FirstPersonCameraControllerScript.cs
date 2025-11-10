@@ -77,10 +77,6 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), rotationSpeed * Time.deltaTime);
     }
 
-    void OnDisable()
-    {
-        inputActions.Player.Disable();
-    }
 
     public void ChangeMouseLock(bool mouseLocked)
     {
@@ -94,5 +90,10 @@ public class FirstPersonCameraControllerScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    void OnDisable()
+    {
+        if (inputActions != null) inputActions.Player.Disable();
     }
 }

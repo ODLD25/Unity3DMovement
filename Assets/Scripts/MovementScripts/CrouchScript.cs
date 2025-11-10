@@ -72,6 +72,6 @@ public class CrouchScript : MonoBehaviour
     
     void OnDisable()
     {
-        inputActions.Player.Disable();
+        if (inputActions != null) inputActions.Player.Disable();
     }
 }
