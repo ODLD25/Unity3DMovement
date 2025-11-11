@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class MainMenuSceneLoader : MonoBehaviour
     [Header("Scene loader")]
     [SerializeField] private GameObject btnPrefab;
     [SerializeField] private Transform btnParent;
+    [SerializeField] private List<string> sceneNames;
 
     void Start()
     {
@@ -31,10 +33,20 @@ public class MainMenuSceneLoader : MonoBehaviour
             }
         }*/
 
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        /*for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
             string path = SceneUtility.GetScenePathByBuildIndex(i);
             string sceneName = System.IO.Path.GetFileNameWithoutExtension(path);
+            
+            GameObject spawnedBtn = Instantiate(btnPrefab, btnParent);
+
+            spawnedBtn.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = sceneName;
+            spawnedBtn.GetComponent<Button>().onClick.AddListener(() => LoadScene(sceneName));
+        }*/
+
+        for (int i = 0; i < sceneNames.Count; i++)
+        {
+            string sceneName = sceneNames[i];
             
             GameObject spawnedBtn = Instantiate(btnPrefab, btnParent);
 

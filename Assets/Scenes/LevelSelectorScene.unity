@@ -664,6 +664,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnPrefab: {fileID: 261565199913676276, guid: 5682ddfd18b7e864d9f26b9baf40302c, type: 3}
   btnParent: {fileID: 1348781287}
+  sceneNames:
+  - Sandbox1Scene
+  - Sandbox2Scene
+  - Level1Scene
+  - Level2Scene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

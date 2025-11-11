@@ -887,6 +887,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadScene
       objectReference: {fileID: 0}
+    - target: {fileID: 4302539074817155065, guid: 4a91ede417e22794fb26ea705b63a6a1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LevelSelector
+      objectReference: {fileID: 0}
     - target: {fileID: 4614146788048738269, guid: 4a91ede417e22794fb26ea705b63a6a1, type: 3}
       propertyPath: m_Pivot.x
       value: 0

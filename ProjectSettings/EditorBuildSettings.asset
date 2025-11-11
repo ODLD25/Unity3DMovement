@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LevelSelector.unity
+    path: Assets/Scenes/LevelSelectorScene.unity
     guid: a07e62ed10a498e419b860ae625cf5ba
   - enabled: 1
     path: Assets/Scenes/Sandbox/Sandbox1Scene.unity

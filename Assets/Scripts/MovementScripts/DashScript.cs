@@ -217,6 +217,6 @@ public class DashScript : MonoBehaviour
     
     void OnDisable()
     {
-        inputActions.Player.Disable();
+        if (inputActions != null) inputActions.Player.Disable();
     }
 }
