@@ -21,8 +21,7 @@ public class CrouchScript : MonoBehaviour
         rb = pm.rb;
 
         //Get Input Action Map and activate it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
+        inputActions = pm.inputActions;
 
         //Sets starting y scale
         defaultScale = transform.localScale.y;
@@ -64,14 +63,12 @@ public class CrouchScript : MonoBehaviour
         //Set scale
         transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
 
-        //Add force upwards so the player wont bug in the ground
-        rb.AddForce(Vector3.up * 10f, ForceMode.Force);
+        if (pm.grounded)
+        {
+            //Add force upwards so the player wont bug in the ground
+            rb.AddForce(Vector3.up * 10f, ForceMode.Force);
+        }
 
         pm.crouching = false;
-    }
-    
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }

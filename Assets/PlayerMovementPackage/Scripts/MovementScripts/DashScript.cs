@@ -45,8 +45,7 @@ public class DashScript : MonoBehaviour
         if (pm == null) pm = GetComponent<PlayerMovementScript>();
 
         //Get Input Action Map and activates it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
+        inputActions = pm.inputActions;
 
         //Get rigidbody from player movement script
         rb = pm.rb;
@@ -213,10 +212,5 @@ public class DashScript : MonoBehaviour
 
             yield return null;
         }
-    }
-    
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }

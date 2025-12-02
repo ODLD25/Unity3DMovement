@@ -12,8 +12,7 @@ public class SprintScript : MonoBehaviour
         if (pm == null) pm = GetComponent<PlayerMovementScript>();
 
         //Get Input Action Map and activates it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
+        inputActions = pm.inputActions;
     }
 
     // Update is called once per frame
@@ -28,10 +27,5 @@ public class SprintScript : MonoBehaviour
         {
             pm.sprinting = false;
         }
-    }
-    
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }

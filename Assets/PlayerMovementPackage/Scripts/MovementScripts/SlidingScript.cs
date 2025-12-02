@@ -35,8 +35,7 @@ public class SlidingScript : MonoBehaviour
         rb = pm.rb;
 
         //Get Input Action Map and activate it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
+        inputActions = pm.inputActions;
 
         //Sets starting y scale
         startSlideYScale = transform.localScale.y;
@@ -107,11 +106,6 @@ public class SlidingScript : MonoBehaviour
     private void ResetCanSlide()
     {
         canSlide = true;
-    }
-    
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }
 

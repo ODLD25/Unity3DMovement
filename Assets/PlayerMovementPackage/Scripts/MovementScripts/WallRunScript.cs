@@ -55,10 +55,9 @@ public class WallRunScript : MonoBehaviour
         rb = pm.rb;
 
         //Get Input Action Map and activate it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
+        inputActions = pm.inputActions;
     }
-
+    
     void Update()
     {
         CheckForWall();
@@ -249,10 +248,5 @@ public class WallRunScript : MonoBehaviour
 
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(forceToApply, ForceMode.Impulse);
-    }
-
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }

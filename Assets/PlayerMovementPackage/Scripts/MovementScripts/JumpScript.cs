@@ -20,9 +20,8 @@ public class JumpScript : MonoBehaviour
         if (pm == null) pm = GetComponent<PlayerMovementScript>();
 
         //Get Input Action Map and activates it
-        inputActions = new InputSystem_Actions();
-        inputActions.Player.Enable();
-
+        inputActions = pm.inputActions;
+        
         //Get rigidbody from player movement script
         rb = pm.rb;
 
@@ -66,10 +65,5 @@ public class JumpScript : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
-    }
-    
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
     }
 }

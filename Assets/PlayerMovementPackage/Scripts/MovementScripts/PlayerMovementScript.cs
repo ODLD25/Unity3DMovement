@@ -77,19 +77,21 @@ public class PlayerMovementScript : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
     public Transform orientation;
-    private InputSystem_Actions inputActions;
+    [HideInInspector]public InputSystem_Actions inputActions;
     #endregion
 
     #region Unity Mehod's
-    public void Start()
-    {
+    private void Awake() {
         //Get Input
         inputActions = new InputSystem_Actions();
         inputActions.Player.Enable();
 
         //Get rigidbody component
         if (rb == null) rb = GetComponent<Rigidbody>();
+    }
 
+    public void Start()
+    {
         extraRaycastTransformList = new List<Transform>(extraRaycastParent.childCount);
         for (int i = 0; i < extraRaycastParent.childCount; i++)
         {
@@ -137,6 +139,23 @@ public class PlayerMovementScript : MonoBehaviour
         {
             CustomAirDrag();
         }
+    }
+
+    private void OnEnable() {
+        if (inputActions != null)
+        {
+            inputActions.Player.Enable();  
+        }
+        else
+        {
+            inputActions = new InputSystem_Actions();
+            inputActions.Player.Enable();  
+        }
+    }
+    
+    void OnDisable()
+    {
+        if (inputActions != null) inputActions.Player.Disable();
     }
     #endregion
 
@@ -488,9 +507,4 @@ public class PlayerMovementScript : MonoBehaviour
         speedVFX.SetFloat("Speed", GetMovementSpeed());
     }
     #endregion
-
-    void OnDisable()
-    {
-        if (inputActions != null) inputActions.Player.Disable();
-    }
 }
